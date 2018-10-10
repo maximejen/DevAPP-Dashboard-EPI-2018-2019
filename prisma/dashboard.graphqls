@@ -1,0 +1,39 @@
+type User {
+    Id: ID! @unique
+    Name: String!
+    Passwd: String!
+    Email: String!
+    WidgetSpec: [Widget!]! @relation(name: "WidgetsOfUser" onDelete: CASCADE)
+}
+
+type Widget {
+    Id: ID! @unique
+    Name: String!
+    SlugName: String!
+    Config: Config! @relation(name: "WidgetConfig" onDelete: CASCADE)
+    Enable: Boolean!
+    NeedAuth: Boolean!
+    Authenticate: Boolean!
+    Authentication: Auth! @relation(name: "Authentication" onDelete: CASCADE)
+}
+
+type Config {
+    PosX: Int!
+    PosY: Int!
+    Height: Int!
+    MinHeight: Int!
+    MaxHeight: Int!
+    Width: Int!
+    MinWidth: Int!
+    MaxWidth: Int!
+    Static: Boolean!
+    Location: String!
+}
+
+type Auth {
+    Id: ID! @unique
+    Type: String!
+    AccessToken: String!
+    RefreshToken: String!
+    Expire: Int!
+}
