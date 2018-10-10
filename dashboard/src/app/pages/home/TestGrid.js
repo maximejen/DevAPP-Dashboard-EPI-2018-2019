@@ -14,10 +14,19 @@ class TestGrid extends React.Component {
             {i: '2', x: 4, y: 0, w: 1, h: 2}
         ];
         return (
-            <ResponsiveGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-                <div key="0">Chibre</div>
-                <div key="1">b</div>
-                <div key="2">c</div>
+            <ResponsiveGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={window.innerWidth - 64} style={{
+                margin: "2rem",
+                backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
+            }}>
+                <div style={{
+                    backgroundColor: "white"
+                }} key="0">Chibre</div>
+                <div style={{
+                    backgroundColor: "white"
+                }} key="1">b</div>
+                <div style={{
+                    backgroundColor: "white"
+                }} key="2">c</div>
             </ResponsiveGridLayout>
         )
     }

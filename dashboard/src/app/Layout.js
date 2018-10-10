@@ -24,7 +24,9 @@ const Layout = ({ children }) => (
             ]}
         />
         <Header />
-        <Content style={{paddingTop: "3em"}}>
+        <Content style={{
+            paddingTop: "3em"
+        }}>
             <Router/>
         </Content>
         <Footer />
