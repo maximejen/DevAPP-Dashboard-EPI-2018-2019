@@ -1,0 +1,65 @@
+// 1. Import the initial variables
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../node_modules/bulma/sass/utilities/functions";
+// 2. Setup your Custom Colors
+$purple: hsl(275,87%,45%);
+$purple-invert: findColorInvert($purple);
+
+$primary: rgb(0, 161, 251);
+// 3. Add new color variables to the color map.
+@import "../../node_modules/bulma/sass/utilities/derived-variables.sass";
+$addColors: (
+        "purple":($purple, $purple-invert),
+);
+$colors: map-merge($colors, $addColors);
+
+@import '../../node_modules/bulma/bulma';
+@import '../../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
