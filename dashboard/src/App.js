@@ -1,20 +1,12 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './styles/App.css';
+import React from 'react'
+import Layout from './app/Layout'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="" alt="logo" />
-          <h1>
-            Welcome to the <b>Dashboard</b>
-          </h1>
-        </header>
-      </div>
-    );
-  }
+class App extends React.Component {
+    render() {
+        return (
+            <Layout/>
+        );
+    }
 }
 
 export default App;
