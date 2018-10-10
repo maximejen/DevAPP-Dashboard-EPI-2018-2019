@@ -1,7 +1,9 @@
 import React from 'react'
+import TestGrid from "./home/TestGrid";
+
 const Home = () => (
     <div className={'home-content'}>
-        <div>Dashboard</div>
+        <TestGrid/>
     </div>
 )
 export default Home
