@@ -2,6 +2,7 @@ import React from 'react'
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import Weather from './Widgets/Weather'
 
 import ResponsiveGridLayout from 'react-grid-layout';
 
@@ -20,7 +21,9 @@ class TestGrid extends React.Component {
             }}>
                 <div style={{
                     backgroundColor: "white"
-                }} key="0">Chibre</div>
+                }} key="0">
+                    <Weather/>
+                </div>
                 <div style={{
                     backgroundColor: "white"
                 }} key="1">b</div>
