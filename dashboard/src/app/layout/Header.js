@@ -1,39 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 
 import { NavLink } from 'react-router-dom'
 import NavBurger from "./header/NavBurger";
 import NavItem from "./header/NavItem";
 
 class Header extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isBurgerMode: false,
-        };
-
-        this.handleChangeLocale = this.handleChangeLocale.bind(this);
-    }
-
-    static propTypes = {
-        onChangeLocale: PropTypes.func
+    state = {
+        isBurgerMode: false
     };
 
     toggleNav = () => {
         this.setState(prevState => ({
             isBurgerMode: !prevState.isBurgerMode
         }));
-    };
-
-    handleChangeLocale(newLocale) {
-        this.props.onChangeLocale(newLocale);
-        this.state.i18n.changeLanguage(newLocale);
-        this.setState(prevState => ({
-            locale: newLocale
-        }));
-        this.props.onChangeLocale(newLocale);
     };
 
     render() {
@@ -61,10 +40,8 @@ class Header extends React.Component {
                     <NavBurger onClick={this.toggleNav} isActive={this.state.isBurgerMode}/>
                 </div>
                 <div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
-                    <div className="navbar-start">
-                        <NavItem redirectTo={"/blog"} text={ "Projects" } iconClass={"fas fa-code"}/>
-                    </div>
                     <div className="navbar-end">
+                        <NavItem redirectTo={"/login"} text={ "Login" } iconClass={"fas fa-user"}/>
                     </div>
                 </div>
             </nav>

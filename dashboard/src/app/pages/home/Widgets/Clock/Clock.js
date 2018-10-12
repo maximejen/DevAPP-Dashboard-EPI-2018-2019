@@ -14,7 +14,7 @@ class Clock extends React.Component {
         isAnalog: this.props.isAnalog,
     };
 
-    static propanalog = {
+    static propTypes = {
         isAnalog: PropTypes.bool
     };
 
@@ -31,18 +31,20 @@ class Clock extends React.Component {
 
     render() {
         const AnalogClock = (
-            <div onClick={this.swapType}>
-                <h1 className={"title"}>Current time:</h1>
-                <AnalClock
+            <div className={"columns is-multiline is-centered"}>
+                <span className={"title column is-half"}>Current time:</span>
+                <span className={"column is-half"} onClick={this.swapType}>Change clock</span>
+                <AnalClock className={"column is-full"}
                     value={this.state.date} size={200}
                 />
             </div>
         );
 
         const DigitalClock = (
-            <div onClick={this.swapType}>
-                <h1 className={"title"}>Current time:</h1>
-                <FlipClock />
+            <div className={"columns is-multiline is-centered"}>
+                <span className={"title column is-half"}>Current time:</span>
+                <span className={"column is-half"} onClick={this.swapType}>Change clock</span>
+                <FlipClock className={"column is-full"}/>
             </div>
         );
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import TestGrid from "./home/TestGrid";
 import WeatherFetcher from "./home/Widgets/weather/WeatherFetcher";
 
