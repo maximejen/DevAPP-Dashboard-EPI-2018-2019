@@ -19,7 +19,7 @@ class TestGrid extends React.Component {
                 backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
             }}>
                 <div key="0" className={"columns is-centered"}>
-                    <Clock isAnalog={"true"} className={"column"}/>
+                    <Clock isAnalog={true} className={"column"}/>
                 </div>
                 <div style={{
                     backgroundColor: "white"

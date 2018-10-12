@@ -112,11 +112,10 @@ class FlipClock extends React.Component {
 
     updateTime() {
         // get new date
-        const time = new Date;
+        const time = new Date();
         // set time units
         const hours = time.getHours();
         const minutes = time.getMinutes();
-        const seconds = time.getSeconds();
         // on hour chanage, update hours and shuffle state
         if( hours !== this.state.hours) {
             const hoursShuffle = !this.state.hoursShuffle;
@@ -133,14 +132,6 @@ class FlipClock extends React.Component {
                 minutesShuffle
             });
         }
-        // on second chanage, update seconds and shuffle state
-        if( seconds !== this.state.seconds) {
-            const secondsShuffle = !this.state.secondsShuffle;
-            this.setState({
-                seconds,
-                secondsShuffle
-            });
-        }
     }
 
     render() {
@@ -149,10 +140,8 @@ class FlipClock extends React.Component {
         const {
             hours,
             minutes,
-            seconds,
             hoursShuffle,
             minutesShuffle,
-            secondsShuffle
         } = this.state;
 
         return(
@@ -166,11 +155,6 @@ class FlipClock extends React.Component {
                     unit={'minutes'}
                     digit={minutes}
                     shuffle={minutesShuffle}
-                />
-                <FlipUnitContainer
-                    unit={'seconds'}
-                    digit={seconds}
-                    shuffle={secondsShuffle}
                 />
             </div>
         );

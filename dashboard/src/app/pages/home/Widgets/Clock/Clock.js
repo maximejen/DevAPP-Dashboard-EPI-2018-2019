@@ -31,20 +31,26 @@ class Clock extends React.Component {
 
     render() {
         const AnalogClock = (
-            <div className={"columns is-multiline is-centered"}>
-                <span className={"title column is-half"}>Current time:</span>
-                <span className={"column is-half"} onClick={this.swapType}>Change clock</span>
-                <AnalClock className={"column is-full"}
-                    value={this.state.date} size={200}
+            <div className={"columns is-multiline"}>
+                <div className={"column is-9"}/>
+                <div style={{width: "4em"}} className={"column is-1"}>
+                    <img src={"/gear.png"}/>
+                </div>
+                <AnalClock className={"is-full is-offset-2"}
+                           value={this.state.date} size={200}
                 />
             </div>
         );
 
         const DigitalClock = (
-            <div className={"columns is-multiline is-centered"}>
-                <span className={"title column is-half"}>Current time:</span>
-                <span className={"column is-half"} onClick={this.swapType}>Change clock</span>
-                <FlipClock className={"column is-full"}/>
+            <div className={"column is-multiline"}>
+                <div className={"column is-11"} />
+                <div style={{width: "4em"}} className={"is-right column is-1 is-full"}>
+                    <img src={"/gear.png"}/>
+                </div>
+                <div className={"is-full column is-offset-2"}>
+                    <FlipClock/>
+                </div>
             </div>
         );
 
