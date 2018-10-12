@@ -49,7 +49,7 @@ class Clock extends React.Component {
         );
 
         return (
-            this.state.isAnalog ? AnalogClock: DigitalClock
+            this.state.isAnalog ? AnalogClock : DigitalClock
         );
     };
 }
