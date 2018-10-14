@@ -1,6 +1,5 @@
 import React from 'react';
 import TestGrid from "./home/TestGrid";
-import WeatherFetcher from "./home/Widgets/weather/WeatherFetcher";
 
 const Home = () => (
     <div className={'home-content'}>
@@ -16,7 +15,6 @@ const Home = () => (
                 </div>
             </div>
         </section>
-        <WeatherFetcher/>
         <TestGrid/>
     </div>
 )

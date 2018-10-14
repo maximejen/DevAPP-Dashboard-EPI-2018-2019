@@ -21,7 +21,7 @@ const Footer = () => (
                 <div className={"column is-3"} style={{
                     paddingTop: "1.5rem"
                 }}>
-                    Built on <strong>React</strong> with <strong>Bulma</strong>
+                    Made in <strong>React</strong> using <strong>Bulma</strong>
                     <br/>
                     Copyright 2018
                 </div>

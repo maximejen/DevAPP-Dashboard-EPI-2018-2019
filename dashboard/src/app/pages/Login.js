@@ -1,4 +1,5 @@
 import React from 'react';
+import LoginForm from "./login/LoginForm";
 
 class Login extends React.Component {
     render() {
@@ -12,7 +13,7 @@ class Login extends React.Component {
                 justifyContent: "center",
                 height: "80vh"
             }}>
-                Login Page
+                <LoginForm/>
             </div>
         );
     }

@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Weather extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     static propTypes = {
         isLoading: PropTypes.bool,
@@ -17,18 +14,39 @@ class Weather extends React.Component {
 
     static loading() {
         return (
-            <div>
-                <img src={'/loader.gif'} alt={"loading..."}/>
+            <div className={"columns is-centered"}>
+                <img className={"column is-2"} src={'/loader.gif'} style={{height: "5rem"}} alt={"loading..."}/>
             </div>
         )
+    }
+
+    componentWillMount() {
+        // TODO : ask the location of the user.
     }
 
     render() {
         if (this.props.isLoading)
             return Weather.loading();
         return (
-            <div>
-                weather widget
+            <div className={"columns is-multiline"}>
+                <div className={"column columns is-multiline"}>
+                    <div className={"column is-full"}>
+                        <div style={{
+                            fontSize: "2em"
+                        }}>
+                            {this.props.location}
+                        </div>
+                        <div>
+                            {this.props.temperature}°C
+                        </div>
+                    </div>
+                    <div className={"column is-full"}>
+
+                    </div>
+                </div>
+                <div className={"column is-half is-right"}>
+                    <img src={"/weather/" + this.props.weatherType + ".png"} alt={this.props.weatherType}/>
+                </div>
             </div>
         )
     }

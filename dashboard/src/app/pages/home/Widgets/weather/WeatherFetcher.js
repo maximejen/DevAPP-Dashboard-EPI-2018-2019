@@ -9,7 +9,12 @@ class WeatherFetcher extends React.Component {
     state = {
         isLoading: true,
         error: undefined,
-        response: undefined
+        response: undefined,
+
+        temperature: undefined,
+        weatherType: undefined,
+        windSpeed: undefined,
+        humidity: undefined,
     };
 
     static propTypes = {
@@ -45,22 +50,20 @@ class WeatherFetcher extends React.Component {
 
     render() {
         let cityName = this.props.cityName;
-        let weatherType;
-        let temperature;
-        let windSpeed;
-        let humidity;
         if (this.state.response) {
             console.log(this.state.response);
-            let weatherType = this.state.response.weather[0].main;
+            let weatherType = this.state.response.weather[0].icon;
             let temperature = this.state.response.main.temp - 273.15;
             let windSpeed = this.state.response.wind.speed;
             let humidity = this.state.response.main.humidity;
+            return <Weather isLoading={this.state.isLoading} weatherType={weatherType} humidity={humidity}
+                            temperature={parseInt(temperature.toFixed(2))} windSpeed={windSpeed} location={cityName}/>
         }
 
-        if (this.state.error !== undefined)
+        if (this.state.error !== undefined) {
             return <ErrorMessage errorTitle={"Fetch error"} errorMessage={this.state.error.message}/>;
-        return <Weather isLoading={this.state.isLoading} weatherType={weatherType} humidity={humidity}
-                        temperature={temperature} windSpeed={windSpeed} location={cityName}/>
+        }
+        return <Weather isLoading={this.state.isLoading}/>
     }
 }
 
