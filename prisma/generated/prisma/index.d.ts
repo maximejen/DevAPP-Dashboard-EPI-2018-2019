@@ -218,6 +218,26 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type WidgetOrderByInput =
+  | "Id_ASC"
+  | "Id_DESC"
+  | "Name_ASC"
+  | "Name_DESC"
+  | "SlugName_ASC"
+  | "SlugName_DESC"
+  | "Enable_ASC"
+  | "Enable_DESC"
+  | "NeedAuth_ASC"
+  | "NeedAuth_DESC"
+  | "Authenticate_ASC"
+  | "Authenticate_DESC"
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type AuthOrderByInput =
   | "Id_ASC"
   | "Id_DESC"
@@ -264,26 +284,6 @@ export type ConfigOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type WidgetOrderByInput =
-  | "Id_ASC"
-  | "Id_DESC"
-  | "Name_ASC"
-  | "Name_DESC"
-  | "SlugName_ASC"
-  | "SlugName_DESC"
-  | "Enable_ASC"
-  | "Enable_DESC"
-  | "NeedAuth_ASC"
-  | "NeedAuth_DESC"
-  | "Authenticate_ASC"
-  | "Authenticate_DESC"
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
 export type UserOrderByInput =
   | "Id_ASC"
   | "Id_DESC"
@@ -302,143 +302,29 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface AuthUpdateInput {
-  Id?: ID_Input;
-  Type?: String;
-  AccessToken?: String;
-  RefreshToken?: String;
-  Expire?: Int;
+export interface ConfigCreateInput {
+  PosX: Int;
+  PosY: Int;
+  Height: Int;
+  MinHeight: Int;
+  MaxHeight: Int;
+  Width: Int;
+  MinWidth: Int;
+  MaxWidth: Int;
+  Static: Boolean;
+  Location: String;
 }
 
 export type AuthWhereUniqueInput = AtLeastOne<{
   Id: ID_Input;
 }>;
 
-export interface UserWhereInput {
+export interface UserUpdateWithoutAuthDataInput {
   Id?: ID_Input;
-  Id_not?: ID_Input;
-  Id_in?: ID_Input[] | ID_Input;
-  Id_not_in?: ID_Input[] | ID_Input;
-  Id_lt?: ID_Input;
-  Id_lte?: ID_Input;
-  Id_gt?: ID_Input;
-  Id_gte?: ID_Input;
-  Id_contains?: ID_Input;
-  Id_not_contains?: ID_Input;
-  Id_starts_with?: ID_Input;
-  Id_not_starts_with?: ID_Input;
-  Id_ends_with?: ID_Input;
-  Id_not_ends_with?: ID_Input;
   Name?: String;
-  Name_not?: String;
-  Name_in?: String[] | String;
-  Name_not_in?: String[] | String;
-  Name_lt?: String;
-  Name_lte?: String;
-  Name_gt?: String;
-  Name_gte?: String;
-  Name_contains?: String;
-  Name_not_contains?: String;
-  Name_starts_with?: String;
-  Name_not_starts_with?: String;
-  Name_ends_with?: String;
-  Name_not_ends_with?: String;
   Passwd?: String;
-  Passwd_not?: String;
-  Passwd_in?: String[] | String;
-  Passwd_not_in?: String[] | String;
-  Passwd_lt?: String;
-  Passwd_lte?: String;
-  Passwd_gt?: String;
-  Passwd_gte?: String;
-  Passwd_contains?: String;
-  Passwd_not_contains?: String;
-  Passwd_starts_with?: String;
-  Passwd_not_starts_with?: String;
-  Passwd_ends_with?: String;
-  Passwd_not_ends_with?: String;
   Email?: String;
-  Email_not?: String;
-  Email_in?: String[] | String;
-  Email_not_in?: String[] | String;
-  Email_lt?: String;
-  Email_lte?: String;
-  Email_gt?: String;
-  Email_gte?: String;
-  Email_contains?: String;
-  Email_not_contains?: String;
-  Email_starts_with?: String;
-  Email_not_starts_with?: String;
-  Email_ends_with?: String;
-  Email_not_ends_with?: String;
-  WidgetSpec_every?: WidgetWhereInput;
-  WidgetSpec_some?: WidgetWhereInput;
-  WidgetSpec_none?: WidgetWhereInput;
-  AND?: UserWhereInput[] | UserWhereInput;
-  OR?: UserWhereInput[] | UserWhereInput;
-  NOT?: UserWhereInput[] | UserWhereInput;
-}
-
-export interface UserCreateInput {
-  Id: ID_Input;
-  Name: String;
-  Passwd: String;
-  Email: String;
-  WidgetSpec?: WidgetCreateManyInput;
-}
-
-export interface ConfigUpdateDataInput {
-  PosX?: Int;
-  PosY?: Int;
-  Height?: Int;
-  MinHeight?: Int;
-  MaxHeight?: Int;
-  Width?: Int;
-  MinWidth?: Int;
-  MaxWidth?: Int;
-  Static?: Boolean;
-  Location?: String;
-}
-
-export interface ConfigUpdateInput {
-  PosX?: Int;
-  PosY?: Int;
-  Height?: Int;
-  MinHeight?: Int;
-  MaxHeight?: Int;
-  Width?: Int;
-  MinWidth?: Int;
-  MaxWidth?: Int;
-  Static?: Boolean;
-  Location?: String;
-}
-
-export interface ConfigUpdateOneRequiredInput {
-  create?: ConfigCreateInput;
-  update?: ConfigUpdateDataInput;
-  upsert?: ConfigUpsertNestedInput;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface WidgetUpdateDataInput {
-  Id?: ID_Input;
-  Name?: String;
-  SlugName?: String;
-  Config?: ConfigUpdateOneRequiredInput;
-  Enable?: Boolean;
-  NeedAuth?: Boolean;
-  Authenticate?: Boolean;
-  Authentication?: AuthUpdateOneRequiredInput;
+  WidgetSpec?: WidgetUpdateManyInput;
 }
 
 export interface ConfigWhereInput {
@@ -527,32 +413,6 @@ export interface ConfigWhereInput {
   NOT?: ConfigWhereInput[] | ConfigWhereInput;
 }
 
-export interface WidgetUpdateWithWhereUniqueNestedInput {
-  where: WidgetWhereUniqueInput;
-  data: WidgetUpdateDataInput;
-}
-
-export interface AuthSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: AuthWhereInput;
-  AND?: AuthSubscriptionWhereInput[] | AuthSubscriptionWhereInput;
-  OR?: AuthSubscriptionWhereInput[] | AuthSubscriptionWhereInput;
-  NOT?: AuthSubscriptionWhereInput[] | AuthSubscriptionWhereInput;
-}
-
-export type WidgetWhereUniqueInput = AtLeastOne<{
-  Id: ID_Input;
-}>;
-
-export interface WidgetUpsertWithWhereUniqueNestedInput {
-  where: WidgetWhereUniqueInput;
-  update: WidgetUpdateDataInput;
-  create: WidgetCreateInput;
-}
-
 export interface WidgetUpdateManyInput {
   create?: WidgetCreateInput[] | WidgetCreateInput;
   update?:
@@ -564,167 +424,6 @@ export interface WidgetUpdateManyInput {
   delete?: WidgetWhereUniqueInput[] | WidgetWhereUniqueInput;
   connect?: WidgetWhereUniqueInput[] | WidgetWhereUniqueInput;
   disconnect?: WidgetWhereUniqueInput[] | WidgetWhereUniqueInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  Id: ID_Input;
-}>;
-
-export interface UserUpdateInput {
-  Id?: ID_Input;
-  Name?: String;
-  Passwd?: String;
-  Email?: String;
-  WidgetSpec?: WidgetUpdateManyInput;
-}
-
-export interface WidgetWhereInput {
-  Id?: ID_Input;
-  Id_not?: ID_Input;
-  Id_in?: ID_Input[] | ID_Input;
-  Id_not_in?: ID_Input[] | ID_Input;
-  Id_lt?: ID_Input;
-  Id_lte?: ID_Input;
-  Id_gt?: ID_Input;
-  Id_gte?: ID_Input;
-  Id_contains?: ID_Input;
-  Id_not_contains?: ID_Input;
-  Id_starts_with?: ID_Input;
-  Id_not_starts_with?: ID_Input;
-  Id_ends_with?: ID_Input;
-  Id_not_ends_with?: ID_Input;
-  Name?: String;
-  Name_not?: String;
-  Name_in?: String[] | String;
-  Name_not_in?: String[] | String;
-  Name_lt?: String;
-  Name_lte?: String;
-  Name_gt?: String;
-  Name_gte?: String;
-  Name_contains?: String;
-  Name_not_contains?: String;
-  Name_starts_with?: String;
-  Name_not_starts_with?: String;
-  Name_ends_with?: String;
-  Name_not_ends_with?: String;
-  SlugName?: String;
-  SlugName_not?: String;
-  SlugName_in?: String[] | String;
-  SlugName_not_in?: String[] | String;
-  SlugName_lt?: String;
-  SlugName_lte?: String;
-  SlugName_gt?: String;
-  SlugName_gte?: String;
-  SlugName_contains?: String;
-  SlugName_not_contains?: String;
-  SlugName_starts_with?: String;
-  SlugName_not_starts_with?: String;
-  SlugName_ends_with?: String;
-  SlugName_not_ends_with?: String;
-  Config?: ConfigWhereInput;
-  Enable?: Boolean;
-  Enable_not?: Boolean;
-  NeedAuth?: Boolean;
-  NeedAuth_not?: Boolean;
-  Authenticate?: Boolean;
-  Authenticate_not?: Boolean;
-  Authentication?: AuthWhereInput;
-  AND?: WidgetWhereInput[] | WidgetWhereInput;
-  OR?: WidgetWhereInput[] | WidgetWhereInput;
-  NOT?: WidgetWhereInput[] | WidgetWhereInput;
-}
-
-export interface AuthCreateOneInput {
-  create?: AuthCreateInput;
-  connect?: AuthWhereUniqueInput;
-}
-
-export interface ConfigUpsertNestedInput {
-  update: ConfigUpdateDataInput;
-  create: ConfigCreateInput;
-}
-
-export interface ConfigSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ConfigWhereInput;
-  AND?: ConfigSubscriptionWhereInput[] | ConfigSubscriptionWhereInput;
-  OR?: ConfigSubscriptionWhereInput[] | ConfigSubscriptionWhereInput;
-  NOT?: ConfigSubscriptionWhereInput[] | ConfigSubscriptionWhereInput;
-}
-
-export interface WidgetUpdateInput {
-  Id?: ID_Input;
-  Name?: String;
-  SlugName?: String;
-  Config?: ConfigUpdateOneRequiredInput;
-  Enable?: Boolean;
-  NeedAuth?: Boolean;
-  Authenticate?: Boolean;
-  Authentication?: AuthUpdateOneRequiredInput;
-}
-
-export interface AuthCreateInput {
-  Id: ID_Input;
-  Type: String;
-  AccessToken: String;
-  RefreshToken: String;
-  Expire: Int;
-}
-
-export interface AuthUpdateDataInput {
-  Id?: ID_Input;
-  Type?: String;
-  AccessToken?: String;
-  RefreshToken?: String;
-  Expire?: Int;
-}
-
-export interface ConfigCreateInput {
-  PosX: Int;
-  PosY: Int;
-  Height: Int;
-  MinHeight: Int;
-  MaxHeight: Int;
-  Width: Int;
-  MinWidth: Int;
-  MaxWidth: Int;
-  Static: Boolean;
-  Location: String;
-}
-
-export interface WidgetCreateManyInput {
-  create?: WidgetCreateInput[] | WidgetCreateInput;
-  connect?: WidgetWhereUniqueInput[] | WidgetWhereUniqueInput;
-}
-
-export interface WidgetCreateInput {
-  Id: ID_Input;
-  Name: String;
-  SlugName: String;
-  Config: ConfigCreateOneInput;
-  Enable: Boolean;
-  NeedAuth: Boolean;
-  Authenticate: Boolean;
-  Authentication: AuthCreateOneInput;
-}
-
-export interface ConfigCreateOneInput {
-  create?: ConfigCreateInput;
-}
-
-export interface AuthUpdateOneRequiredInput {
-  create?: AuthCreateInput;
-  update?: AuthUpdateDataInput;
-  upsert?: AuthUpsertNestedInput;
-  connect?: AuthWhereUniqueInput;
-}
-
-export interface AuthUpsertNestedInput {
-  update: AuthUpdateDataInput;
-  create: AuthCreateInput;
 }
 
 export interface AuthWhereInput {
@@ -792,9 +491,361 @@ export interface AuthWhereInput {
   Expire_lte?: Int;
   Expire_gt?: Int;
   Expire_gte?: Int;
+  User?: UserWhereInput;
   AND?: AuthWhereInput[] | AuthWhereInput;
   OR?: AuthWhereInput[] | AuthWhereInput;
   NOT?: AuthWhereInput[] | AuthWhereInput;
+}
+
+export interface WidgetUpdateWithWhereUniqueNestedInput {
+  where: WidgetWhereUniqueInput;
+  data: WidgetUpdateDataInput;
+}
+
+export interface WidgetWhereInput {
+  Id?: ID_Input;
+  Id_not?: ID_Input;
+  Id_in?: ID_Input[] | ID_Input;
+  Id_not_in?: ID_Input[] | ID_Input;
+  Id_lt?: ID_Input;
+  Id_lte?: ID_Input;
+  Id_gt?: ID_Input;
+  Id_gte?: ID_Input;
+  Id_contains?: ID_Input;
+  Id_not_contains?: ID_Input;
+  Id_starts_with?: ID_Input;
+  Id_not_starts_with?: ID_Input;
+  Id_ends_with?: ID_Input;
+  Id_not_ends_with?: ID_Input;
+  Name?: String;
+  Name_not?: String;
+  Name_in?: String[] | String;
+  Name_not_in?: String[] | String;
+  Name_lt?: String;
+  Name_lte?: String;
+  Name_gt?: String;
+  Name_gte?: String;
+  Name_contains?: String;
+  Name_not_contains?: String;
+  Name_starts_with?: String;
+  Name_not_starts_with?: String;
+  Name_ends_with?: String;
+  Name_not_ends_with?: String;
+  SlugName?: String;
+  SlugName_not?: String;
+  SlugName_in?: String[] | String;
+  SlugName_not_in?: String[] | String;
+  SlugName_lt?: String;
+  SlugName_lte?: String;
+  SlugName_gt?: String;
+  SlugName_gte?: String;
+  SlugName_contains?: String;
+  SlugName_not_contains?: String;
+  SlugName_starts_with?: String;
+  SlugName_not_starts_with?: String;
+  SlugName_ends_with?: String;
+  SlugName_not_ends_with?: String;
+  Config?: ConfigWhereInput;
+  Enable?: Boolean;
+  Enable_not?: Boolean;
+  NeedAuth?: Boolean;
+  NeedAuth_not?: Boolean;
+  Authenticate?: Boolean;
+  Authenticate_not?: Boolean;
+  Authentication?: AuthWhereInput;
+  AND?: WidgetWhereInput[] | WidgetWhereInput;
+  OR?: WidgetWhereInput[] | WidgetWhereInput;
+  NOT?: WidgetWhereInput[] | WidgetWhereInput;
+}
+
+export interface WidgetUpsertWithWhereUniqueNestedInput {
+  where: WidgetWhereUniqueInput;
+  update: WidgetUpdateDataInput;
+  create: WidgetCreateInput;
+}
+
+export interface ConfigUpdateDataInput {
+  PosX?: Int;
+  PosY?: Int;
+  Height?: Int;
+  MinHeight?: Int;
+  MaxHeight?: Int;
+  Width?: Int;
+  MinWidth?: Int;
+  MaxWidth?: Int;
+  Static?: Boolean;
+  Location?: String;
+}
+
+export interface WidgetUpdateDataInput {
+  Id?: ID_Input;
+  Name?: String;
+  SlugName?: String;
+  Config?: ConfigUpdateOneRequiredInput;
+  Enable?: Boolean;
+  NeedAuth?: Boolean;
+  Authenticate?: Boolean;
+  Authentication?: AuthUpdateOneRequiredInput;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export interface AuthCreateInput {
+  Id: ID_Input;
+  Type: String;
+  AccessToken: String;
+  RefreshToken: String;
+  Expire: Int;
+  User: UserCreateOneWithoutAuthInput;
+}
+
+export interface AuthSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: AuthWhereInput;
+  AND?: AuthSubscriptionWhereInput[] | AuthSubscriptionWhereInput;
+  OR?: AuthSubscriptionWhereInput[] | AuthSubscriptionWhereInput;
+  NOT?: AuthSubscriptionWhereInput[] | AuthSubscriptionWhereInput;
+}
+
+export interface UserCreateOneWithoutAuthInput {
+  create?: UserCreateWithoutAuthInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface AuthUpsertWithoutUserInput {
+  update: AuthUpdateWithoutUserDataInput;
+  create: AuthCreateWithoutUserInput;
+}
+
+export interface UserCreateWithoutAuthInput {
+  Id: ID_Input;
+  Name: String;
+  Passwd: String;
+  Email: String;
+  WidgetSpec?: WidgetCreateManyInput;
+}
+
+export interface AuthUpdateOneWithoutUserInput {
+  create?: AuthCreateWithoutUserInput;
+  update?: AuthUpdateWithoutUserDataInput;
+  upsert?: AuthUpsertWithoutUserInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: AuthWhereUniqueInput;
+}
+
+export interface WidgetCreateManyInput {
+  create?: WidgetCreateInput[] | WidgetCreateInput;
+  connect?: WidgetWhereUniqueInput[] | WidgetWhereUniqueInput;
+}
+
+export interface UserUpdateInput {
+  Id?: ID_Input;
+  Name?: String;
+  Passwd?: String;
+  Email?: String;
+  WidgetSpec?: WidgetUpdateManyInput;
+  Auth?: AuthUpdateOneWithoutUserInput;
+}
+
+export interface WidgetCreateInput {
+  Id: ID_Input;
+  Name: String;
+  SlugName: String;
+  Config: ConfigCreateOneInput;
+  Enable: Boolean;
+  NeedAuth: Boolean;
+  Authenticate: Boolean;
+  Authentication: AuthCreateOneInput;
+}
+
+export interface AuthCreateOneWithoutUserInput {
+  create?: AuthCreateWithoutUserInput;
+  connect?: AuthWhereUniqueInput;
+}
+
+export interface ConfigCreateOneInput {
+  create?: ConfigCreateInput;
+}
+
+export type WidgetWhereUniqueInput = AtLeastOne<{
+  Id: ID_Input;
+}>;
+
+export interface AuthUpsertNestedInput {
+  update: AuthUpdateDataInput;
+  create: AuthCreateInput;
+}
+
+export interface UserUpsertWithoutAuthInput {
+  update: UserUpdateWithoutAuthDataInput;
+  create: UserCreateWithoutAuthInput;
+}
+
+export interface AuthCreateOneInput {
+  create?: AuthCreateInput;
+  connect?: AuthWhereUniqueInput;
+}
+
+export interface ConfigSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ConfigWhereInput;
+  AND?: ConfigSubscriptionWhereInput[] | ConfigSubscriptionWhereInput;
+  OR?: ConfigSubscriptionWhereInput[] | ConfigSubscriptionWhereInput;
+  NOT?: ConfigSubscriptionWhereInput[] | ConfigSubscriptionWhereInput;
+}
+
+export interface AuthUpdateInput {
+  Id?: ID_Input;
+  Type?: String;
+  AccessToken?: String;
+  RefreshToken?: String;
+  Expire?: Int;
+  User?: UserUpdateOneRequiredWithoutAuthInput;
+}
+
+export interface AuthUpdateWithoutUserDataInput {
+  Id?: ID_Input;
+  Type?: String;
+  AccessToken?: String;
+  RefreshToken?: String;
+  Expire?: Int;
+}
+
+export interface UserUpdateOneRequiredWithoutAuthInput {
+  create?: UserCreateWithoutAuthInput;
+  update?: UserUpdateWithoutAuthDataInput;
+  upsert?: UserUpsertWithoutAuthInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface AuthCreateWithoutUserInput {
+  Id: ID_Input;
+  Type: String;
+  AccessToken: String;
+  RefreshToken: String;
+  Expire: Int;
+}
+
+export interface AuthUpdateDataInput {
+  Id?: ID_Input;
+  Type?: String;
+  AccessToken?: String;
+  RefreshToken?: String;
+  Expire?: Int;
+  User?: UserUpdateOneRequiredWithoutAuthInput;
+}
+
+export interface ConfigUpdateInput {
+  PosX?: Int;
+  PosY?: Int;
+  Height?: Int;
+  MinHeight?: Int;
+  MaxHeight?: Int;
+  Width?: Int;
+  MinWidth?: Int;
+  MaxWidth?: Int;
+  Static?: Boolean;
+  Location?: String;
+}
+
+export interface ConfigUpdateOneRequiredInput {
+  create?: ConfigCreateInput;
+  update?: ConfigUpdateDataInput;
+  upsert?: ConfigUpsertNestedInput;
+}
+
+export interface ConfigUpsertNestedInput {
+  update: ConfigUpdateDataInput;
+  create: ConfigCreateInput;
+}
+
+export interface AuthUpdateOneRequiredInput {
+  create?: AuthCreateInput;
+  update?: AuthUpdateDataInput;
+  upsert?: AuthUpsertNestedInput;
+  connect?: AuthWhereUniqueInput;
+}
+
+export interface UserWhereInput {
+  Id?: ID_Input;
+  Id_not?: ID_Input;
+  Id_in?: ID_Input[] | ID_Input;
+  Id_not_in?: ID_Input[] | ID_Input;
+  Id_lt?: ID_Input;
+  Id_lte?: ID_Input;
+  Id_gt?: ID_Input;
+  Id_gte?: ID_Input;
+  Id_contains?: ID_Input;
+  Id_not_contains?: ID_Input;
+  Id_starts_with?: ID_Input;
+  Id_not_starts_with?: ID_Input;
+  Id_ends_with?: ID_Input;
+  Id_not_ends_with?: ID_Input;
+  Name?: String;
+  Name_not?: String;
+  Name_in?: String[] | String;
+  Name_not_in?: String[] | String;
+  Name_lt?: String;
+  Name_lte?: String;
+  Name_gt?: String;
+  Name_gte?: String;
+  Name_contains?: String;
+  Name_not_contains?: String;
+  Name_starts_with?: String;
+  Name_not_starts_with?: String;
+  Name_ends_with?: String;
+  Name_not_ends_with?: String;
+  Passwd?: String;
+  Passwd_not?: String;
+  Passwd_in?: String[] | String;
+  Passwd_not_in?: String[] | String;
+  Passwd_lt?: String;
+  Passwd_lte?: String;
+  Passwd_gt?: String;
+  Passwd_gte?: String;
+  Passwd_contains?: String;
+  Passwd_not_contains?: String;
+  Passwd_starts_with?: String;
+  Passwd_not_starts_with?: String;
+  Passwd_ends_with?: String;
+  Passwd_not_ends_with?: String;
+  Email?: String;
+  Email_not?: String;
+  Email_in?: String[] | String;
+  Email_not_in?: String[] | String;
+  Email_lt?: String;
+  Email_lte?: String;
+  Email_gt?: String;
+  Email_gte?: String;
+  Email_contains?: String;
+  Email_not_contains?: String;
+  Email_starts_with?: String;
+  Email_not_starts_with?: String;
+  Email_ends_with?: String;
+  Email_not_ends_with?: String;
+  WidgetSpec_every?: WidgetWhereInput;
+  WidgetSpec_some?: WidgetWhereInput;
+  WidgetSpec_none?: WidgetWhereInput;
+  Auth?: AuthWhereInput;
+  AND?: UserWhereInput[] | UserWhereInput;
+  OR?: UserWhereInput[] | UserWhereInput;
+  NOT?: UserWhereInput[] | UserWhereInput;
 }
 
 export interface WidgetSubscriptionWhereInput {
@@ -806,6 +857,30 @@ export interface WidgetSubscriptionWhereInput {
   AND?: WidgetSubscriptionWhereInput[] | WidgetSubscriptionWhereInput;
   OR?: WidgetSubscriptionWhereInput[] | WidgetSubscriptionWhereInput;
   NOT?: WidgetSubscriptionWhereInput[] | WidgetSubscriptionWhereInput;
+}
+
+export interface UserCreateInput {
+  Id: ID_Input;
+  Name: String;
+  Passwd: String;
+  Email: String;
+  WidgetSpec?: WidgetCreateManyInput;
+  Auth?: AuthCreateOneWithoutUserInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  Id: ID_Input;
+}>;
+
+export interface WidgetUpdateInput {
+  Id?: ID_Input;
+  Name?: String;
+  SlugName?: String;
+  Config?: ConfigUpdateOneRequiredInput;
+  Enable?: Boolean;
+  NeedAuth?: Boolean;
+  Authenticate?: Boolean;
+  Authentication?: AuthUpdateOneRequiredInput;
 }
 
 export interface NodeNode {
@@ -843,40 +918,6 @@ export interface WidgetPreviousValuesSubscription
   Authenticate: () => Promise<AsyncIterator<Boolean>>;
 }
 
-export interface ConfigEdgeNode {
-  cursor: String;
-}
-
-export interface ConfigEdge extends Promise<ConfigEdgeNode>, Fragmentable {
-  node: <T = Config>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ConfigEdgeSubscription
-  extends Promise<AsyncIterator<ConfigEdgeNode>>,
-    Fragmentable {
-  node: <T = ConfigSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AuthConnectionNode {}
-
-export interface AuthConnection
-  extends Promise<AuthConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<AuthEdgeNode>>() => T;
-  aggregate: <T = AggregateAuth>() => T;
-}
-
-export interface AuthConnectionSubscription
-  extends Promise<AsyncIterator<AuthConnectionNode>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<AuthEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateAuthSubscription>() => T;
-}
-
 export interface ConfigConnectionNode {}
 
 export interface ConfigConnection
@@ -893,29 +934,6 @@ export interface ConfigConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<ConfigEdgeSubscription>>>() => T;
   aggregate: <T = AggregateConfigSubscription>() => T;
-}
-
-export interface PageInfoNode {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfo extends Promise<PageInfoNode>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfoNode>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ConfigNode {
@@ -959,163 +977,20 @@ export interface ConfigSubscription
   Location: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BatchPayloadNode {
-  count: Long;
-}
-
-export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayloadNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface AuthNode {
-  Id: ID_Output;
-  Type: String;
-  AccessToken: String;
-  RefreshToken: String;
-  Expire: Int;
-}
-
-export interface Auth extends Promise<AuthNode>, Fragmentable {
-  Id: () => Promise<ID_Output>;
-  Type: () => Promise<String>;
-  AccessToken: () => Promise<String>;
-  RefreshToken: () => Promise<String>;
-  Expire: () => Promise<Int>;
-}
-
-export interface AuthSubscription
-  extends Promise<AsyncIterator<AuthNode>>,
-    Fragmentable {
-  Id: () => Promise<AsyncIterator<ID_Output>>;
-  Type: () => Promise<AsyncIterator<String>>;
-  AccessToken: () => Promise<AsyncIterator<String>>;
-  RefreshToken: () => Promise<AsyncIterator<String>>;
-  Expire: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateWidgetNode {
-  count: Int;
-}
-
-export interface AggregateWidget
-  extends Promise<AggregateWidgetNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateWidgetSubscription
-  extends Promise<AsyncIterator<AggregateWidgetNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AuthSubscriptionPayloadNode {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface AuthSubscriptionPayload
-  extends Promise<AuthSubscriptionPayloadNode>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = Auth>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = AuthPreviousValues>() => T;
-}
-
-export interface AuthSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<AuthSubscriptionPayloadNode>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = AuthSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = AuthPreviousValuesSubscription>() => T;
-}
-
-export interface WidgetConnectionNode {}
-
-export interface WidgetConnection
-  extends Promise<WidgetConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<WidgetEdgeNode>>() => T;
-  aggregate: <T = AggregateWidget>() => T;
-}
-
-export interface WidgetConnectionSubscription
-  extends Promise<AsyncIterator<WidgetConnectionNode>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<WidgetEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateWidgetSubscription>() => T;
-}
-
-export interface AuthPreviousValuesNode {
-  Id: ID_Output;
-  Type: String;
-  AccessToken: String;
-  RefreshToken: String;
-  Expire: Int;
-}
-
-export interface AuthPreviousValues
-  extends Promise<AuthPreviousValuesNode>,
-    Fragmentable {
-  Id: () => Promise<ID_Output>;
-  Type: () => Promise<String>;
-  AccessToken: () => Promise<String>;
-  RefreshToken: () => Promise<String>;
-  Expire: () => Promise<Int>;
-}
-
-export interface AuthPreviousValuesSubscription
-  extends Promise<AsyncIterator<AuthPreviousValuesNode>>,
-    Fragmentable {
-  Id: () => Promise<AsyncIterator<ID_Output>>;
-  Type: () => Promise<AsyncIterator<String>>;
-  AccessToken: () => Promise<AsyncIterator<String>>;
-  RefreshToken: () => Promise<AsyncIterator<String>>;
-  Expire: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserEdgeNode {
+export interface ConfigEdgeNode {
   cursor: String;
 }
 
-export interface UserEdge extends Promise<UserEdgeNode>, Fragmentable {
-  node: <T = User>() => T;
+export interface ConfigEdge extends Promise<ConfigEdgeNode>, Fragmentable {
+  node: <T = Config>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdgeNode>>,
+export interface ConfigEdgeSubscription
+  extends Promise<AsyncIterator<ConfigEdgeNode>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = ConfigSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnectionNode {}
-
-export interface UserConnection
-  extends Promise<UserConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<UserEdgeNode>>() => T;
-  aggregate: <T = AggregateUser>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnectionNode>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface UserSubscriptionPayloadNode {
@@ -1174,6 +1049,94 @@ export interface WidgetSubscription
   Authentication: <T = AuthSubscription>() => T;
 }
 
+export interface UserNode {
+  Id: ID_Output;
+  Name: String;
+  Passwd: String;
+  Email: String;
+}
+
+export interface User extends Promise<UserNode>, Fragmentable {
+  Id: () => Promise<ID_Output>;
+  Name: () => Promise<String>;
+  Passwd: () => Promise<String>;
+  Email: () => Promise<String>;
+  WidgetSpec: <T = FragmentableArray<WidgetNode>>(
+    args?: {
+      where?: WidgetWhereInput;
+      orderBy?: WidgetOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  Auth: <T = Auth>() => T;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<UserNode>>,
+    Fragmentable {
+  Id: () => Promise<AsyncIterator<ID_Output>>;
+  Name: () => Promise<AsyncIterator<String>>;
+  Passwd: () => Promise<AsyncIterator<String>>;
+  Email: () => Promise<AsyncIterator<String>>;
+  WidgetSpec: <T = Promise<AsyncIterator<WidgetSubscription>>>(
+    args?: {
+      where?: WidgetWhereInput;
+      orderBy?: WidgetOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  Auth: <T = AuthSubscription>() => T;
+}
+
+export interface UserPreviousValuesNode {
+  Id: ID_Output;
+  Name: String;
+  Passwd: String;
+  Email: String;
+}
+
+export interface UserPreviousValues
+  extends Promise<UserPreviousValuesNode>,
+    Fragmentable {
+  Id: () => Promise<ID_Output>;
+  Name: () => Promise<String>;
+  Passwd: () => Promise<String>;
+  Email: () => Promise<String>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValuesNode>>,
+    Fragmentable {
+  Id: () => Promise<AsyncIterator<ID_Output>>;
+  Name: () => Promise<AsyncIterator<String>>;
+  Passwd: () => Promise<AsyncIterator<String>>;
+  Email: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WidgetEdgeNode {
+  cursor: String;
+}
+
+export interface WidgetEdge extends Promise<WidgetEdgeNode>, Fragmentable {
+  node: <T = Widget>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface WidgetEdgeSubscription
+  extends Promise<AsyncIterator<WidgetEdgeNode>>,
+    Fragmentable {
+  node: <T = WidgetSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface AggregateAuthNode {
   count: Int;
 }
@@ -1213,20 +1176,170 @@ export interface WidgetSubscriptionPayloadSubscription
   previousValues: <T = WidgetPreviousValuesSubscription>() => T;
 }
 
-export interface AuthEdgeNode {
-  cursor: String;
+export interface AuthNode {
+  Id: ID_Output;
+  Type: String;
+  AccessToken: String;
+  RefreshToken: String;
+  Expire: Int;
 }
 
-export interface AuthEdge extends Promise<AuthEdgeNode>, Fragmentable {
-  node: <T = Auth>() => T;
-  cursor: () => Promise<String>;
+export interface Auth extends Promise<AuthNode>, Fragmentable {
+  Id: () => Promise<ID_Output>;
+  Type: () => Promise<String>;
+  AccessToken: () => Promise<String>;
+  RefreshToken: () => Promise<String>;
+  Expire: () => Promise<Int>;
+  User: <T = User>() => T;
 }
 
-export interface AuthEdgeSubscription
-  extends Promise<AsyncIterator<AuthEdgeNode>>,
+export interface AuthSubscription
+  extends Promise<AsyncIterator<AuthNode>>,
     Fragmentable {
+  Id: () => Promise<AsyncIterator<ID_Output>>;
+  Type: () => Promise<AsyncIterator<String>>;
+  AccessToken: () => Promise<AsyncIterator<String>>;
+  RefreshToken: () => Promise<AsyncIterator<String>>;
+  Expire: () => Promise<AsyncIterator<Int>>;
+  User: <T = UserSubscription>() => T;
+}
+
+export interface AggregateUserNode {
+  count: Int;
+}
+
+export interface AggregateUser
+  extends Promise<AggregateUserNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUserNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AuthSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface AuthSubscriptionPayload
+  extends Promise<AuthSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Auth>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = AuthPreviousValues>() => T;
+}
+
+export interface AuthSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<AuthSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
   node: <T = AuthSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = AuthPreviousValuesSubscription>() => T;
+}
+
+export interface UserConnectionNode {}
+
+export interface UserConnection
+  extends Promise<UserConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<UserEdgeNode>>() => T;
+  aggregate: <T = AggregateUser>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface AuthPreviousValuesNode {
+  Id: ID_Output;
+  Type: String;
+  AccessToken: String;
+  RefreshToken: String;
+  Expire: Int;
+}
+
+export interface AuthPreviousValues
+  extends Promise<AuthPreviousValuesNode>,
+    Fragmentable {
+  Id: () => Promise<ID_Output>;
+  Type: () => Promise<String>;
+  AccessToken: () => Promise<String>;
+  RefreshToken: () => Promise<String>;
+  Expire: () => Promise<Int>;
+}
+
+export interface AuthPreviousValuesSubscription
+  extends Promise<AsyncIterator<AuthPreviousValuesNode>>,
+    Fragmentable {
+  Id: () => Promise<AsyncIterator<ID_Output>>;
+  Type: () => Promise<AsyncIterator<String>>;
+  AccessToken: () => Promise<AsyncIterator<String>>;
+  RefreshToken: () => Promise<AsyncIterator<String>>;
+  Expire: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregateConfigNode {
+  count: Int;
+}
+
+export interface AggregateConfig
+  extends Promise<AggregateConfigNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateConfigSubscription
+  extends Promise<AsyncIterator<AggregateConfigNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BatchPayloadNode {
+  count: Long;
+}
+
+export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayloadNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface PageInfoNode {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfo extends Promise<PageInfoNode>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfoNode>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ConfigPreviousValuesNode {
@@ -1295,140 +1408,106 @@ export interface ConfigSubscriptionPayloadSubscription
   previousValues: <T = ConfigPreviousValuesSubscription>() => T;
 }
 
-export interface UserNode {
-  Id: ID_Output;
-  Name: String;
-  Passwd: String;
-  Email: String;
-}
-
-export interface User extends Promise<UserNode>, Fragmentable {
-  Id: () => Promise<ID_Output>;
-  Name: () => Promise<String>;
-  Passwd: () => Promise<String>;
-  Email: () => Promise<String>;
-  WidgetSpec: <T = FragmentableArray<WidgetNode>>(
-    args?: {
-      where?: WidgetWhereInput;
-      orderBy?: WidgetOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<UserNode>>,
-    Fragmentable {
-  Id: () => Promise<AsyncIterator<ID_Output>>;
-  Name: () => Promise<AsyncIterator<String>>;
-  Passwd: () => Promise<AsyncIterator<String>>;
-  Email: () => Promise<AsyncIterator<String>>;
-  WidgetSpec: <T = Promise<AsyncIterator<WidgetSubscription>>>(
-    args?: {
-      where?: WidgetWhereInput;
-      orderBy?: WidgetOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface UserPreviousValuesNode {
-  Id: ID_Output;
-  Name: String;
-  Passwd: String;
-  Email: String;
-}
-
-export interface UserPreviousValues
-  extends Promise<UserPreviousValuesNode>,
-    Fragmentable {
-  Id: () => Promise<ID_Output>;
-  Name: () => Promise<String>;
-  Passwd: () => Promise<String>;
-  Email: () => Promise<String>;
-}
-
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValuesNode>>,
-    Fragmentable {
-  Id: () => Promise<AsyncIterator<ID_Output>>;
-  Name: () => Promise<AsyncIterator<String>>;
-  Passwd: () => Promise<AsyncIterator<String>>;
-  Email: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateConfigNode {
-  count: Int;
-}
-
-export interface AggregateConfig
-  extends Promise<AggregateConfigNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateConfigSubscription
-  extends Promise<AsyncIterator<AggregateConfigNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateUserNode {
-  count: Int;
-}
-
-export interface AggregateUser
-  extends Promise<AggregateUserNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUserNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface WidgetEdgeNode {
+export interface AuthEdgeNode {
   cursor: String;
 }
 
-export interface WidgetEdge extends Promise<WidgetEdgeNode>, Fragmentable {
-  node: <T = Widget>() => T;
+export interface AuthEdge extends Promise<AuthEdgeNode>, Fragmentable {
+  node: <T = Auth>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface WidgetEdgeSubscription
-  extends Promise<AsyncIterator<WidgetEdgeNode>>,
+export interface AuthEdgeSubscription
+  extends Promise<AsyncIterator<AuthEdgeNode>>,
     Fragmentable {
-  node: <T = WidgetSubscription>() => T;
+  node: <T = AuthSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface WidgetConnectionNode {}
+
+export interface WidgetConnection
+  extends Promise<WidgetConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<WidgetEdgeNode>>() => T;
+  aggregate: <T = AggregateWidget>() => T;
+}
+
+export interface WidgetConnectionSubscription
+  extends Promise<AsyncIterator<WidgetConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WidgetEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWidgetSubscription>() => T;
+}
+
+export interface AggregateWidgetNode {
+  count: Int;
+}
+
+export interface AggregateWidget
+  extends Promise<AggregateWidgetNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateWidgetSubscription
+  extends Promise<AsyncIterator<AggregateWidgetNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AuthConnectionNode {}
+
+export interface AuthConnection
+  extends Promise<AuthConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<AuthEdgeNode>>() => T;
+  aggregate: <T = AggregateAuth>() => T;
+}
+
+export interface AuthConnectionSubscription
+  extends Promise<AsyncIterator<AuthConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<AuthEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateAuthSubscription>() => T;
+}
+
+export interface UserEdgeNode {
+  cursor: String;
+}
+
+export interface UserEdge extends Promise<UserEdgeNode>, Fragmentable {
+  node: <T = User>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdgeNode>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
 
-export type Long = string;
-
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+export type Long = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.

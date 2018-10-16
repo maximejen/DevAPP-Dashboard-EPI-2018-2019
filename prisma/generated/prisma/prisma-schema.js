@@ -21,6 +21,7 @@ type Auth {
   AccessToken: String!
   RefreshToken: String!
   Expire: Int!
+  User: User!
 }
 
 type AuthConnection {
@@ -35,11 +36,25 @@ input AuthCreateInput {
   AccessToken: String!
   RefreshToken: String!
   Expire: Int!
+  User: UserCreateOneWithoutAuthInput!
 }
 
 input AuthCreateOneInput {
   create: AuthCreateInput
   connect: AuthWhereUniqueInput
+}
+
+input AuthCreateOneWithoutUserInput {
+  create: AuthCreateWithoutUserInput
+  connect: AuthWhereUniqueInput
+}
+
+input AuthCreateWithoutUserInput {
+  Id: ID!
+  Type: String!
+  AccessToken: String!
+  RefreshToken: String!
+  Expire: Int!
 }
 
 type AuthEdge {
@@ -98,6 +113,7 @@ input AuthUpdateDataInput {
   AccessToken: String
   RefreshToken: String
   Expire: Int
+  User: UserUpdateOneRequiredWithoutAuthInput
 }
 
 input AuthUpdateInput {
@@ -106,6 +122,7 @@ input AuthUpdateInput {
   AccessToken: String
   RefreshToken: String
   Expire: Int
+  User: UserUpdateOneRequiredWithoutAuthInput
 }
 
 input AuthUpdateOneRequiredInput {
@@ -115,9 +132,31 @@ input AuthUpdateOneRequiredInput {
   connect: AuthWhereUniqueInput
 }
 
+input AuthUpdateOneWithoutUserInput {
+  create: AuthCreateWithoutUserInput
+  update: AuthUpdateWithoutUserDataInput
+  upsert: AuthUpsertWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: AuthWhereUniqueInput
+}
+
+input AuthUpdateWithoutUserDataInput {
+  Id: ID
+  Type: String
+  AccessToken: String
+  RefreshToken: String
+  Expire: Int
+}
+
 input AuthUpsertNestedInput {
   update: AuthUpdateDataInput!
   create: AuthCreateInput!
+}
+
+input AuthUpsertWithoutUserInput {
+  update: AuthUpdateWithoutUserDataInput!
+  create: AuthCreateWithoutUserInput!
 }
 
 input AuthWhereInput {
@@ -185,6 +224,7 @@ input AuthWhereInput {
   Expire_lte: Int
   Expire_gt: Int
   Expire_gte: Int
+  User: UserWhereInput
   AND: [AuthWhereInput!]
   OR: [AuthWhereInput!]
   NOT: [AuthWhereInput!]
@@ -493,6 +533,7 @@ type User {
   Passwd: String!
   Email: String!
   WidgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
+  Auth: Auth
 }
 
 type UserConnection {
@@ -502,6 +543,20 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  Id: ID!
+  Name: String!
+  Passwd: String!
+  Email: String!
+  WidgetSpec: WidgetCreateManyInput
+  Auth: AuthCreateOneWithoutUserInput
+}
+
+input UserCreateOneWithoutAuthInput {
+  create: UserCreateWithoutAuthInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutAuthInput {
   Id: ID!
   Name: String!
   Passwd: String!
@@ -562,6 +617,27 @@ input UserUpdateInput {
   Passwd: String
   Email: String
   WidgetSpec: WidgetUpdateManyInput
+  Auth: AuthUpdateOneWithoutUserInput
+}
+
+input UserUpdateOneRequiredWithoutAuthInput {
+  create: UserCreateWithoutAuthInput
+  update: UserUpdateWithoutAuthDataInput
+  upsert: UserUpsertWithoutAuthInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutAuthDataInput {
+  Id: ID
+  Name: String
+  Passwd: String
+  Email: String
+  WidgetSpec: WidgetUpdateManyInput
+}
+
+input UserUpsertWithoutAuthInput {
+  update: UserUpdateWithoutAuthDataInput!
+  create: UserCreateWithoutAuthInput!
 }
 
 input UserWhereInput {
@@ -624,6 +700,7 @@ input UserWhereInput {
   WidgetSpec_every: WidgetWhereInput
   WidgetSpec_some: WidgetWhereInput
   WidgetSpec_none: WidgetWhereInput
+  Auth: AuthWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

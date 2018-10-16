@@ -6,7 +6,7 @@ import AnalogClock from './Widgets/Clockv2/AnalogClock'
 import ResponsiveGridLayout from 'react-grid-layout';
 import WeatherFetcher from "./Widgets/weather/WeatherFetcher";
 
-class TestGrid extends React.Component {
+class WidgetGrid extends React.Component {
     render() {
         // layout is an array of objects, see the demo for more complete usage
         let layout = [
@@ -33,4 +33,4 @@ class TestGrid extends React.Component {
     }
 }
 
-export default TestGrid;
+export default WidgetGrid;

@@ -4,6 +4,7 @@ type User {
     Passwd: String!
     Email: String!
     WidgetSpec: [Widget!]! @relation(name: "WidgetsOfUser" onDelete: CASCADE)
+    Auth: Auth @relation(name: "AuthOfUser", onDelete: CASCADE)
 }
 
 type Widget {
@@ -36,4 +37,5 @@ type Auth {
     AccessToken: String!
     RefreshToken: String!
     Expire: Int!
+    User: User! @relation(name: "UserOfAuth")
 }

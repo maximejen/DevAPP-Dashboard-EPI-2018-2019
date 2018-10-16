@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Oct 12 2018 09:21:16 GMT+0200 (GMT+02:00)
+# timestamp: Sun Oct 14 2018 19:43:53 GMT+0200 (Central European Summer Time)
 
 type AggregateAuth {
   count: Int!
@@ -23,6 +23,7 @@ type Auth {
   AccessToken: String!
   RefreshToken: String!
   Expire: Int!
+  User: User!
 }
 
 """A connection to a list of items."""
@@ -41,6 +42,7 @@ input AuthCreateInput {
   AccessToken: String!
   RefreshToken: String!
   Expire: Int!
+  User: UserCreateOneInput!
 }
 
 input AuthCreateOneInput {
@@ -129,6 +131,7 @@ input AuthUpdateDataInput {
   AccessToken: String
   RefreshToken: String
   Expire: Int
+  User: UserUpdateOneRequiredInput
 }
 
 input AuthUpdateInput {
@@ -137,6 +140,16 @@ input AuthUpdateInput {
   AccessToken: String
   RefreshToken: String
   Expire: Int
+  User: UserUpdateOneRequiredInput
+}
+
+input AuthUpdateOneInput {
+  create: AuthCreateInput
+  connect: AuthWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: AuthUpdateDataInput
+  upsert: AuthUpsertNestedInput
 }
 
 input AuthUpdateOneRequiredInput {
@@ -342,6 +355,7 @@ input AuthWhereInput {
 
   """All values greater than or equal the given value."""
   Expire_gte: Int
+  User: UserWhereInput
 }
 
 input AuthWhereUniqueInput {
@@ -761,27 +775,27 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createConfig(data: ConfigCreateInput!): Config!
-  createWidget(data: WidgetCreateInput!): Widget!
   createAuth(data: AuthCreateInput!): Auth!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateWidget(data: WidgetUpdateInput!, where: WidgetWhereUniqueInput!): Widget
+  createWidget(data: WidgetCreateInput!): Widget!
+  createUser(data: UserCreateInput!): User!
   updateAuth(data: AuthUpdateInput!, where: AuthWhereUniqueInput!): Auth
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteWidget(where: WidgetWhereUniqueInput!): Widget
+  updateWidget(data: WidgetUpdateInput!, where: WidgetWhereUniqueInput!): Widget
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteAuth(where: AuthWhereUniqueInput!): Auth
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertWidget(where: WidgetWhereUniqueInput!, create: WidgetCreateInput!, update: WidgetUpdateInput!): Widget!
+  deleteWidget(where: WidgetWhereUniqueInput!): Widget
+  deleteUser(where: UserWhereUniqueInput!): User
   upsertAuth(where: AuthWhereUniqueInput!, create: AuthCreateInput!, update: AuthUpdateInput!): Auth!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  upsertWidget(where: WidgetWhereUniqueInput!, create: WidgetCreateInput!, update: WidgetUpdateInput!): Widget!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyConfigs(data: ConfigUpdateInput!, where: ConfigWhereInput): BatchPayload!
-  updateManyWidgets(data: WidgetUpdateInput!, where: WidgetWhereInput): BatchPayload!
   updateManyAuths(data: AuthUpdateInput!, where: AuthWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  updateManyWidgets(data: WidgetUpdateInput!, where: WidgetWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyConfigs(where: ConfigWhereInput): BatchPayload!
-  deleteManyWidgets(where: WidgetWhereInput): BatchPayload!
   deleteManyAuths(where: AuthWhereInput): BatchPayload!
+  deleteManyWidgets(where: WidgetWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -817,17 +831,17 @@ enum PrismaDatabase {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   configs(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Config]!
-  widgets(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget]!
   auths(where: AuthWhereInput, orderBy: AuthOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Auth]!
-  user(where: UserWhereUniqueInput!): User
-  widget(where: WidgetWhereUniqueInput!): Widget
+  widgets(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   auth(where: AuthWhereUniqueInput!): Auth
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  widget(where: WidgetWhereUniqueInput!): Widget
+  user(where: UserWhereUniqueInput!): User
   configsConnection(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConfigConnection!
-  widgetsConnection(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WidgetConnection!
   authsConnection(where: AuthWhereInput, orderBy: AuthOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthConnection!
+  widgetsConnection(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WidgetConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -837,10 +851,10 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   config(where: ConfigSubscriptionWhereInput): ConfigSubscriptionPayload
-  widget(where: WidgetSubscriptionWhereInput): WidgetSubscriptionPayload
   auth(where: AuthSubscriptionWhereInput): AuthSubscriptionPayload
+  widget(where: WidgetSubscriptionWhereInput): WidgetSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
@@ -849,6 +863,7 @@ type User {
   Passwd: String!
   Email: String!
   WidgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
+  Auth: Auth
 }
 
 """A connection to a list of items."""
@@ -867,6 +882,12 @@ input UserCreateInput {
   Passwd: String!
   Email: String!
   WidgetSpec: WidgetCreateManyInput
+  Auth: AuthCreateOneInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -941,12 +962,34 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  Id: ID
+  Name: String
+  Passwd: String
+  Email: String
+  WidgetSpec: WidgetUpdateManyInput
+  Auth: AuthUpdateOneInput
+}
+
 input UserUpdateInput {
   Id: ID
   Name: String
   Passwd: String
   Email: String
   WidgetSpec: WidgetUpdateManyInput
+  Auth: AuthUpdateOneInput
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -1121,6 +1164,7 @@ input UserWhereInput {
   WidgetSpec_every: WidgetWhereInput
   WidgetSpec_some: WidgetWhereInput
   WidgetSpec_none: WidgetWhereInput
+  Auth: AuthWhereInput
 }
 
 input UserWhereUniqueInput {

@@ -40,8 +40,11 @@ class Header extends React.Component {
                     <NavBurger onClick={this.toggleNav} isActive={this.state.isBurgerMode}/>
                 </div>
                 <div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
-                    <div className="navbar-end">
-                        <NavItem redirectTo={"/login"} text={ "Login" } iconClass={"fas fa-user"}/>
+                    <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
+                        <NavItem className="navbar-item" redirectTo={"/login"} text={ "Login" } iconClass={"fas fa-user"}/>
+                    </div>
+                    <div className="navbar-end navbar-item" style={{margin: "0"}}>
+                        <NavItem className="navbar-item" redirectTo={"/register"} text={ "Register" } iconClass={"fas fa-user"}/>
                     </div>
                 </div>
             </nav>

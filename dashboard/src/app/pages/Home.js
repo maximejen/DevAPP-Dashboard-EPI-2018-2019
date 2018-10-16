@@ -1,5 +1,5 @@
 import React from 'react';
-import TestGrid from "./home/TestGrid";
+import WidgetGrid from "./home/WidgetGrid";
 
 const Home = () => (
     <div className={'home-content'}>
@@ -15,7 +15,7 @@ const Home = () => (
                 </div>
             </div>
         </section>
-        <TestGrid/>
+        <WidgetGrid/>
     </div>
 )
 export default Home

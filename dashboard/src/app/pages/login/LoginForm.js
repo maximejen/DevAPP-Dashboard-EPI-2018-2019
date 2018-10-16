@@ -1,4 +1,5 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -22,10 +23,32 @@ class LoginForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+
+        const url = "http://localhost:4000/login";
+        const data = JSON.stringify({
+            username: this.state.email,
+            password: this.state.password
+        });
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: data
+        })
+            .catch(err => {
+                this.setState({
+                    error: err
+                });
+            })
+            .then(response => {
+                // TODO : if response is 200 : redirect to home page.
+                console.log(response);
+            });
     };
 
     render() {
-        let width = "23em";
+        let width = "18em";
         return (
             <div className="columns is-centered is-multiline is-1" style={{
                 backgroundColor: "white",
@@ -33,14 +56,14 @@ class LoginForm extends React.Component {
                 borderRadius: "10px",
                 width: "20em"
             }}>
-                <span>Please Login to the Platform</span>
-                <form onSubmit={this.handleSubmit}>
-                    <label className={"column is-full"}>
+                <form action={"http://localhost:4000/login"} method={"POST"} onSubmit={this.handleSubmit}>
+                    <label className={"is-full label"}>
                         Email
                     </label>
                     <input
                         id={"email"}
-                        className={"column is-full"}
+                        name={"email"}
+                        className={"is-full input"}
                         type="email"
                         value={this.state.email}
                         onChange={this.handleChange}
@@ -48,12 +71,13 @@ class LoginForm extends React.Component {
                             width: width
                         }}
                     />
-                    <label className={"column is-full"}>
+                    <label className={"is-full label"}>
                         Password
                     </label>
                     <input
                         id={"password"}
-                        className={"column is-full"}
+                        name={"password"}
+                        className={"is-full input"}
                         value={this.state.password}
                         onChange={this.handleChange}
                         type="password"
@@ -61,11 +85,11 @@ class LoginForm extends React.Component {
                             width: width
                         }}
                     />
-                    <label className={"column is-full"}>
-
+                    <label className={"is-full label"}>
                     </label>
                     <button
-                        className={"column is-full"}
+                        name={"submit"}
+                        className={"is-primary button"}
                         disabled={!this.validateForm()}
                         type="submit"
                         style={{
@@ -75,6 +99,12 @@ class LoginForm extends React.Component {
                         Login
                     </button>
                 </form>
+                <div style={{
+                    fontSize: "0.85em",
+                    paddingTop: "1em"
+                }}>
+                    Don't have an account yet ? <NavLink to="/register">Register</NavLink> here.
+                </div>
             </div>
         );
     }

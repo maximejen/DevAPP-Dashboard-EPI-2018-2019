@@ -21,7 +21,8 @@ class Weather extends React.Component {
     }
 
     componentWillMount() {
-        // TODO : ask the location of the user.
+        // TODO : ask the location of the user only if the configuration ask for the actual location.
+        // TODO : get the name of the city and put in the state.
     }
 
     render() {

@@ -9,9 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "graphql": "^14.0.2",
     "graphql-yoga": "^1.16.2",
-    "prisma": "^1.18.0",
-    "prisma-binding": "^2.1.6"
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "prisma-binding": "^2.1.6",
+    "uuid": "^3.3.2"
   }
 }
