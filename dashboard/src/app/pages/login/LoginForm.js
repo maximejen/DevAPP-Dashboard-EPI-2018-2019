@@ -1,6 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 
+import PropTypes from "prop-types";
+
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
@@ -10,6 +12,10 @@ class LoginForm extends React.Component {
             password: ""
         };
     }
+
+    static propTypes = {
+        updateUser: PropTypes.func
+    };
 
     validateForm() {
         return this.state.email.length > 0 && this.state.password.length > 0;
@@ -42,8 +48,11 @@ class LoginForm extends React.Component {
                 });
             })
             .then(response => {
-                // TODO : if response is 200 : redirect to home page.
-                console.log(response);
+                response.json()
+                    .then(data => {
+                        console.log(data);
+                        this.props.updateUser(data);
+                    })
             });
     };
 

@@ -4,11 +4,34 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Register from "../pages/Register";
 
-const Router = () => (
-    <Switch>
-        <Route exact path='/' component={Home}/>
-        <Route path='/login' component={Login}/>
-        <Route path='/register' component={Register}/>
-    </Switch>
-)
+class Router extends React.Component {
+    state = {
+        user: undefined
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.updateUser = this.updateUser.bind(this);
+    }
+
+    updateUser(newUser) {
+        this.setState({
+            user: newUser
+        })
+    }
+
+    render() {
+        return <Switch>
+            <Route exact path='/' render={() => {
+                return <Home user={this.state.user}/>;
+            }}/>
+            <Route path='/login' render={() => {
+                return <Login updateUser={this.updateUser}/>;
+            }}/>
+            <Route path='/register' component={Register}/>
+        </Switch>
+    }
+}
+
 export default Router

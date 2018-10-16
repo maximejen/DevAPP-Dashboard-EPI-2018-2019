@@ -21,7 +21,6 @@ type Auth {
   AccessToken: String!
   RefreshToken: String!
   Expire: Int!
-  User: User!
 }
 
 type AuthConnection {
@@ -36,25 +35,11 @@ input AuthCreateInput {
   AccessToken: String!
   RefreshToken: String!
   Expire: Int!
-  User: UserCreateOneWithoutAuthInput!
 }
 
 input AuthCreateOneInput {
   create: AuthCreateInput
   connect: AuthWhereUniqueInput
-}
-
-input AuthCreateOneWithoutUserInput {
-  create: AuthCreateWithoutUserInput
-  connect: AuthWhereUniqueInput
-}
-
-input AuthCreateWithoutUserInput {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
 }
 
 type AuthEdge {
@@ -113,7 +98,6 @@ input AuthUpdateDataInput {
   AccessToken: String
   RefreshToken: String
   Expire: Int
-  User: UserUpdateOneRequiredWithoutAuthInput
 }
 
 input AuthUpdateInput {
@@ -122,7 +106,6 @@ input AuthUpdateInput {
   AccessToken: String
   RefreshToken: String
   Expire: Int
-  User: UserUpdateOneRequiredWithoutAuthInput
 }
 
 input AuthUpdateOneRequiredInput {
@@ -132,31 +115,9 @@ input AuthUpdateOneRequiredInput {
   connect: AuthWhereUniqueInput
 }
 
-input AuthUpdateOneWithoutUserInput {
-  create: AuthCreateWithoutUserInput
-  update: AuthUpdateWithoutUserDataInput
-  upsert: AuthUpsertWithoutUserInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: AuthWhereUniqueInput
-}
-
-input AuthUpdateWithoutUserDataInput {
-  Id: ID
-  Type: String
-  AccessToken: String
-  RefreshToken: String
-  Expire: Int
-}
-
 input AuthUpsertNestedInput {
   update: AuthUpdateDataInput!
   create: AuthCreateInput!
-}
-
-input AuthUpsertWithoutUserInput {
-  update: AuthUpdateWithoutUserDataInput!
-  create: AuthCreateWithoutUserInput!
 }
 
 input AuthWhereInput {
@@ -224,7 +185,6 @@ input AuthWhereInput {
   Expire_lte: Int
   Expire_gt: Int
   Expire_gte: Int
-  User: UserWhereInput
   AND: [AuthWhereInput!]
   OR: [AuthWhereInput!]
   NOT: [AuthWhereInput!]
@@ -533,7 +493,7 @@ type User {
   Passwd: String!
   Email: String!
   WidgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
-  Auth: Auth
+  Token: String
 }
 
 type UserConnection {
@@ -548,20 +508,7 @@ input UserCreateInput {
   Passwd: String!
   Email: String!
   WidgetSpec: WidgetCreateManyInput
-  Auth: AuthCreateOneWithoutUserInput
-}
-
-input UserCreateOneWithoutAuthInput {
-  create: UserCreateWithoutAuthInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutAuthInput {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
-  WidgetSpec: WidgetCreateManyInput
+  Token: String
 }
 
 type UserEdge {
@@ -578,6 +525,8 @@ enum UserOrderByInput {
   Passwd_DESC
   Email_ASC
   Email_DESC
+  Token_ASC
+  Token_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -591,6 +540,7 @@ type UserPreviousValues {
   Name: String!
   Passwd: String!
   Email: String!
+  Token: String
 }
 
 type UserSubscriptionPayload {
@@ -617,27 +567,7 @@ input UserUpdateInput {
   Passwd: String
   Email: String
   WidgetSpec: WidgetUpdateManyInput
-  Auth: AuthUpdateOneWithoutUserInput
-}
-
-input UserUpdateOneRequiredWithoutAuthInput {
-  create: UserCreateWithoutAuthInput
-  update: UserUpdateWithoutAuthDataInput
-  upsert: UserUpsertWithoutAuthInput
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateWithoutAuthDataInput {
-  Id: ID
-  Name: String
-  Passwd: String
-  Email: String
-  WidgetSpec: WidgetUpdateManyInput
-}
-
-input UserUpsertWithoutAuthInput {
-  update: UserUpdateWithoutAuthDataInput!
-  create: UserCreateWithoutAuthInput!
+  Token: String
 }
 
 input UserWhereInput {
@@ -700,7 +630,20 @@ input UserWhereInput {
   WidgetSpec_every: WidgetWhereInput
   WidgetSpec_some: WidgetWhereInput
   WidgetSpec_none: WidgetWhereInput
-  Auth: AuthWhereInput
+  Token: String
+  Token_not: String
+  Token_in: [String!]
+  Token_not_in: [String!]
+  Token_lt: String
+  Token_lte: String
+  Token_gt: String
+  Token_gte: String
+  Token_contains: String
+  Token_not_contains: String
+  Token_starts_with: String
+  Token_not_starts_with: String
+  Token_ends_with: String
+  Token_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

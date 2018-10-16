@@ -1,7 +1,13 @@
 import React from 'react';
 import LoginForm from "./login/LoginForm";
 
+import PropTypes from "prop-types";
+
 class Login extends React.Component {
+    static propTypes = {
+        updateUser: PropTypes.func
+    };
+
     render() {
         return (
             <div style={{
@@ -13,7 +19,7 @@ class Login extends React.Component {
                 justifyContent: "center",
                 height: "80vh"
             }}>
-                <LoginForm/>
+                <LoginForm updateUser={this.props.updateUser}/>
             </div>
         );
     }
