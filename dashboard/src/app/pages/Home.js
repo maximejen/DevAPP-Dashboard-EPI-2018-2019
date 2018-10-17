@@ -5,6 +5,10 @@ import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 
 class Home extends React.Component {
+    state = {
+        isConnected: this.props.isConnected
+    };
+
     static propTypes = {
         isConnected: PropTypes.bool
     };
@@ -13,11 +17,20 @@ class Home extends React.Component {
         isConnected: false
     };
 
+    componentDidMount() {
+        let userToken = sessionStorage.getItem("userToken");
+        if (userToken !== undefined) {
+            this.setState({
+                isConnected: true
+            });
+        }
+    }
+
     render() {
-        console.log(this.props.isConnected);
-        if (this.props.isConnected === false) {
-            console.log("REDIRECT TO /login");
-            return <Redirect to={"/login"}/>;
+        if (this.state.isConnected === false) {
+            let userToken = sessionStorage.getItem("userToken");
+            if (userToken === undefined && userToken === null)
+                return <Redirect to={"/login"}/>;
         }
         return <div className={'home-content'}>
             <section className="hero" style={{

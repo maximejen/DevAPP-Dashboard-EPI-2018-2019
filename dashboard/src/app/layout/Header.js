@@ -6,7 +6,8 @@ import HomeButton from "./header/HomeButton";
 
 class Header extends React.Component {
     state = {
-        isBurgerMode: false
+        isBurgerMode: false,
+        user: this.props.user
     };
 
     static defaultProps = {
@@ -19,6 +20,21 @@ class Header extends React.Component {
         }));
     };
 
+    componentWillMount() {
+        let userToken = sessionStorage.getItem("userToken");
+        console.log(userToken);
+        if (userToken !== undefined && userToken !== null) {
+            this.setState({
+                user: {
+                    Token: userToken,
+                    Name: sessionStorage.getItem("userName"),
+                    Email: sessionStorage.getItem("userEmail"),
+                    Id: sessionStorage.getItem("userId"),
+                }
+            });
+        }
+    }
+
     render() {
         let navButton = (<div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
             <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
@@ -29,7 +45,7 @@ class Header extends React.Component {
             </div>
         </div>);
 
-        if (this.props.user !== undefined) {
+        if (this.state.user !== undefined) {
             navButton = (<div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
                 <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
                     <NavItem className="navbar-item" redirectTo={"/logout"} text={ "" } iconClass={"fas fa-sign-out-alt"}/>

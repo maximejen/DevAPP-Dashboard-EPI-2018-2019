@@ -5,6 +5,7 @@ import Login from '../pages/Login'
 import Register from "../pages/Register";
 
 import PropTypes from "prop-types"
+import Logout from "../pages/Logout";
 
 class Router extends React.Component {
     static propTypes = {
@@ -26,6 +27,7 @@ class Router extends React.Component {
                     return <Login updateUser={this.props.updateUser}/>;
                 }}/>
                 <Route path='/register' component={Register}/>
+                <Route path='/logout' component={Logout}/>
             </Switch>
         );
     }
