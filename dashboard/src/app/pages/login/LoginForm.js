@@ -1,7 +1,7 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
-
+import {NavLink, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
+
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -9,7 +9,8 @@ class LoginForm extends React.Component {
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            redirect: false
         };
     }
 
@@ -52,12 +53,20 @@ class LoginForm extends React.Component {
                     .then(data => {
                         console.log(data);
                         this.props.updateUser(data);
-                    })
+                        if (data !== undefined)
+                            this.setState({
+                                redirect: true
+                            })
+                    });
             });
     };
 
     render() {
         let width = "18em";
+        if (this.state.redirect) {
+            console.log("REDIRECT TO /");
+            return <Redirect to={"/"}/>;
+        }
         return (
             <div className="columns is-centered is-multiline is-1" style={{
                 backgroundColor: "white",

@@ -16,7 +16,7 @@ class WidgetGrid extends React.Component {
         ];
         return (
             <ResponsiveGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={window.innerWidth - 64} style={{
-                margin: "2rem",
+                padding: "2rem",
                 backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
             }}>
                 <div key="0" className={"columns is-centered"}>
