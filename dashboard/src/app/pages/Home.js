@@ -17,20 +17,10 @@ class Home extends React.Component {
         isConnected: false
     };
 
-    componentDidMount() {
-        let userToken = sessionStorage.getItem("userToken");
-        if (userToken !== undefined) {
-            this.setState({
-                isConnected: true
-            });
-        }
-    }
-
     render() {
+        console.log("is Connected in Home :", this.state.isConnected);
         if (this.state.isConnected === false) {
-            let userToken = sessionStorage.getItem("userToken");
-            if (userToken === undefined && userToken === null)
-                return <Redirect to={"/login"}/>;
+            return <Redirect to={"/login"}/>;
         }
         return <div className={'home-content'}>
             <section className="hero" style={{

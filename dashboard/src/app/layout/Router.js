@@ -24,10 +24,12 @@ class Router extends React.Component {
                     return <Home isConnected={this.props.isConnected}/>;
                 }}/>
                 <Route path='/login' render={() => {
-                    return <Login updateUser={this.props.updateUser}/>;
+                    return <Login isConnected={this.props.isConnected} updateUser={this.props.updateUser}/>;
                 }}/>
                 <Route path='/register' component={Register}/>
-                <Route path='/logout' component={Logout}/>
+                <Route path='/logout' render={() => {
+                    return <Logout updateUser={this.props.updateUser}/>
+                }}/>
             </Switch>
         );
     }

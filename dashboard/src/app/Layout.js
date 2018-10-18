@@ -15,16 +15,30 @@ class Layout extends React.Component {
     }
 
     state = {
-        user: undefined
+        user: undefined,
+        isConnected: false
     };
 
     updateUser(newUser) {
-        sessionStorage.setItem("userToken", newUser.Token);
-        sessionStorage.setItem("userName", newUser.Name);
-        sessionStorage.setItem("userId", newUser.Id);
-        sessionStorage.setItem("userEmail", newUser.Email);
+        sessionStorage.setItem("userToken", newUser ? newUser.Token : null);
+        sessionStorage.setItem("userName", newUser ? newUser.Name : null);
+        sessionStorage.setItem("userId", newUser ? newUser.Id : null);
+        sessionStorage.setItem("userEmail", newUser ? newUser.Email : null);
         this.setState({
-            user: newUser
+            user: newUser,
+            isConnected: !!newUser
+        });
+    }
+
+    componentDidMount() {
+        this.setState({
+            user: {
+                Token: sessionStorage.getItem("userToken"),
+                Name: sessionStorage.getItem("userName"),
+                Id: sessionStorage.getItem("userId"),
+                Email: sessionStorage.getItem("userEmail")
+            },
+            isConnected: sessionStorage.getItem("userToken") !== null
         })
     }
 
@@ -43,12 +57,12 @@ class Layout extends React.Component {
                     {'rel':'stylesheet', 'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'}
                 ]}
             />
-            <Header user={this.state.user}/>
+            <Header isConnected={this.state.isConnected} user={this.state.user}/>
             <Content style={{
                 paddingTop: "3em",
                 backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
             }}>
-                <Router isConnected={!!this.state.user} updateUser={this.updateUser}/>
+                <Router isConnected={this.state.isConnected} updateUser={this.updateUser}/>
             </Content>
         </Site>
     }

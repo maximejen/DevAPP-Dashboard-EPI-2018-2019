@@ -1,11 +1,28 @@
 import React from "react";
+import {Redirect} from "react-router-dom";
+import PropTypes from "prop-types";
 
 class Logout extends React.Component {
-    componentWillMount() {
-        sessionStorage.setItem("user", null);
+    state = {
+        redirect: false
+    };
+
+    static propTypes = {
+        updateUser: PropTypes.func
+    };
+
+    componentDidMount() {
+        this.props.updateUser(undefined);
+        setTimeout(function() {
+            this.setState({
+                redirect: true
+            })
+        }.bind(this), 2000);
     }
 
     render() {
+        if (this.state.redirect === true)
+            return <Redirect to={"/login"}/>;
         return <div style={{
             minHeight: "100%",
             backgroundSize: "cover",
@@ -20,7 +37,7 @@ class Logout extends React.Component {
                     borderRadius: "10px",
                     width: "20em",
                 }}>
-                    You are correctly logged out.
+                    You were correctly logged out.
                 </div>
             </div>
     }

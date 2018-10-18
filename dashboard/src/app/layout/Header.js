@@ -4,14 +4,22 @@ import NavBurger from "./header/NavBurger";
 import NavItem from "./header/NavItem";
 import HomeButton from "./header/HomeButton";
 
+import PropTypes from "prop-types";
+
 class Header extends React.Component {
     state = {
         isBurgerMode: false,
-        user: this.props.user
+        user: this.props.user,
+    };
+
+    static propTypes = {
+        user: PropTypes.object,
+        isConnected: PropTypes.bool
     };
 
     static defaultProps = {
-        user: undefined
+        user: undefined,
+        isConnected: false
     };
 
     toggleNav = () => {
@@ -20,22 +28,8 @@ class Header extends React.Component {
         }));
     };
 
-    componentWillMount() {
-        let userToken = sessionStorage.getItem("userToken");
-        console.log(userToken);
-        if (userToken !== undefined && userToken !== null) {
-            this.setState({
-                user: {
-                    Token: userToken,
-                    Name: sessionStorage.getItem("userName"),
-                    Email: sessionStorage.getItem("userEmail"),
-                    Id: sessionStorage.getItem("userId"),
-                }
-            });
-        }
-    }
-
     render() {
+        console.log("is Connected in Header :", this.state.isConnected);
         let navButton = (<div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
             <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
                 <NavItem className="navbar-item" redirectTo={"/login"} text={ "Login" } iconClass={"fas fa-user"}/>
@@ -45,14 +39,11 @@ class Header extends React.Component {
             </div>
         </div>);
 
-        if (this.state.user !== undefined) {
+        if (this.props.isConnected === true) {
             navButton = (<div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
                 <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
-                    <NavItem className="navbar-item" redirectTo={"/logout"} text={ "" } iconClass={"fas fa-sign-out-alt"}/>
+                    <NavItem className="navbar-item" redirectTo={"/logout"} text={ "Logout" } iconClass={"fas fa-sign-out-alt"}/>
                 </div>
-                {/*<div className="navbar-end navbar-item" style={{margin: "0"}}>*/}
-                    {/*<NavItem className="navbar-item" redirectTo={"/register"} text={ "Register" } iconClass={"fas fa-sign-out-alt"}/>*/}
-                {/*</div>*/}
             </div>);
         }
 

@@ -4,11 +4,6 @@ import PropTypes from "prop-types";
 import {NavLink} from 'react-router-dom'
 
 class NavItem extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {hasIcon: this.props.iconClass !== ""};
-    }
 
     static propTypes = {
         redirectTo: PropTypes.string,
@@ -24,7 +19,7 @@ class NavItem extends React.Component {
 
     render() {
         let toRender;
-        if (this.state.hasIcon) {
+        if (this.props.iconClass !== "") {
             toRender =
                 <NavLink className="navbar-item centered" to={this.props.redirectTo}>
                     <span className="icon has-text-primary" style={{marginRight: 5}}>

@@ -4,13 +4,22 @@ import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 
 class Login extends React.Component {
+    state = {
+        isConnected: this.props.isConnected
+    };
+
     static propTypes = {
-        updateUser: PropTypes.func
+        updateUser: PropTypes.func,
+        isConnected: PropTypes.bool
+    };
+
+    static defaultProps = {
+        isConnected: false
     };
 
     render() {
-        console.log(sessionStorage.getItem("userToken"), "IN LOGIN");
-        if (sessionStorage.getItem("userToken") !== undefined) {
+        console.log("is Connected in Login :", this.state.isConnected);
+        if (this.state.isConnected === true) {
             return <Redirect to={"/"}/>;
         }
         return (

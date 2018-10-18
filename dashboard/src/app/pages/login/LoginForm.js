@@ -30,7 +30,6 @@ class LoginForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-
         const url = "http://localhost:4000/login";
         const data = JSON.stringify({
             username: this.state.email,
