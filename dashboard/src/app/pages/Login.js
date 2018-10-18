@@ -18,7 +18,7 @@ class Login extends React.Component {
     };
 
     render() {
-        console.log("is Connected in Login :", this.state.isConnected);
+        console.log("is Connected in Login :", this.props.isConnected);
         if (this.state.isConnected === true) {
             return <Redirect to={"/"}/>;
         }

@@ -31,15 +31,22 @@ class Layout extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            user: {
-                Token: sessionStorage.getItem("userToken"),
-                Name: sessionStorage.getItem("userName"),
-                Id: sessionStorage.getItem("userId"),
-                Email: sessionStorage.getItem("userEmail")
-            },
-            isConnected: sessionStorage.getItem("userToken") !== null
-        })
+        if (sessionStorage.getItem("userToken") !== undefined && sessionStorage.getItem("userToken") !== "null") {
+            this.setState({
+                user: {
+                    Token: sessionStorage.getItem("userToken"),
+                    Name: sessionStorage.getItem("userName"),
+                    Id: sessionStorage.getItem("userId"),
+                    Email: sessionStorage.getItem("userEmail")
+                },
+                isConnected: sessionStorage.getItem("userToken") !== null
+            });
+        } else {
+            this.setState({
+                user: undefined,
+                isConnected: false
+            })
+        }
     }
 
     render() {
