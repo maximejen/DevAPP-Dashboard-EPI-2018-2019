@@ -23,6 +23,8 @@ const Footer = () => (
                 }}>
                     Made in <strong>React</strong> using <strong>Bulma</strong>
                     <br/>
+                    By L'e-Tron et la pédalle
+                    <br/>
                     Copyright 2018
                 </div>
                 <div className={"column is-4"}/>

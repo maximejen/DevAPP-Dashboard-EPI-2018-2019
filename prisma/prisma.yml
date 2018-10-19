@@ -9,4 +9,4 @@ generate:
 
 hooks:
   post-deploy:
-  - prisma generate
+    - prisma generate

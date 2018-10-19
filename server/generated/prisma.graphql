@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Thu Oct 18 2018 18:53:49 GMT+0200 (Central European Summer Time)
+# timestamp: Fri Oct 19 2018 21:17:08 GMT+0200 (Central European Summer Time)
 
 type AggregateAuth {
   count: Int!

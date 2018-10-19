@@ -13,11 +13,6 @@ class Config extends React.Component {
     };
 
     render() {
-        if (this.state.isConnected === false) {
-            let userToken = sessionStorage.getItem("userToken");
-            if (userToken === undefined && userToken === null)
-                return <Redirect to={"/login"}/>;
-        }
         return <div className={'home-content'}>
             <section className="hero" style={{
                 backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
