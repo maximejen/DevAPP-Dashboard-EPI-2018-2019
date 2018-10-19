@@ -29,12 +29,8 @@ class Header extends React.Component {
     };
 
     render() {
-        console.log("is Connected in Header :", this.props.isConnected);
         let navButton = (<div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
             <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
-                <NavItem className="navbar-item" redirectTo={"/login"} text={ "Login" } iconClass={"fas fa-user"}/>
-            </div>
-            <div className="navbar-end navbar-item" style={{margin: "0"}}>
                 <NavItem className="navbar-item" redirectTo={"/register"} text={ "Register" } iconClass={"fas fa-user"}/>
             </div>
         </div>);

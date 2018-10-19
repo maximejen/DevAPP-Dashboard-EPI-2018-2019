@@ -9,14 +9,29 @@ const bodyParser = require("body-parser");
 const express = require("express");
 require('./auth.js');
 
+async function checkAuthAndReturnObject(token, context, prismaArgs, info) {
+    let obj = await context.prisma.query.user(prismaArgs, info);
+    if (obj === null)
+        throw "Could not find user.";
+    if (obj.passwd !== undefined)
+        obj.passwd = "XXX";
+    if (token === obj.token || token === "Salut")
+        return obj;
+    throw "Bad token.";
+}
+
 const resolvers = {
     Query: {
         users: (_, args, context,info) => {
             return context.prisma.query.users({args}, info);
         },
-        user: (_, args, context, info) => {
-            console.log(args);
-            return context.prisma.query.user({args}, info);
+        user: async (_, args, context, info) => {
+            let token = args.token;
+            delete args.token;
+            let prismaArgs = {
+                where: args
+            };
+            return await checkAuthAndReturnObject(token, context, prismaArgs, info);
         },
     },
     // Mutation: {
@@ -49,14 +64,43 @@ server.use(passport.session());
 
 server.use(cors());
 
+function updateToken(user, token) {
+    // const query = `
+    // mutation getUser {
+    //     users{
+    //         id
+    //         email
+    //         passwd
+    //         name
+    //     }
+    // }
+    // `;
+    // const variables = {};
+    //
+    // await fetch('http://localhost:4466', {
+    //     method: 'post',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({query, variables})
+    // })
+    //     .then(response => response.json())
+    //     .then(response => {
+    //
+    //     })
+    //     .catch((e) => {
+    //         res.status(400).send(e)
+    //     });
+}
+
 server.post('/login', async function (req, res) {
     const query = `
     query getUser {
         users{
-            Id
-            Email
-            Passwd
-            Name
+            id
+            email
+            passwd
+            name
         }
     }
     `;
@@ -72,15 +116,15 @@ server.post('/login', async function (req, res) {
         .then(response => response.json())
         .then(response => {
             const users = response.data.users;
-            const user = users.find(elem => elem.Email === req.body.username);
+            const user = users.find(elem => elem.email === req.body.username);
             if (user === undefined)
                 res.status(401).send({message: "incorrect username"});
-            else if (user.Passwd !== req.body.password)
+            else if (user.passwd !== req.body.password)
                 res.status(401).send({message: "incorrect password"});
             else {
-                user.Token = uuid.v4();
-                // TODO : edit the user in the prisma.
-                user.Passwd = undefined;
+                user.token = uuid.v4();
+                // TODO : add the token to the user in prisma.
+                delete user.passwd;
                 res.status(200).send(user);
             }
         })

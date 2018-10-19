@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Sun Oct 14 2018 19:43:53 GMT+0200 (Central European Summer Time)
+# timestamp: Thu Oct 18 2018 18:53:49 GMT+0200 (Central European Summer Time)
 
 type AggregateAuth {
   count: Int!
@@ -17,13 +17,12 @@ type AggregateWidget {
   count: Int!
 }
 
-type Auth {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
-  User: User!
+type Auth implements Node {
+  id: ID!
+  type: String!
+  accessToken: String!
+  refreshToken: String!
+  expire: Int!
 }
 
 """A connection to a list of items."""
@@ -37,12 +36,10 @@ type AuthConnection {
 }
 
 input AuthCreateInput {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
-  User: UserCreateOneInput!
+  type: String!
+  accessToken: String!
+  refreshToken: String!
+  expire: Int!
 }
 
 input AuthCreateOneInput {
@@ -60,18 +57,16 @@ type AuthEdge {
 }
 
 enum AuthOrderByInput {
-  Id_ASC
-  Id_DESC
-  Type_ASC
-  Type_DESC
-  AccessToken_ASC
-  AccessToken_DESC
-  RefreshToken_ASC
-  RefreshToken_DESC
-  Expire_ASC
-  Expire_DESC
   id_ASC
   id_DESC
+  type_ASC
+  type_DESC
+  accessToken_ASC
+  accessToken_DESC
+  refreshToken_ASC
+  refreshToken_DESC
+  expire_ASC
+  expire_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -79,11 +74,11 @@ enum AuthOrderByInput {
 }
 
 type AuthPreviousValues {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
+  id: ID!
+  type: String!
+  accessToken: String!
+  refreshToken: String!
+  expire: Int!
 }
 
 type AuthSubscriptionPayload {
@@ -126,30 +121,17 @@ input AuthSubscriptionWhereInput {
 }
 
 input AuthUpdateDataInput {
-  Id: ID
-  Type: String
-  AccessToken: String
-  RefreshToken: String
-  Expire: Int
-  User: UserUpdateOneRequiredInput
+  type: String
+  accessToken: String
+  refreshToken: String
+  expire: Int
 }
 
 input AuthUpdateInput {
-  Id: ID
-  Type: String
-  AccessToken: String
-  RefreshToken: String
-  Expire: Int
-  User: UserUpdateOneRequiredInput
-}
-
-input AuthUpdateOneInput {
-  create: AuthCreateInput
-  connect: AuthWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: AuthUpdateDataInput
-  upsert: AuthUpsertNestedInput
+  type: String
+  accessToken: String
+  refreshToken: String
+  expire: Int
 }
 
 input AuthUpdateOneRequiredInput {
@@ -173,193 +155,192 @@ input AuthWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [AuthWhereInput!]
-  Id: ID
+  id: ID
 
   """All values that are not equal to given value."""
-  Id_not: ID
+  id_not: ID
 
   """All values that are contained in given list."""
-  Id_in: [ID!]
+  id_in: [ID!]
 
   """All values that are not contained in given list."""
-  Id_not_in: [ID!]
+  id_not_in: [ID!]
 
   """All values less than the given value."""
-  Id_lt: ID
+  id_lt: ID
 
   """All values less than or equal the given value."""
-  Id_lte: ID
+  id_lte: ID
 
   """All values greater than the given value."""
-  Id_gt: ID
+  id_gt: ID
 
   """All values greater than or equal the given value."""
-  Id_gte: ID
+  id_gte: ID
 
   """All values containing the given string."""
-  Id_contains: ID
+  id_contains: ID
 
   """All values not containing the given string."""
-  Id_not_contains: ID
+  id_not_contains: ID
 
   """All values starting with the given string."""
-  Id_starts_with: ID
+  id_starts_with: ID
 
   """All values not starting with the given string."""
-  Id_not_starts_with: ID
+  id_not_starts_with: ID
 
   """All values ending with the given string."""
-  Id_ends_with: ID
+  id_ends_with: ID
 
   """All values not ending with the given string."""
-  Id_not_ends_with: ID
-  Type: String
+  id_not_ends_with: ID
+  type: String
 
   """All values that are not equal to given value."""
-  Type_not: String
+  type_not: String
 
   """All values that are contained in given list."""
-  Type_in: [String!]
+  type_in: [String!]
 
   """All values that are not contained in given list."""
-  Type_not_in: [String!]
+  type_not_in: [String!]
 
   """All values less than the given value."""
-  Type_lt: String
+  type_lt: String
 
   """All values less than or equal the given value."""
-  Type_lte: String
+  type_lte: String
 
   """All values greater than the given value."""
-  Type_gt: String
+  type_gt: String
 
   """All values greater than or equal the given value."""
-  Type_gte: String
+  type_gte: String
 
   """All values containing the given string."""
-  Type_contains: String
+  type_contains: String
 
   """All values not containing the given string."""
-  Type_not_contains: String
+  type_not_contains: String
 
   """All values starting with the given string."""
-  Type_starts_with: String
+  type_starts_with: String
 
   """All values not starting with the given string."""
-  Type_not_starts_with: String
+  type_not_starts_with: String
 
   """All values ending with the given string."""
-  Type_ends_with: String
+  type_ends_with: String
 
   """All values not ending with the given string."""
-  Type_not_ends_with: String
-  AccessToken: String
+  type_not_ends_with: String
+  accessToken: String
 
   """All values that are not equal to given value."""
-  AccessToken_not: String
+  accessToken_not: String
 
   """All values that are contained in given list."""
-  AccessToken_in: [String!]
+  accessToken_in: [String!]
 
   """All values that are not contained in given list."""
-  AccessToken_not_in: [String!]
+  accessToken_not_in: [String!]
 
   """All values less than the given value."""
-  AccessToken_lt: String
+  accessToken_lt: String
 
   """All values less than or equal the given value."""
-  AccessToken_lte: String
+  accessToken_lte: String
 
   """All values greater than the given value."""
-  AccessToken_gt: String
+  accessToken_gt: String
 
   """All values greater than or equal the given value."""
-  AccessToken_gte: String
+  accessToken_gte: String
 
   """All values containing the given string."""
-  AccessToken_contains: String
+  accessToken_contains: String
 
   """All values not containing the given string."""
-  AccessToken_not_contains: String
+  accessToken_not_contains: String
 
   """All values starting with the given string."""
-  AccessToken_starts_with: String
+  accessToken_starts_with: String
 
   """All values not starting with the given string."""
-  AccessToken_not_starts_with: String
+  accessToken_not_starts_with: String
 
   """All values ending with the given string."""
-  AccessToken_ends_with: String
+  accessToken_ends_with: String
 
   """All values not ending with the given string."""
-  AccessToken_not_ends_with: String
-  RefreshToken: String
+  accessToken_not_ends_with: String
+  refreshToken: String
 
   """All values that are not equal to given value."""
-  RefreshToken_not: String
+  refreshToken_not: String
 
   """All values that are contained in given list."""
-  RefreshToken_in: [String!]
+  refreshToken_in: [String!]
 
   """All values that are not contained in given list."""
-  RefreshToken_not_in: [String!]
+  refreshToken_not_in: [String!]
 
   """All values less than the given value."""
-  RefreshToken_lt: String
+  refreshToken_lt: String
 
   """All values less than or equal the given value."""
-  RefreshToken_lte: String
+  refreshToken_lte: String
 
   """All values greater than the given value."""
-  RefreshToken_gt: String
+  refreshToken_gt: String
 
   """All values greater than or equal the given value."""
-  RefreshToken_gte: String
+  refreshToken_gte: String
 
   """All values containing the given string."""
-  RefreshToken_contains: String
+  refreshToken_contains: String
 
   """All values not containing the given string."""
-  RefreshToken_not_contains: String
+  refreshToken_not_contains: String
 
   """All values starting with the given string."""
-  RefreshToken_starts_with: String
+  refreshToken_starts_with: String
 
   """All values not starting with the given string."""
-  RefreshToken_not_starts_with: String
+  refreshToken_not_starts_with: String
 
   """All values ending with the given string."""
-  RefreshToken_ends_with: String
+  refreshToken_ends_with: String
 
   """All values not ending with the given string."""
-  RefreshToken_not_ends_with: String
-  Expire: Int
+  refreshToken_not_ends_with: String
+  expire: Int
 
   """All values that are not equal to given value."""
-  Expire_not: Int
+  expire_not: Int
 
   """All values that are contained in given list."""
-  Expire_in: [Int!]
+  expire_in: [Int!]
 
   """All values that are not contained in given list."""
-  Expire_not_in: [Int!]
+  expire_not_in: [Int!]
 
   """All values less than the given value."""
-  Expire_lt: Int
+  expire_lt: Int
 
   """All values less than or equal the given value."""
-  Expire_lte: Int
+  expire_lte: Int
 
   """All values greater than the given value."""
-  Expire_gt: Int
+  expire_gt: Int
 
   """All values greater than or equal the given value."""
-  Expire_gte: Int
-  User: UserWhereInput
+  expire_gte: Int
 }
 
 input AuthWhereUniqueInput {
-  Id: ID
+  id: ID
 }
 
 type BatchPayload {
@@ -368,16 +349,16 @@ type BatchPayload {
 }
 
 type Config {
-  PosX: Int!
-  PosY: Int!
-  Height: Int!
-  MinHeight: Int!
-  MaxHeight: Int!
-  Width: Int!
-  MinWidth: Int!
-  MaxWidth: Int!
-  Static: Boolean!
-  Location: String!
+  posX: Int!
+  posY: Int!
+  height: Int!
+  minHeight: Int!
+  maxHeight: Int!
+  width: Int!
+  minWidth: Int!
+  maxWidth: Int!
+  static: Boolean!
+  location: String!
 }
 
 """A connection to a list of items."""
@@ -391,16 +372,16 @@ type ConfigConnection {
 }
 
 input ConfigCreateInput {
-  PosX: Int!
-  PosY: Int!
-  Height: Int!
-  MinHeight: Int!
-  MaxHeight: Int!
-  Width: Int!
-  MinWidth: Int!
-  MaxWidth: Int!
-  Static: Boolean!
-  Location: String!
+  posX: Int!
+  posY: Int!
+  height: Int!
+  minHeight: Int!
+  maxHeight: Int!
+  width: Int!
+  minWidth: Int!
+  maxWidth: Int!
+  static: Boolean!
+  location: String!
 }
 
 input ConfigCreateOneInput {
@@ -417,26 +398,26 @@ type ConfigEdge {
 }
 
 enum ConfigOrderByInput {
-  PosX_ASC
-  PosX_DESC
-  PosY_ASC
-  PosY_DESC
-  Height_ASC
-  Height_DESC
-  MinHeight_ASC
-  MinHeight_DESC
-  MaxHeight_ASC
-  MaxHeight_DESC
-  Width_ASC
-  Width_DESC
-  MinWidth_ASC
-  MinWidth_DESC
-  MaxWidth_ASC
-  MaxWidth_DESC
-  Static_ASC
-  Static_DESC
-  Location_ASC
-  Location_DESC
+  posX_ASC
+  posX_DESC
+  posY_ASC
+  posY_DESC
+  height_ASC
+  height_DESC
+  minHeight_ASC
+  minHeight_DESC
+  maxHeight_ASC
+  maxHeight_DESC
+  width_ASC
+  width_DESC
+  minWidth_ASC
+  minWidth_DESC
+  maxWidth_ASC
+  maxWidth_DESC
+  static_ASC
+  static_DESC
+  location_ASC
+  location_DESC
   id_ASC
   id_DESC
   updatedAt_ASC
@@ -446,16 +427,16 @@ enum ConfigOrderByInput {
 }
 
 type ConfigPreviousValues {
-  PosX: Int!
-  PosY: Int!
-  Height: Int!
-  MinHeight: Int!
-  MaxHeight: Int!
-  Width: Int!
-  MinWidth: Int!
-  MaxWidth: Int!
-  Static: Boolean!
-  Location: String!
+  posX: Int!
+  posY: Int!
+  height: Int!
+  minHeight: Int!
+  maxHeight: Int!
+  width: Int!
+  minWidth: Int!
+  maxWidth: Int!
+  static: Boolean!
+  location: String!
 }
 
 type ConfigSubscriptionPayload {
@@ -498,29 +479,29 @@ input ConfigSubscriptionWhereInput {
 }
 
 input ConfigUpdateDataInput {
-  PosX: Int
-  PosY: Int
-  Height: Int
-  MinHeight: Int
-  MaxHeight: Int
-  Width: Int
-  MinWidth: Int
-  MaxWidth: Int
-  Static: Boolean
-  Location: String
+  posX: Int
+  posY: Int
+  height: Int
+  minHeight: Int
+  maxHeight: Int
+  width: Int
+  minWidth: Int
+  maxWidth: Int
+  static: Boolean
+  location: String
 }
 
 input ConfigUpdateInput {
-  PosX: Int
-  PosY: Int
-  Height: Int
-  MinHeight: Int
-  MaxHeight: Int
-  Width: Int
-  MinWidth: Int
-  MaxWidth: Int
-  Static: Boolean
-  Location: String
+  posX: Int
+  posY: Int
+  height: Int
+  minHeight: Int
+  maxHeight: Int
+  width: Int
+  minWidth: Int
+  maxWidth: Int
+  static: Boolean
+  location: String
 }
 
 input ConfigUpdateOneRequiredInput {
@@ -543,227 +524,229 @@ input ConfigWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [ConfigWhereInput!]
-  PosX: Int
+  posX: Int
 
   """All values that are not equal to given value."""
-  PosX_not: Int
+  posX_not: Int
 
   """All values that are contained in given list."""
-  PosX_in: [Int!]
+  posX_in: [Int!]
 
   """All values that are not contained in given list."""
-  PosX_not_in: [Int!]
+  posX_not_in: [Int!]
 
   """All values less than the given value."""
-  PosX_lt: Int
+  posX_lt: Int
 
   """All values less than or equal the given value."""
-  PosX_lte: Int
+  posX_lte: Int
 
   """All values greater than the given value."""
-  PosX_gt: Int
+  posX_gt: Int
 
   """All values greater than or equal the given value."""
-  PosX_gte: Int
-  PosY: Int
+  posX_gte: Int
+  posY: Int
 
   """All values that are not equal to given value."""
-  PosY_not: Int
+  posY_not: Int
 
   """All values that are contained in given list."""
-  PosY_in: [Int!]
+  posY_in: [Int!]
 
   """All values that are not contained in given list."""
-  PosY_not_in: [Int!]
+  posY_not_in: [Int!]
 
   """All values less than the given value."""
-  PosY_lt: Int
+  posY_lt: Int
 
   """All values less than or equal the given value."""
-  PosY_lte: Int
+  posY_lte: Int
 
   """All values greater than the given value."""
-  PosY_gt: Int
+  posY_gt: Int
 
   """All values greater than or equal the given value."""
-  PosY_gte: Int
-  Height: Int
+  posY_gte: Int
+  height: Int
 
   """All values that are not equal to given value."""
-  Height_not: Int
+  height_not: Int
 
   """All values that are contained in given list."""
-  Height_in: [Int!]
+  height_in: [Int!]
 
   """All values that are not contained in given list."""
-  Height_not_in: [Int!]
+  height_not_in: [Int!]
 
   """All values less than the given value."""
-  Height_lt: Int
+  height_lt: Int
 
   """All values less than or equal the given value."""
-  Height_lte: Int
+  height_lte: Int
 
   """All values greater than the given value."""
-  Height_gt: Int
+  height_gt: Int
 
   """All values greater than or equal the given value."""
-  Height_gte: Int
-  MinHeight: Int
+  height_gte: Int
+  minHeight: Int
 
   """All values that are not equal to given value."""
-  MinHeight_not: Int
+  minHeight_not: Int
 
   """All values that are contained in given list."""
-  MinHeight_in: [Int!]
+  minHeight_in: [Int!]
 
   """All values that are not contained in given list."""
-  MinHeight_not_in: [Int!]
+  minHeight_not_in: [Int!]
 
   """All values less than the given value."""
-  MinHeight_lt: Int
+  minHeight_lt: Int
 
   """All values less than or equal the given value."""
-  MinHeight_lte: Int
+  minHeight_lte: Int
 
   """All values greater than the given value."""
-  MinHeight_gt: Int
+  minHeight_gt: Int
 
   """All values greater than or equal the given value."""
-  MinHeight_gte: Int
-  MaxHeight: Int
+  minHeight_gte: Int
+  maxHeight: Int
 
   """All values that are not equal to given value."""
-  MaxHeight_not: Int
+  maxHeight_not: Int
 
   """All values that are contained in given list."""
-  MaxHeight_in: [Int!]
+  maxHeight_in: [Int!]
 
   """All values that are not contained in given list."""
-  MaxHeight_not_in: [Int!]
+  maxHeight_not_in: [Int!]
 
   """All values less than the given value."""
-  MaxHeight_lt: Int
+  maxHeight_lt: Int
 
   """All values less than or equal the given value."""
-  MaxHeight_lte: Int
+  maxHeight_lte: Int
 
   """All values greater than the given value."""
-  MaxHeight_gt: Int
+  maxHeight_gt: Int
 
   """All values greater than or equal the given value."""
-  MaxHeight_gte: Int
-  Width: Int
+  maxHeight_gte: Int
+  width: Int
 
   """All values that are not equal to given value."""
-  Width_not: Int
+  width_not: Int
 
   """All values that are contained in given list."""
-  Width_in: [Int!]
+  width_in: [Int!]
 
   """All values that are not contained in given list."""
-  Width_not_in: [Int!]
+  width_not_in: [Int!]
 
   """All values less than the given value."""
-  Width_lt: Int
+  width_lt: Int
 
   """All values less than or equal the given value."""
-  Width_lte: Int
+  width_lte: Int
 
   """All values greater than the given value."""
-  Width_gt: Int
+  width_gt: Int
 
   """All values greater than or equal the given value."""
-  Width_gte: Int
-  MinWidth: Int
+  width_gte: Int
+  minWidth: Int
 
   """All values that are not equal to given value."""
-  MinWidth_not: Int
+  minWidth_not: Int
 
   """All values that are contained in given list."""
-  MinWidth_in: [Int!]
+  minWidth_in: [Int!]
 
   """All values that are not contained in given list."""
-  MinWidth_not_in: [Int!]
+  minWidth_not_in: [Int!]
 
   """All values less than the given value."""
-  MinWidth_lt: Int
+  minWidth_lt: Int
 
   """All values less than or equal the given value."""
-  MinWidth_lte: Int
+  minWidth_lte: Int
 
   """All values greater than the given value."""
-  MinWidth_gt: Int
+  minWidth_gt: Int
 
   """All values greater than or equal the given value."""
-  MinWidth_gte: Int
-  MaxWidth: Int
+  minWidth_gte: Int
+  maxWidth: Int
 
   """All values that are not equal to given value."""
-  MaxWidth_not: Int
+  maxWidth_not: Int
 
   """All values that are contained in given list."""
-  MaxWidth_in: [Int!]
+  maxWidth_in: [Int!]
 
   """All values that are not contained in given list."""
-  MaxWidth_not_in: [Int!]
+  maxWidth_not_in: [Int!]
 
   """All values less than the given value."""
-  MaxWidth_lt: Int
+  maxWidth_lt: Int
 
   """All values less than or equal the given value."""
-  MaxWidth_lte: Int
+  maxWidth_lte: Int
 
   """All values greater than the given value."""
-  MaxWidth_gt: Int
+  maxWidth_gt: Int
 
   """All values greater than or equal the given value."""
-  MaxWidth_gte: Int
-  Static: Boolean
+  maxWidth_gte: Int
+  static: Boolean
 
   """All values that are not equal to given value."""
-  Static_not: Boolean
-  Location: String
+  static_not: Boolean
+  location: String
 
   """All values that are not equal to given value."""
-  Location_not: String
+  location_not: String
 
   """All values that are contained in given list."""
-  Location_in: [String!]
+  location_in: [String!]
 
   """All values that are not contained in given list."""
-  Location_not_in: [String!]
+  location_not_in: [String!]
 
   """All values less than the given value."""
-  Location_lt: String
+  location_lt: String
 
   """All values less than or equal the given value."""
-  Location_lte: String
+  location_lte: String
 
   """All values greater than the given value."""
-  Location_gt: String
+  location_gt: String
 
   """All values greater than or equal the given value."""
-  Location_gte: String
+  location_gte: String
 
   """All values containing the given string."""
-  Location_contains: String
+  location_contains: String
 
   """All values not containing the given string."""
-  Location_not_contains: String
+  location_not_contains: String
 
   """All values starting with the given string."""
-  Location_starts_with: String
+  location_starts_with: String
 
   """All values not starting with the given string."""
-  Location_not_starts_with: String
+  location_not_starts_with: String
 
   """All values ending with the given string."""
-  Location_ends_with: String
+  location_ends_with: String
 
   """All values not ending with the given string."""
-  Location_not_ends_with: String
+  location_not_ends_with: String
 }
+
+scalar DateTime
 
 """Raw JSON value"""
 scalar Json
@@ -775,27 +758,27 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createConfig(data: ConfigCreateInput!): Config!
-  createAuth(data: AuthCreateInput!): Auth!
-  createWidget(data: WidgetCreateInput!): Widget!
   createUser(data: UserCreateInput!): User!
-  updateAuth(data: AuthUpdateInput!, where: AuthWhereUniqueInput!): Auth
-  updateWidget(data: WidgetUpdateInput!, where: WidgetWhereUniqueInput!): Widget
+  createConfig(data: ConfigCreateInput!): Config!
+  createWidget(data: WidgetCreateInput!): Widget!
+  createAuth(data: AuthCreateInput!): Auth!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteAuth(where: AuthWhereUniqueInput!): Auth
-  deleteWidget(where: WidgetWhereUniqueInput!): Widget
+  updateWidget(data: WidgetUpdateInput!, where: WidgetWhereUniqueInput!): Widget
+  updateAuth(data: AuthUpdateInput!, where: AuthWhereUniqueInput!): Auth
   deleteUser(where: UserWhereUniqueInput!): User
-  upsertAuth(where: AuthWhereUniqueInput!, create: AuthCreateInput!, update: AuthUpdateInput!): Auth!
-  upsertWidget(where: WidgetWhereUniqueInput!, create: WidgetCreateInput!, update: WidgetUpdateInput!): Widget!
+  deleteWidget(where: WidgetWhereUniqueInput!): Widget
+  deleteAuth(where: AuthWhereUniqueInput!): Auth
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyConfigs(data: ConfigUpdateInput!, where: ConfigWhereInput): BatchPayload!
-  updateManyAuths(data: AuthUpdateInput!, where: AuthWhereInput): BatchPayload!
-  updateManyWidgets(data: WidgetUpdateInput!, where: WidgetWhereInput): BatchPayload!
+  upsertWidget(where: WidgetWhereUniqueInput!, create: WidgetCreateInput!, update: WidgetUpdateInput!): Widget!
+  upsertAuth(where: AuthWhereUniqueInput!, create: AuthCreateInput!, update: AuthUpdateInput!): Auth!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  deleteManyConfigs(where: ConfigWhereInput): BatchPayload!
-  deleteManyAuths(where: AuthWhereInput): BatchPayload!
-  deleteManyWidgets(where: WidgetWhereInput): BatchPayload!
+  updateManyConfigs(data: ConfigUpdateInput!, where: ConfigWhereInput): BatchPayload!
+  updateManyWidgets(data: WidgetUpdateInput!, where: WidgetWhereInput): BatchPayload!
+  updateManyAuths(data: AuthUpdateInput!, where: AuthWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyConfigs(where: ConfigWhereInput): BatchPayload!
+  deleteManyWidgets(where: WidgetWhereInput): BatchPayload!
+  deleteManyAuths(where: AuthWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -831,17 +814,17 @@ enum PrismaDatabase {
 }
 
 type Query {
-  configs(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Config]!
-  auths(where: AuthWhereInput, orderBy: AuthOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Auth]!
-  widgets(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  auth(where: AuthWhereUniqueInput!): Auth
-  widget(where: WidgetWhereUniqueInput!): Widget
+  configs(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Config]!
+  widgets(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget]!
+  auths(where: AuthWhereInput, orderBy: AuthOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Auth]!
   user(where: UserWhereUniqueInput!): User
-  configsConnection(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConfigConnection!
-  authsConnection(where: AuthWhereInput, orderBy: AuthOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthConnection!
-  widgetsConnection(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WidgetConnection!
+  widget(where: WidgetWhereUniqueInput!): Widget
+  auth(where: AuthWhereUniqueInput!): Auth
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  configsConnection(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConfigConnection!
+  widgetsConnection(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WidgetConnection!
+  authsConnection(where: AuthWhereInput, orderBy: AuthOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -851,19 +834,20 @@ type Query {
 }
 
 type Subscription {
-  config(where: ConfigSubscriptionWhereInput): ConfigSubscriptionPayload
-  auth(where: AuthSubscriptionWhereInput): AuthSubscriptionPayload
-  widget(where: WidgetSubscriptionWhereInput): WidgetSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  config(where: ConfigSubscriptionWhereInput): ConfigSubscriptionPayload
+  widget(where: WidgetSubscriptionWhereInput): WidgetSubscriptionPayload
+  auth(where: AuthSubscriptionWhereInput): AuthSubscriptionPayload
 }
 
-type User {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
-  WidgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
-  Auth: Auth
+type User implements Node {
+  id: ID!
+  name: String!
+  passwd: String!
+  email: String!
+  widgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
+  token: String
+  connectionDate: DateTime
 }
 
 """A connection to a list of items."""
@@ -877,17 +861,12 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
-  WidgetSpec: WidgetCreateManyInput
-  Auth: AuthCreateOneInput
-}
-
-input UserCreateOneInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
+  name: String!
+  passwd: String!
+  email: String!
+  token: String
+  connectionDate: DateTime
+  widgetSpec: WidgetCreateManyInput
 }
 
 """An edge in a connection."""
@@ -900,16 +879,18 @@ type UserEdge {
 }
 
 enum UserOrderByInput {
-  Id_ASC
-  Id_DESC
-  Name_ASC
-  Name_DESC
-  Passwd_ASC
-  Passwd_DESC
-  Email_ASC
-  Email_DESC
   id_ASC
   id_DESC
+  name_ASC
+  name_DESC
+  passwd_ASC
+  passwd_DESC
+  email_ASC
+  email_DESC
+  token_ASC
+  token_DESC
+  connectionDate_ASC
+  connectionDate_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -917,10 +898,12 @@ enum UserOrderByInput {
 }
 
 type UserPreviousValues {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
+  id: ID!
+  name: String!
+  passwd: String!
+  email: String!
+  token: String
+  connectionDate: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -962,34 +945,13 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
-input UserUpdateDataInput {
-  Id: ID
-  Name: String
-  Passwd: String
-  Email: String
-  WidgetSpec: WidgetUpdateManyInput
-  Auth: AuthUpdateOneInput
-}
-
 input UserUpdateInput {
-  Id: ID
-  Name: String
-  Passwd: String
-  Email: String
-  WidgetSpec: WidgetUpdateManyInput
-  Auth: AuthUpdateOneInput
-}
-
-input UserUpdateOneRequiredInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
-}
-
-input UserUpsertNestedInput {
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
+  name: String
+  passwd: String
+  email: String
+  token: String
+  connectionDate: DateTime
+  widgetSpec: WidgetUpdateManyInput
 }
 
 input UserWhereInput {
@@ -1001,185 +963,246 @@ input UserWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [UserWhereInput!]
-  Id: ID
+  id: ID
 
   """All values that are not equal to given value."""
-  Id_not: ID
+  id_not: ID
 
   """All values that are contained in given list."""
-  Id_in: [ID!]
+  id_in: [ID!]
 
   """All values that are not contained in given list."""
-  Id_not_in: [ID!]
+  id_not_in: [ID!]
 
   """All values less than the given value."""
-  Id_lt: ID
+  id_lt: ID
 
   """All values less than or equal the given value."""
-  Id_lte: ID
+  id_lte: ID
 
   """All values greater than the given value."""
-  Id_gt: ID
+  id_gt: ID
 
   """All values greater than or equal the given value."""
-  Id_gte: ID
+  id_gte: ID
 
   """All values containing the given string."""
-  Id_contains: ID
+  id_contains: ID
 
   """All values not containing the given string."""
-  Id_not_contains: ID
+  id_not_contains: ID
 
   """All values starting with the given string."""
-  Id_starts_with: ID
+  id_starts_with: ID
 
   """All values not starting with the given string."""
-  Id_not_starts_with: ID
+  id_not_starts_with: ID
 
   """All values ending with the given string."""
-  Id_ends_with: ID
+  id_ends_with: ID
 
   """All values not ending with the given string."""
-  Id_not_ends_with: ID
-  Name: String
+  id_not_ends_with: ID
+  name: String
 
   """All values that are not equal to given value."""
-  Name_not: String
+  name_not: String
 
   """All values that are contained in given list."""
-  Name_in: [String!]
+  name_in: [String!]
 
   """All values that are not contained in given list."""
-  Name_not_in: [String!]
+  name_not_in: [String!]
 
   """All values less than the given value."""
-  Name_lt: String
+  name_lt: String
 
   """All values less than or equal the given value."""
-  Name_lte: String
+  name_lte: String
 
   """All values greater than the given value."""
-  Name_gt: String
+  name_gt: String
 
   """All values greater than or equal the given value."""
-  Name_gte: String
+  name_gte: String
 
   """All values containing the given string."""
-  Name_contains: String
+  name_contains: String
 
   """All values not containing the given string."""
-  Name_not_contains: String
+  name_not_contains: String
 
   """All values starting with the given string."""
-  Name_starts_with: String
+  name_starts_with: String
 
   """All values not starting with the given string."""
-  Name_not_starts_with: String
+  name_not_starts_with: String
 
   """All values ending with the given string."""
-  Name_ends_with: String
+  name_ends_with: String
 
   """All values not ending with the given string."""
-  Name_not_ends_with: String
-  Passwd: String
+  name_not_ends_with: String
+  passwd: String
 
   """All values that are not equal to given value."""
-  Passwd_not: String
+  passwd_not: String
 
   """All values that are contained in given list."""
-  Passwd_in: [String!]
+  passwd_in: [String!]
 
   """All values that are not contained in given list."""
-  Passwd_not_in: [String!]
+  passwd_not_in: [String!]
 
   """All values less than the given value."""
-  Passwd_lt: String
+  passwd_lt: String
 
   """All values less than or equal the given value."""
-  Passwd_lte: String
+  passwd_lte: String
 
   """All values greater than the given value."""
-  Passwd_gt: String
+  passwd_gt: String
 
   """All values greater than or equal the given value."""
-  Passwd_gte: String
+  passwd_gte: String
 
   """All values containing the given string."""
-  Passwd_contains: String
+  passwd_contains: String
 
   """All values not containing the given string."""
-  Passwd_not_contains: String
+  passwd_not_contains: String
 
   """All values starting with the given string."""
-  Passwd_starts_with: String
+  passwd_starts_with: String
 
   """All values not starting with the given string."""
-  Passwd_not_starts_with: String
+  passwd_not_starts_with: String
 
   """All values ending with the given string."""
-  Passwd_ends_with: String
+  passwd_ends_with: String
 
   """All values not ending with the given string."""
-  Passwd_not_ends_with: String
-  Email: String
+  passwd_not_ends_with: String
+  email: String
 
   """All values that are not equal to given value."""
-  Email_not: String
+  email_not: String
 
   """All values that are contained in given list."""
-  Email_in: [String!]
+  email_in: [String!]
 
   """All values that are not contained in given list."""
-  Email_not_in: [String!]
+  email_not_in: [String!]
 
   """All values less than the given value."""
-  Email_lt: String
+  email_lt: String
 
   """All values less than or equal the given value."""
-  Email_lte: String
+  email_lte: String
 
   """All values greater than the given value."""
-  Email_gt: String
+  email_gt: String
 
   """All values greater than or equal the given value."""
-  Email_gte: String
+  email_gte: String
 
   """All values containing the given string."""
-  Email_contains: String
+  email_contains: String
 
   """All values not containing the given string."""
-  Email_not_contains: String
+  email_not_contains: String
 
   """All values starting with the given string."""
-  Email_starts_with: String
+  email_starts_with: String
 
   """All values not starting with the given string."""
-  Email_not_starts_with: String
+  email_not_starts_with: String
 
   """All values ending with the given string."""
-  Email_ends_with: String
+  email_ends_with: String
 
   """All values not ending with the given string."""
-  Email_not_ends_with: String
-  WidgetSpec_every: WidgetWhereInput
-  WidgetSpec_some: WidgetWhereInput
-  WidgetSpec_none: WidgetWhereInput
-  Auth: AuthWhereInput
+  email_not_ends_with: String
+  token: String
+
+  """All values that are not equal to given value."""
+  token_not: String
+
+  """All values that are contained in given list."""
+  token_in: [String!]
+
+  """All values that are not contained in given list."""
+  token_not_in: [String!]
+
+  """All values less than the given value."""
+  token_lt: String
+
+  """All values less than or equal the given value."""
+  token_lte: String
+
+  """All values greater than the given value."""
+  token_gt: String
+
+  """All values greater than or equal the given value."""
+  token_gte: String
+
+  """All values containing the given string."""
+  token_contains: String
+
+  """All values not containing the given string."""
+  token_not_contains: String
+
+  """All values starting with the given string."""
+  token_starts_with: String
+
+  """All values not starting with the given string."""
+  token_not_starts_with: String
+
+  """All values ending with the given string."""
+  token_ends_with: String
+
+  """All values not ending with the given string."""
+  token_not_ends_with: String
+  connectionDate: DateTime
+
+  """All values that are not equal to given value."""
+  connectionDate_not: DateTime
+
+  """All values that are contained in given list."""
+  connectionDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  connectionDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  connectionDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  connectionDate_lte: DateTime
+
+  """All values greater than the given value."""
+  connectionDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  connectionDate_gte: DateTime
+  widgetSpec_every: WidgetWhereInput
+  widgetSpec_some: WidgetWhereInput
+  widgetSpec_none: WidgetWhereInput
 }
 
 input UserWhereUniqueInput {
-  Id: ID
+  id: ID
 }
 
-type Widget {
-  Id: ID!
-  Name: String!
-  SlugName: String!
-  Config: Config!
-  Enable: Boolean!
-  NeedAuth: Boolean!
-  Authenticate: Boolean!
-  Authentication: Auth!
+type Widget implements Node {
+  id: ID!
+  name: String!
+  slugname: String!
+  config: Config!
+  enable: Boolean!
+  needAuth: Boolean!
+  authenticate: Boolean!
+  authentication: Auth!
 }
 
 """A connection to a list of items."""
@@ -1193,14 +1216,13 @@ type WidgetConnection {
 }
 
 input WidgetCreateInput {
-  Id: ID!
-  Name: String!
-  SlugName: String!
-  Enable: Boolean!
-  NeedAuth: Boolean!
-  Authenticate: Boolean!
-  Config: ConfigCreateOneInput!
-  Authentication: AuthCreateOneInput!
+  name: String!
+  slugname: String!
+  enable: Boolean!
+  needAuth: Boolean!
+  authenticate: Boolean!
+  config: ConfigCreateOneInput!
+  authentication: AuthCreateOneInput!
 }
 
 input WidgetCreateManyInput {
@@ -1218,20 +1240,18 @@ type WidgetEdge {
 }
 
 enum WidgetOrderByInput {
-  Id_ASC
-  Id_DESC
-  Name_ASC
-  Name_DESC
-  SlugName_ASC
-  SlugName_DESC
-  Enable_ASC
-  Enable_DESC
-  NeedAuth_ASC
-  NeedAuth_DESC
-  Authenticate_ASC
-  Authenticate_DESC
   id_ASC
   id_DESC
+  name_ASC
+  name_DESC
+  slugname_ASC
+  slugname_DESC
+  enable_ASC
+  enable_DESC
+  needAuth_ASC
+  needAuth_DESC
+  authenticate_ASC
+  authenticate_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1239,12 +1259,12 @@ enum WidgetOrderByInput {
 }
 
 type WidgetPreviousValues {
-  Id: ID!
-  Name: String!
-  SlugName: String!
-  Enable: Boolean!
-  NeedAuth: Boolean!
-  Authenticate: Boolean!
+  id: ID!
+  name: String!
+  slugname: String!
+  enable: Boolean!
+  needAuth: Boolean!
+  authenticate: Boolean!
 }
 
 type WidgetSubscriptionPayload {
@@ -1287,25 +1307,23 @@ input WidgetSubscriptionWhereInput {
 }
 
 input WidgetUpdateDataInput {
-  Id: ID
-  Name: String
-  SlugName: String
-  Enable: Boolean
-  NeedAuth: Boolean
-  Authenticate: Boolean
-  Config: ConfigUpdateOneRequiredInput
-  Authentication: AuthUpdateOneRequiredInput
+  name: String
+  slugname: String
+  enable: Boolean
+  needAuth: Boolean
+  authenticate: Boolean
+  config: ConfigUpdateOneRequiredInput
+  authentication: AuthUpdateOneRequiredInput
 }
 
 input WidgetUpdateInput {
-  Id: ID
-  Name: String
-  SlugName: String
-  Enable: Boolean
-  NeedAuth: Boolean
-  Authenticate: Boolean
-  Config: ConfigUpdateOneRequiredInput
-  Authentication: AuthUpdateOneRequiredInput
+  name: String
+  slugname: String
+  enable: Boolean
+  needAuth: Boolean
+  authenticate: Boolean
+  config: ConfigUpdateOneRequiredInput
+  authentication: AuthUpdateOneRequiredInput
 }
 
 input WidgetUpdateManyInput {
@@ -1337,142 +1355,142 @@ input WidgetWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [WidgetWhereInput!]
-  Id: ID
+  id: ID
 
   """All values that are not equal to given value."""
-  Id_not: ID
+  id_not: ID
 
   """All values that are contained in given list."""
-  Id_in: [ID!]
+  id_in: [ID!]
 
   """All values that are not contained in given list."""
-  Id_not_in: [ID!]
+  id_not_in: [ID!]
 
   """All values less than the given value."""
-  Id_lt: ID
+  id_lt: ID
 
   """All values less than or equal the given value."""
-  Id_lte: ID
+  id_lte: ID
 
   """All values greater than the given value."""
-  Id_gt: ID
+  id_gt: ID
 
   """All values greater than or equal the given value."""
-  Id_gte: ID
+  id_gte: ID
 
   """All values containing the given string."""
-  Id_contains: ID
+  id_contains: ID
 
   """All values not containing the given string."""
-  Id_not_contains: ID
+  id_not_contains: ID
 
   """All values starting with the given string."""
-  Id_starts_with: ID
+  id_starts_with: ID
 
   """All values not starting with the given string."""
-  Id_not_starts_with: ID
+  id_not_starts_with: ID
 
   """All values ending with the given string."""
-  Id_ends_with: ID
+  id_ends_with: ID
 
   """All values not ending with the given string."""
-  Id_not_ends_with: ID
-  Name: String
+  id_not_ends_with: ID
+  name: String
 
   """All values that are not equal to given value."""
-  Name_not: String
+  name_not: String
 
   """All values that are contained in given list."""
-  Name_in: [String!]
+  name_in: [String!]
 
   """All values that are not contained in given list."""
-  Name_not_in: [String!]
+  name_not_in: [String!]
 
   """All values less than the given value."""
-  Name_lt: String
+  name_lt: String
 
   """All values less than or equal the given value."""
-  Name_lte: String
+  name_lte: String
 
   """All values greater than the given value."""
-  Name_gt: String
+  name_gt: String
 
   """All values greater than or equal the given value."""
-  Name_gte: String
+  name_gte: String
 
   """All values containing the given string."""
-  Name_contains: String
+  name_contains: String
 
   """All values not containing the given string."""
-  Name_not_contains: String
+  name_not_contains: String
 
   """All values starting with the given string."""
-  Name_starts_with: String
+  name_starts_with: String
 
   """All values not starting with the given string."""
-  Name_not_starts_with: String
+  name_not_starts_with: String
 
   """All values ending with the given string."""
-  Name_ends_with: String
+  name_ends_with: String
 
   """All values not ending with the given string."""
-  Name_not_ends_with: String
-  SlugName: String
+  name_not_ends_with: String
+  slugname: String
 
   """All values that are not equal to given value."""
-  SlugName_not: String
+  slugname_not: String
 
   """All values that are contained in given list."""
-  SlugName_in: [String!]
+  slugname_in: [String!]
 
   """All values that are not contained in given list."""
-  SlugName_not_in: [String!]
+  slugname_not_in: [String!]
 
   """All values less than the given value."""
-  SlugName_lt: String
+  slugname_lt: String
 
   """All values less than or equal the given value."""
-  SlugName_lte: String
+  slugname_lte: String
 
   """All values greater than the given value."""
-  SlugName_gt: String
+  slugname_gt: String
 
   """All values greater than or equal the given value."""
-  SlugName_gte: String
+  slugname_gte: String
 
   """All values containing the given string."""
-  SlugName_contains: String
+  slugname_contains: String
 
   """All values not containing the given string."""
-  SlugName_not_contains: String
+  slugname_not_contains: String
 
   """All values starting with the given string."""
-  SlugName_starts_with: String
+  slugname_starts_with: String
 
   """All values not starting with the given string."""
-  SlugName_not_starts_with: String
+  slugname_not_starts_with: String
 
   """All values ending with the given string."""
-  SlugName_ends_with: String
+  slugname_ends_with: String
 
   """All values not ending with the given string."""
-  SlugName_not_ends_with: String
-  Enable: Boolean
+  slugname_not_ends_with: String
+  enable: Boolean
 
   """All values that are not equal to given value."""
-  Enable_not: Boolean
-  NeedAuth: Boolean
+  enable_not: Boolean
+  needAuth: Boolean
 
   """All values that are not equal to given value."""
-  NeedAuth_not: Boolean
-  Authenticate: Boolean
+  needAuth_not: Boolean
+  authenticate: Boolean
 
   """All values that are not equal to given value."""
-  Authenticate_not: Boolean
-  Config: ConfigWhereInput
-  Authentication: AuthWhereInput
+  authenticate_not: Boolean
+  config: ConfigWhereInput
+  authentication: AuthWhereInput
 }
 
 input WidgetWhereUniqueInput {
-  Id: ID
+  id: ID
 }

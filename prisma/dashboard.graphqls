@@ -1,40 +1,41 @@
 type User {
-    Id: ID! @unique
-    Name: String!
-    Passwd: String!
-    Email: String!
-    WidgetSpec: [Widget!]! @relation(name: "WidgetsOfUser" onDelete: CASCADE)
-    Token: String
+    id: ID! @unique
+    name: String!
+    passwd: String!
+    email: String!
+    widgetSpec: [Widget!]! @relation(name: "WidgetsOfUser" onDelete: CASCADE)
+    token: String
+    connectionDate: DateTime
 }
 
 type Widget {
-    Id: ID! @unique
-    Name: String!
-    SlugName: String!
-    Config: Config! @relation(name: "WidgetConfig" onDelete: CASCADE)
-    Enable: Boolean!
-    NeedAuth: Boolean!
-    Authenticate: Boolean!
-    Authentication: Auth! @relation(name: "Authentication" onDelete: CASCADE)
+    id: ID! @unique
+    name: String!
+    slugname: String!
+    config: Config! @relation(name: "WidgetConfig" onDelete: CASCADE)
+    enable: Boolean!
+    needAuth: Boolean!
+    authenticate: Boolean!
+    authentication: Auth! @relation(name: "Authentication" onDelete: CASCADE)
 }
 
 type Config {
-    PosX: Int!
-    PosY: Int!
-    Height: Int!
-    MinHeight: Int!
-    MaxHeight: Int!
-    Width: Int!
-    MinWidth: Int!
-    MaxWidth: Int!
-    Static: Boolean!
-    Location: String!
+    posX: Int!
+    posY: Int!
+    height: Int!
+    minHeight: Int!
+    maxHeight: Int!
+    width: Int!
+    minWidth: Int!
+    maxWidth: Int!
+    static: Boolean!
+    location: String!
 }
 
 type Auth {
-    Id: ID! @unique
-    Type: String!
-    AccessToken: String!
-    RefreshToken: String!
-    Expire: Int!
+    id: ID! @unique
+    type: String!
+    accessToken: String!
+    refreshToken: String!
+    expire: Int!
 }

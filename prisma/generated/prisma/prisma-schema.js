@@ -16,11 +16,11 @@ type AggregateWidget {
 }
 
 type Auth {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
+  id: ID!
+  type: String!
+  accessToken: String!
+  refreshToken: String!
+  expire: Int!
 }
 
 type AuthConnection {
@@ -30,11 +30,10 @@ type AuthConnection {
 }
 
 input AuthCreateInput {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
+  type: String!
+  accessToken: String!
+  refreshToken: String!
+  expire: Int!
 }
 
 input AuthCreateOneInput {
@@ -48,18 +47,16 @@ type AuthEdge {
 }
 
 enum AuthOrderByInput {
-  Id_ASC
-  Id_DESC
-  Type_ASC
-  Type_DESC
-  AccessToken_ASC
-  AccessToken_DESC
-  RefreshToken_ASC
-  RefreshToken_DESC
-  Expire_ASC
-  Expire_DESC
   id_ASC
   id_DESC
+  type_ASC
+  type_DESC
+  accessToken_ASC
+  accessToken_DESC
+  refreshToken_ASC
+  refreshToken_DESC
+  expire_ASC
+  expire_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -67,11 +64,11 @@ enum AuthOrderByInput {
 }
 
 type AuthPreviousValues {
-  Id: ID!
-  Type: String!
-  AccessToken: String!
-  RefreshToken: String!
-  Expire: Int!
+  id: ID!
+  type: String!
+  accessToken: String!
+  refreshToken: String!
+  expire: Int!
 }
 
 type AuthSubscriptionPayload {
@@ -93,19 +90,17 @@ input AuthSubscriptionWhereInput {
 }
 
 input AuthUpdateDataInput {
-  Id: ID
-  Type: String
-  AccessToken: String
-  RefreshToken: String
-  Expire: Int
+  type: String
+  accessToken: String
+  refreshToken: String
+  expire: Int
 }
 
 input AuthUpdateInput {
-  Id: ID
-  Type: String
-  AccessToken: String
-  RefreshToken: String
-  Expire: Int
+  type: String
+  accessToken: String
+  refreshToken: String
+  expire: Int
 }
 
 input AuthUpdateOneRequiredInput {
@@ -121,77 +116,77 @@ input AuthUpsertNestedInput {
 }
 
 input AuthWhereInput {
-  Id: ID
-  Id_not: ID
-  Id_in: [ID!]
-  Id_not_in: [ID!]
-  Id_lt: ID
-  Id_lte: ID
-  Id_gt: ID
-  Id_gte: ID
-  Id_contains: ID
-  Id_not_contains: ID
-  Id_starts_with: ID
-  Id_not_starts_with: ID
-  Id_ends_with: ID
-  Id_not_ends_with: ID
-  Type: String
-  Type_not: String
-  Type_in: [String!]
-  Type_not_in: [String!]
-  Type_lt: String
-  Type_lte: String
-  Type_gt: String
-  Type_gte: String
-  Type_contains: String
-  Type_not_contains: String
-  Type_starts_with: String
-  Type_not_starts_with: String
-  Type_ends_with: String
-  Type_not_ends_with: String
-  AccessToken: String
-  AccessToken_not: String
-  AccessToken_in: [String!]
-  AccessToken_not_in: [String!]
-  AccessToken_lt: String
-  AccessToken_lte: String
-  AccessToken_gt: String
-  AccessToken_gte: String
-  AccessToken_contains: String
-  AccessToken_not_contains: String
-  AccessToken_starts_with: String
-  AccessToken_not_starts_with: String
-  AccessToken_ends_with: String
-  AccessToken_not_ends_with: String
-  RefreshToken: String
-  RefreshToken_not: String
-  RefreshToken_in: [String!]
-  RefreshToken_not_in: [String!]
-  RefreshToken_lt: String
-  RefreshToken_lte: String
-  RefreshToken_gt: String
-  RefreshToken_gte: String
-  RefreshToken_contains: String
-  RefreshToken_not_contains: String
-  RefreshToken_starts_with: String
-  RefreshToken_not_starts_with: String
-  RefreshToken_ends_with: String
-  RefreshToken_not_ends_with: String
-  Expire: Int
-  Expire_not: Int
-  Expire_in: [Int!]
-  Expire_not_in: [Int!]
-  Expire_lt: Int
-  Expire_lte: Int
-  Expire_gt: Int
-  Expire_gte: Int
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  accessToken: String
+  accessToken_not: String
+  accessToken_in: [String!]
+  accessToken_not_in: [String!]
+  accessToken_lt: String
+  accessToken_lte: String
+  accessToken_gt: String
+  accessToken_gte: String
+  accessToken_contains: String
+  accessToken_not_contains: String
+  accessToken_starts_with: String
+  accessToken_not_starts_with: String
+  accessToken_ends_with: String
+  accessToken_not_ends_with: String
+  refreshToken: String
+  refreshToken_not: String
+  refreshToken_in: [String!]
+  refreshToken_not_in: [String!]
+  refreshToken_lt: String
+  refreshToken_lte: String
+  refreshToken_gt: String
+  refreshToken_gte: String
+  refreshToken_contains: String
+  refreshToken_not_contains: String
+  refreshToken_starts_with: String
+  refreshToken_not_starts_with: String
+  refreshToken_ends_with: String
+  refreshToken_not_ends_with: String
+  expire: Int
+  expire_not: Int
+  expire_in: [Int!]
+  expire_not_in: [Int!]
+  expire_lt: Int
+  expire_lte: Int
+  expire_gt: Int
+  expire_gte: Int
   AND: [AuthWhereInput!]
   OR: [AuthWhereInput!]
   NOT: [AuthWhereInput!]
 }
 
 input AuthWhereUniqueInput {
-  Id: ID
+  id: ID
 }
 
 type BatchPayload {
@@ -199,16 +194,16 @@ type BatchPayload {
 }
 
 type Config {
-  PosX: Int!
-  PosY: Int!
-  Height: Int!
-  MinHeight: Int!
-  MaxHeight: Int!
-  Width: Int!
-  MinWidth: Int!
-  MaxWidth: Int!
-  Static: Boolean!
-  Location: String!
+  posX: Int!
+  posY: Int!
+  height: Int!
+  minHeight: Int!
+  maxHeight: Int!
+  width: Int!
+  minWidth: Int!
+  maxWidth: Int!
+  static: Boolean!
+  location: String!
 }
 
 type ConfigConnection {
@@ -218,16 +213,16 @@ type ConfigConnection {
 }
 
 input ConfigCreateInput {
-  PosX: Int!
-  PosY: Int!
-  Height: Int!
-  MinHeight: Int!
-  MaxHeight: Int!
-  Width: Int!
-  MinWidth: Int!
-  MaxWidth: Int!
-  Static: Boolean!
-  Location: String!
+  posX: Int!
+  posY: Int!
+  height: Int!
+  minHeight: Int!
+  maxHeight: Int!
+  width: Int!
+  minWidth: Int!
+  maxWidth: Int!
+  static: Boolean!
+  location: String!
 }
 
 input ConfigCreateOneInput {
@@ -240,26 +235,26 @@ type ConfigEdge {
 }
 
 enum ConfigOrderByInput {
-  PosX_ASC
-  PosX_DESC
-  PosY_ASC
-  PosY_DESC
-  Height_ASC
-  Height_DESC
-  MinHeight_ASC
-  MinHeight_DESC
-  MaxHeight_ASC
-  MaxHeight_DESC
-  Width_ASC
-  Width_DESC
-  MinWidth_ASC
-  MinWidth_DESC
-  MaxWidth_ASC
-  MaxWidth_DESC
-  Static_ASC
-  Static_DESC
-  Location_ASC
-  Location_DESC
+  posX_ASC
+  posX_DESC
+  posY_ASC
+  posY_DESC
+  height_ASC
+  height_DESC
+  minHeight_ASC
+  minHeight_DESC
+  maxHeight_ASC
+  maxHeight_DESC
+  width_ASC
+  width_DESC
+  minWidth_ASC
+  minWidth_DESC
+  maxWidth_ASC
+  maxWidth_DESC
+  static_ASC
+  static_DESC
+  location_ASC
+  location_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -269,16 +264,16 @@ enum ConfigOrderByInput {
 }
 
 type ConfigPreviousValues {
-  PosX: Int!
-  PosY: Int!
-  Height: Int!
-  MinHeight: Int!
-  MaxHeight: Int!
-  Width: Int!
-  MinWidth: Int!
-  MaxWidth: Int!
-  Static: Boolean!
-  Location: String!
+  posX: Int!
+  posY: Int!
+  height: Int!
+  minHeight: Int!
+  maxHeight: Int!
+  width: Int!
+  minWidth: Int!
+  maxWidth: Int!
+  static: Boolean!
+  location: String!
 }
 
 type ConfigSubscriptionPayload {
@@ -300,29 +295,29 @@ input ConfigSubscriptionWhereInput {
 }
 
 input ConfigUpdateDataInput {
-  PosX: Int
-  PosY: Int
-  Height: Int
-  MinHeight: Int
-  MaxHeight: Int
-  Width: Int
-  MinWidth: Int
-  MaxWidth: Int
-  Static: Boolean
-  Location: String
+  posX: Int
+  posY: Int
+  height: Int
+  minHeight: Int
+  maxHeight: Int
+  width: Int
+  minWidth: Int
+  maxWidth: Int
+  static: Boolean
+  location: String
 }
 
 input ConfigUpdateInput {
-  PosX: Int
-  PosY: Int
-  Height: Int
-  MinHeight: Int
-  MaxHeight: Int
-  Width: Int
-  MinWidth: Int
-  MaxWidth: Int
-  Static: Boolean
-  Location: String
+  posX: Int
+  posY: Int
+  height: Int
+  minHeight: Int
+  maxHeight: Int
+  width: Int
+  minWidth: Int
+  maxWidth: Int
+  static: Boolean
+  location: String
 }
 
 input ConfigUpdateOneRequiredInput {
@@ -337,90 +332,92 @@ input ConfigUpsertNestedInput {
 }
 
 input ConfigWhereInput {
-  PosX: Int
-  PosX_not: Int
-  PosX_in: [Int!]
-  PosX_not_in: [Int!]
-  PosX_lt: Int
-  PosX_lte: Int
-  PosX_gt: Int
-  PosX_gte: Int
-  PosY: Int
-  PosY_not: Int
-  PosY_in: [Int!]
-  PosY_not_in: [Int!]
-  PosY_lt: Int
-  PosY_lte: Int
-  PosY_gt: Int
-  PosY_gte: Int
-  Height: Int
-  Height_not: Int
-  Height_in: [Int!]
-  Height_not_in: [Int!]
-  Height_lt: Int
-  Height_lte: Int
-  Height_gt: Int
-  Height_gte: Int
-  MinHeight: Int
-  MinHeight_not: Int
-  MinHeight_in: [Int!]
-  MinHeight_not_in: [Int!]
-  MinHeight_lt: Int
-  MinHeight_lte: Int
-  MinHeight_gt: Int
-  MinHeight_gte: Int
-  MaxHeight: Int
-  MaxHeight_not: Int
-  MaxHeight_in: [Int!]
-  MaxHeight_not_in: [Int!]
-  MaxHeight_lt: Int
-  MaxHeight_lte: Int
-  MaxHeight_gt: Int
-  MaxHeight_gte: Int
-  Width: Int
-  Width_not: Int
-  Width_in: [Int!]
-  Width_not_in: [Int!]
-  Width_lt: Int
-  Width_lte: Int
-  Width_gt: Int
-  Width_gte: Int
-  MinWidth: Int
-  MinWidth_not: Int
-  MinWidth_in: [Int!]
-  MinWidth_not_in: [Int!]
-  MinWidth_lt: Int
-  MinWidth_lte: Int
-  MinWidth_gt: Int
-  MinWidth_gte: Int
-  MaxWidth: Int
-  MaxWidth_not: Int
-  MaxWidth_in: [Int!]
-  MaxWidth_not_in: [Int!]
-  MaxWidth_lt: Int
-  MaxWidth_lte: Int
-  MaxWidth_gt: Int
-  MaxWidth_gte: Int
-  Static: Boolean
-  Static_not: Boolean
-  Location: String
-  Location_not: String
-  Location_in: [String!]
-  Location_not_in: [String!]
-  Location_lt: String
-  Location_lte: String
-  Location_gt: String
-  Location_gte: String
-  Location_contains: String
-  Location_not_contains: String
-  Location_starts_with: String
-  Location_not_starts_with: String
-  Location_ends_with: String
-  Location_not_ends_with: String
+  posX: Int
+  posX_not: Int
+  posX_in: [Int!]
+  posX_not_in: [Int!]
+  posX_lt: Int
+  posX_lte: Int
+  posX_gt: Int
+  posX_gte: Int
+  posY: Int
+  posY_not: Int
+  posY_in: [Int!]
+  posY_not_in: [Int!]
+  posY_lt: Int
+  posY_lte: Int
+  posY_gt: Int
+  posY_gte: Int
+  height: Int
+  height_not: Int
+  height_in: [Int!]
+  height_not_in: [Int!]
+  height_lt: Int
+  height_lte: Int
+  height_gt: Int
+  height_gte: Int
+  minHeight: Int
+  minHeight_not: Int
+  minHeight_in: [Int!]
+  minHeight_not_in: [Int!]
+  minHeight_lt: Int
+  minHeight_lte: Int
+  minHeight_gt: Int
+  minHeight_gte: Int
+  maxHeight: Int
+  maxHeight_not: Int
+  maxHeight_in: [Int!]
+  maxHeight_not_in: [Int!]
+  maxHeight_lt: Int
+  maxHeight_lte: Int
+  maxHeight_gt: Int
+  maxHeight_gte: Int
+  width: Int
+  width_not: Int
+  width_in: [Int!]
+  width_not_in: [Int!]
+  width_lt: Int
+  width_lte: Int
+  width_gt: Int
+  width_gte: Int
+  minWidth: Int
+  minWidth_not: Int
+  minWidth_in: [Int!]
+  minWidth_not_in: [Int!]
+  minWidth_lt: Int
+  minWidth_lte: Int
+  minWidth_gt: Int
+  minWidth_gte: Int
+  maxWidth: Int
+  maxWidth_not: Int
+  maxWidth_in: [Int!]
+  maxWidth_not_in: [Int!]
+  maxWidth_lt: Int
+  maxWidth_lte: Int
+  maxWidth_gt: Int
+  maxWidth_gte: Int
+  static: Boolean
+  static_not: Boolean
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
   AND: [ConfigWhereInput!]
   OR: [ConfigWhereInput!]
   NOT: [ConfigWhereInput!]
 }
+
+scalar DateTime
 
 scalar Long
 
@@ -488,12 +485,13 @@ type Subscription {
 }
 
 type User {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
-  WidgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
-  Token: String
+  id: ID!
+  name: String!
+  passwd: String!
+  email: String!
+  widgetSpec(where: WidgetWhereInput, orderBy: WidgetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Widget!]
+  token: String
+  connectionDate: DateTime
 }
 
 type UserConnection {
@@ -503,12 +501,12 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
-  WidgetSpec: WidgetCreateManyInput
-  Token: String
+  name: String!
+  passwd: String!
+  email: String!
+  widgetSpec: WidgetCreateManyInput
+  token: String
+  connectionDate: DateTime
 }
 
 type UserEdge {
@@ -517,18 +515,18 @@ type UserEdge {
 }
 
 enum UserOrderByInput {
-  Id_ASC
-  Id_DESC
-  Name_ASC
-  Name_DESC
-  Passwd_ASC
-  Passwd_DESC
-  Email_ASC
-  Email_DESC
-  Token_ASC
-  Token_DESC
   id_ASC
   id_DESC
+  name_ASC
+  name_DESC
+  passwd_ASC
+  passwd_DESC
+  email_ASC
+  email_DESC
+  token_ASC
+  token_DESC
+  connectionDate_ASC
+  connectionDate_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -536,11 +534,12 @@ enum UserOrderByInput {
 }
 
 type UserPreviousValues {
-  Id: ID!
-  Name: String!
-  Passwd: String!
-  Email: String!
-  Token: String
+  id: ID!
+  name: String!
+  passwd: String!
+  email: String!
+  token: String
+  connectionDate: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -562,106 +561,114 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
-  Id: ID
-  Name: String
-  Passwd: String
-  Email: String
-  WidgetSpec: WidgetUpdateManyInput
-  Token: String
+  name: String
+  passwd: String
+  email: String
+  widgetSpec: WidgetUpdateManyInput
+  token: String
+  connectionDate: DateTime
 }
 
 input UserWhereInput {
-  Id: ID
-  Id_not: ID
-  Id_in: [ID!]
-  Id_not_in: [ID!]
-  Id_lt: ID
-  Id_lte: ID
-  Id_gt: ID
-  Id_gte: ID
-  Id_contains: ID
-  Id_not_contains: ID
-  Id_starts_with: ID
-  Id_not_starts_with: ID
-  Id_ends_with: ID
-  Id_not_ends_with: ID
-  Name: String
-  Name_not: String
-  Name_in: [String!]
-  Name_not_in: [String!]
-  Name_lt: String
-  Name_lte: String
-  Name_gt: String
-  Name_gte: String
-  Name_contains: String
-  Name_not_contains: String
-  Name_starts_with: String
-  Name_not_starts_with: String
-  Name_ends_with: String
-  Name_not_ends_with: String
-  Passwd: String
-  Passwd_not: String
-  Passwd_in: [String!]
-  Passwd_not_in: [String!]
-  Passwd_lt: String
-  Passwd_lte: String
-  Passwd_gt: String
-  Passwd_gte: String
-  Passwd_contains: String
-  Passwd_not_contains: String
-  Passwd_starts_with: String
-  Passwd_not_starts_with: String
-  Passwd_ends_with: String
-  Passwd_not_ends_with: String
-  Email: String
-  Email_not: String
-  Email_in: [String!]
-  Email_not_in: [String!]
-  Email_lt: String
-  Email_lte: String
-  Email_gt: String
-  Email_gte: String
-  Email_contains: String
-  Email_not_contains: String
-  Email_starts_with: String
-  Email_not_starts_with: String
-  Email_ends_with: String
-  Email_not_ends_with: String
-  WidgetSpec_every: WidgetWhereInput
-  WidgetSpec_some: WidgetWhereInput
-  WidgetSpec_none: WidgetWhereInput
-  Token: String
-  Token_not: String
-  Token_in: [String!]
-  Token_not_in: [String!]
-  Token_lt: String
-  Token_lte: String
-  Token_gt: String
-  Token_gte: String
-  Token_contains: String
-  Token_not_contains: String
-  Token_starts_with: String
-  Token_not_starts_with: String
-  Token_ends_with: String
-  Token_not_ends_with: String
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  passwd: String
+  passwd_not: String
+  passwd_in: [String!]
+  passwd_not_in: [String!]
+  passwd_lt: String
+  passwd_lte: String
+  passwd_gt: String
+  passwd_gte: String
+  passwd_contains: String
+  passwd_not_contains: String
+  passwd_starts_with: String
+  passwd_not_starts_with: String
+  passwd_ends_with: String
+  passwd_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  widgetSpec_every: WidgetWhereInput
+  widgetSpec_some: WidgetWhereInput
+  widgetSpec_none: WidgetWhereInput
+  token: String
+  token_not: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_lt: String
+  token_lte: String
+  token_gt: String
+  token_gte: String
+  token_contains: String
+  token_not_contains: String
+  token_starts_with: String
+  token_not_starts_with: String
+  token_ends_with: String
+  token_not_ends_with: String
+  connectionDate: DateTime
+  connectionDate_not: DateTime
+  connectionDate_in: [DateTime!]
+  connectionDate_not_in: [DateTime!]
+  connectionDate_lt: DateTime
+  connectionDate_lte: DateTime
+  connectionDate_gt: DateTime
+  connectionDate_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
 }
 
 input UserWhereUniqueInput {
-  Id: ID
+  id: ID
 }
 
 type Widget {
-  Id: ID!
-  Name: String!
-  SlugName: String!
-  Config: Config!
-  Enable: Boolean!
-  NeedAuth: Boolean!
-  Authenticate: Boolean!
-  Authentication: Auth!
+  id: ID!
+  name: String!
+  slugname: String!
+  config: Config!
+  enable: Boolean!
+  needAuth: Boolean!
+  authenticate: Boolean!
+  authentication: Auth!
 }
 
 type WidgetConnection {
@@ -671,14 +678,13 @@ type WidgetConnection {
 }
 
 input WidgetCreateInput {
-  Id: ID!
-  Name: String!
-  SlugName: String!
-  Config: ConfigCreateOneInput!
-  Enable: Boolean!
-  NeedAuth: Boolean!
-  Authenticate: Boolean!
-  Authentication: AuthCreateOneInput!
+  name: String!
+  slugname: String!
+  config: ConfigCreateOneInput!
+  enable: Boolean!
+  needAuth: Boolean!
+  authenticate: Boolean!
+  authentication: AuthCreateOneInput!
 }
 
 input WidgetCreateManyInput {
@@ -692,20 +698,18 @@ type WidgetEdge {
 }
 
 enum WidgetOrderByInput {
-  Id_ASC
-  Id_DESC
-  Name_ASC
-  Name_DESC
-  SlugName_ASC
-  SlugName_DESC
-  Enable_ASC
-  Enable_DESC
-  NeedAuth_ASC
-  NeedAuth_DESC
-  Authenticate_ASC
-  Authenticate_DESC
   id_ASC
   id_DESC
+  name_ASC
+  name_DESC
+  slugname_ASC
+  slugname_DESC
+  enable_ASC
+  enable_DESC
+  needAuth_ASC
+  needAuth_DESC
+  authenticate_ASC
+  authenticate_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -713,12 +717,12 @@ enum WidgetOrderByInput {
 }
 
 type WidgetPreviousValues {
-  Id: ID!
-  Name: String!
-  SlugName: String!
-  Enable: Boolean!
-  NeedAuth: Boolean!
-  Authenticate: Boolean!
+  id: ID!
+  name: String!
+  slugname: String!
+  enable: Boolean!
+  needAuth: Boolean!
+  authenticate: Boolean!
 }
 
 type WidgetSubscriptionPayload {
@@ -740,25 +744,23 @@ input WidgetSubscriptionWhereInput {
 }
 
 input WidgetUpdateDataInput {
-  Id: ID
-  Name: String
-  SlugName: String
-  Config: ConfigUpdateOneRequiredInput
-  Enable: Boolean
-  NeedAuth: Boolean
-  Authenticate: Boolean
-  Authentication: AuthUpdateOneRequiredInput
+  name: String
+  slugname: String
+  config: ConfigUpdateOneRequiredInput
+  enable: Boolean
+  needAuth: Boolean
+  authenticate: Boolean
+  authentication: AuthUpdateOneRequiredInput
 }
 
 input WidgetUpdateInput {
-  Id: ID
-  Name: String
-  SlugName: String
-  Config: ConfigUpdateOneRequiredInput
-  Enable: Boolean
-  NeedAuth: Boolean
-  Authenticate: Boolean
-  Authentication: AuthUpdateOneRequiredInput
+  name: String
+  slugname: String
+  config: ConfigUpdateOneRequiredInput
+  enable: Boolean
+  needAuth: Boolean
+  authenticate: Boolean
+  authentication: AuthUpdateOneRequiredInput
 }
 
 input WidgetUpdateManyInput {
@@ -782,63 +784,63 @@ input WidgetUpsertWithWhereUniqueNestedInput {
 }
 
 input WidgetWhereInput {
-  Id: ID
-  Id_not: ID
-  Id_in: [ID!]
-  Id_not_in: [ID!]
-  Id_lt: ID
-  Id_lte: ID
-  Id_gt: ID
-  Id_gte: ID
-  Id_contains: ID
-  Id_not_contains: ID
-  Id_starts_with: ID
-  Id_not_starts_with: ID
-  Id_ends_with: ID
-  Id_not_ends_with: ID
-  Name: String
-  Name_not: String
-  Name_in: [String!]
-  Name_not_in: [String!]
-  Name_lt: String
-  Name_lte: String
-  Name_gt: String
-  Name_gte: String
-  Name_contains: String
-  Name_not_contains: String
-  Name_starts_with: String
-  Name_not_starts_with: String
-  Name_ends_with: String
-  Name_not_ends_with: String
-  SlugName: String
-  SlugName_not: String
-  SlugName_in: [String!]
-  SlugName_not_in: [String!]
-  SlugName_lt: String
-  SlugName_lte: String
-  SlugName_gt: String
-  SlugName_gte: String
-  SlugName_contains: String
-  SlugName_not_contains: String
-  SlugName_starts_with: String
-  SlugName_not_starts_with: String
-  SlugName_ends_with: String
-  SlugName_not_ends_with: String
-  Config: ConfigWhereInput
-  Enable: Boolean
-  Enable_not: Boolean
-  NeedAuth: Boolean
-  NeedAuth_not: Boolean
-  Authenticate: Boolean
-  Authenticate_not: Boolean
-  Authentication: AuthWhereInput
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  slugname: String
+  slugname_not: String
+  slugname_in: [String!]
+  slugname_not_in: [String!]
+  slugname_lt: String
+  slugname_lte: String
+  slugname_gt: String
+  slugname_gte: String
+  slugname_contains: String
+  slugname_not_contains: String
+  slugname_starts_with: String
+  slugname_not_starts_with: String
+  slugname_ends_with: String
+  slugname_not_ends_with: String
+  config: ConfigWhereInput
+  enable: Boolean
+  enable_not: Boolean
+  needAuth: Boolean
+  needAuth_not: Boolean
+  authenticate: Boolean
+  authenticate_not: Boolean
+  authentication: AuthWhereInput
   AND: [WidgetWhereInput!]
   OR: [WidgetWhereInput!]
   NOT: [WidgetWhereInput!]
 }
 
 input WidgetWhereUniqueInput {
-  Id: ID
+  id: ID
 }
 `
       }

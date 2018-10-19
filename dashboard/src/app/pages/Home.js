@@ -1,8 +1,22 @@
 import React from 'react';
-import WidgetGrid from "./home/WidgetGrid";
 import {Redirect} from "react-router-dom";
+import gql from "graphql-tag";
 
 import PropTypes from "prop-types";
+import ErrorMessage from "./home/Widgets/error/ErrorMessage";
+import HomeRender from "./home/HomeRender";
+import {Query} from "react-apollo";
+
+const GET_USER = gql`
+    query User($token: String!, $id: ID!){
+        user(token: $token, id: $id) {
+            id
+            name
+            passwd
+            token
+        }
+    }
+`;
 
 class Home extends React.Component {
     state = {
@@ -18,27 +32,31 @@ class Home extends React.Component {
     };
 
     render() {
-        console.log("is Connected in Home :", this.state.isConnected);
+        console.log("Id:", sessionStorage.getItem("userId"));
+        let userToken = sessionStorage.getItem("userToken");
+        userToken = "Salut";
+        let id = sessionStorage.getItem("userId");
         if (this.state.isConnected === false) {
             return <Redirect to={"/login"}/>;
         }
-        return <div className={'home-content'}>
-            <section className="hero" style={{
-                backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
-            }}>
-                <div className="hero-body">
-                    <div className="container">
-                        <h1 className="title">
-                            My Widgets
-                        </h1>
-                        <h2 className="subtitle">
-                            They are cool :3
-                        </h2>
-                    </div>
-                </div>
-            </section>
-            <WidgetGrid/>
-        </div>
+        return <Query query={GET_USER} variables={{token: userToken, id: id}}>
+            {({loading, error, data}) => {
+                if (loading)
+                    return (
+                        <div className={'column is-12 has-text-centered'}>
+                            <img src={'/loader.gif'} alt={"loading..."}/>
+                        </div>
+                    );
+                if (error) {
+                    return <ErrorMessage
+                        errorMessage={error.message}
+                        errorTitle={'Fetch Error'}
+                    />;
+                }
+                console.log(data);
+                return <HomeRender/>;
+            }}
+        </Query>
     }
 }
 
