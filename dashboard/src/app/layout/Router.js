@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Register from "../pages/Register";
+import Config from '../pages/Config'
 
 import PropTypes from "prop-types"
 import Logout from "../pages/Logout";
@@ -25,6 +26,9 @@ class Router extends React.Component {
                 }}/>
                 <Route path='/login' render={() => {
                     return <Login isConnected={this.props.isConnected} updateUser={this.props.updateUser}/>;
+                }}/>
+                <Route path='/config' render={() => {
+                    return <Config isConnected={this.props.isConnected}/>;
                 }}/>
                 <Route path='/register' component={Register}/>
                 <Route path='/logout' render={() => {

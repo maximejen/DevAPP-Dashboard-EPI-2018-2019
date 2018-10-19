@@ -1,10 +1,11 @@
-endpoint: http://localhost:4466
 datamodel: dashboard.graphqls
+endpoint: http://localhost:4467/
+secret: mysecret42
 
 generate:
-  - generator: javascript-client
-    output: ./generated/prisma
+- generator: javascript-client
+  output: ./generated/prisma
 
 hooks:
   post-deploy:
-    - prisma generate
+  - prisma generate

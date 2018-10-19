@@ -45,7 +45,7 @@ class Weather extends React.Component {
 
                     </div>
                 </div>
-                <div className={"column is-half is-right"}>
+                <div className={"is-half is-right"}>
                     <img src={"/weather/" + this.props.weatherType + ".png"} alt={this.props.weatherType}/>
                 </div>
             </div>

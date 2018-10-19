@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import gql from "graphql-tag";
 
 import PropTypes from "prop-types";

@@ -1,18 +1,23 @@
 import React from 'react'
-import Moment from 'react-moment'
 import PropTypes from 'prop-types'
-import AnalClock from 'react-clock'
 import FlipClock from './DigitalClock'
+import TimezonePicker from "react-timezone";
 
 class Clock extends React.Component {
     constructor(props) {
         super(props);
     }
+
     state = {
         date: new Date(),
+        Config: this.props.Config,
+        Timezone: this.props.Timezone,
+        open: false
     };
 
     static propTypes = {
+        Config: PropTypes.bool,
+        Timezone: PropTypes.string
     };
 
     componentDidMount() {
@@ -22,19 +27,33 @@ class Clock extends React.Component {
         );
     };
 
+    handleChange(timezone) {
+        this.setState({Timezone: timezone});
+    };
 
     render() {
-        return (
-            <div className={"column is-multiline"}>
-                <div className={"column is-11"} />
-                <div style={{width: "4em"}} className={"is-right column is-1 is-full"}>
-                    <img src={"/gear.png"}/>
-                </div>
-                <div className={"is-full column is-offset-2"}>
-                    <FlipClock/>
-                </div>
+        const TimeDisp = (
+            <div>
+                <FlipClock/>
             </div>
         );
+
+        const ConfigDisp = (
+            <div>
+                <div>
+                    <FlipClock/>
+                </div>
+                <TimezonePicker
+                    value={this.state.Timezone}
+                    onChange={timezone => {this.handleChange(timezone)}}
+                    inputProps={{
+                        placeholder: 'Select Timezone...',
+                        name: 'timezone',
+                    }}
+                />
+            </div>
+        );
+        return this.state.Config ? ConfigDisp : TimeDisp;
     };
 }
 

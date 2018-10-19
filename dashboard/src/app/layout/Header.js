@@ -38,6 +38,9 @@ class Header extends React.Component {
         if (this.props.isConnected === true) {
             navButton = (<div className={this.state.isBurgerMode ? 'navbar-menu is-active' : 'navbar-menu'}>
                 <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
+                    <NavItem className="navbar-item" redirectTo={"/config"} text={"Paramètre"} iconClass={"fas fa-cogs"}/>
+                </div>
+                <div className="navbar-end navbar-item" style={{marginLeft: "auto"}}>
                     <NavItem className="navbar-item" redirectTo={"/logout"} text={ "Logout" } iconClass={"fas fa-sign-out-alt"}/>
                 </div>
             </div>);
