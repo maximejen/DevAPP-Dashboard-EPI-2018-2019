@@ -1,5 +1,5 @@
 datamodel: dashboard.graphqls
-endpoint: http://localhost:4467/
+endpoint: http://localhost:4466/
 secret: mysecret42
 
 generate:

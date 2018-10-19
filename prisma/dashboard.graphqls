@@ -30,6 +30,7 @@ type Config {
     maxWidth: Int!
     static: Boolean!
     location: String!
+    specification: String
 }
 
 type Auth {
