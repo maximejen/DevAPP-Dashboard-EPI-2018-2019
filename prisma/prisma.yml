@@ -1,6 +1,7 @@
 datamodel: dashboard.graphqls
 endpoint: http://localhost:4466/
-secret: mysecret42
+#secret: mysecret42
+disableAuth: true
 
 generate:
 - generator: javascript-client
