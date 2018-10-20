@@ -29,7 +29,7 @@ type Config {
     minWidth: Int!
     maxWidth: Int!
     static: Boolean!
-    location: String!
+    specification: String
 }
 
 type Auth {

@@ -15,7 +15,7 @@ class Weather extends React.Component {
     static loading() {
         return (
             <div className={"columns is-centered"}>
-                <img className={"column is-2"} src={'/loader.gif'} style={{height: "5rem"}} alt={"loading..."}/>
+                <img className={"column is-4"} src={'/loader.gif'} style={{height: "5rem"}} alt={"loading..."}/>
             </div>
         )
     }

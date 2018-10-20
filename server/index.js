@@ -22,8 +22,8 @@ async function checkAuthAndReturnObject(token, context, prismaArgs, info) {
 
 const resolvers = {
     Query: {
-        users: (_, args, context,info) => {
-            return context.prisma.query.users({args}, info);
+        users: (_, args, context, info) => {
+            return context.prisma.mutation.users({args}, info);
         },
         user: async (_, args, context, info) => {
             let token = args.token;
@@ -34,13 +34,17 @@ const resolvers = {
             return await checkAuthAndReturnObject(token, context, prismaArgs, info);
         },
     },
-    // Mutation: {
-    // }
+    Mutation: {
+        createUser: (_, args, context, info) => {
+            console.log(args);
+            return context.prisma.mutation.createUser({data: args}, info);
+        },
+    }
 };
 
 const server = new GraphQLServer({
     typeDefs: './schema.graphql',
-    resolvers,
+    resolvers: resolvers,
     context: req => ({
         ...req,
         prisma: new Prisma({
@@ -53,55 +57,57 @@ const server = new GraphQLServer({
 server.use(express.static("public"));
 server.use(session({
     genid: function (req) {
-    return uuid.v4();},
+        return uuid.v4();
+    },
     secret: 'M/P?z"1ZR@a&zdaj]'
 }));
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.use(cors());
+async function updateToken(user, token) {
+    console.log(token);
+    const query = `
+        mutation editUser($id: ID!, $token: String!) {
+            updateUser(
+                where: {
+                    id: $id
+                }, data: {
+                    token: $token
+                }) {
+                id
+                email
+                passwd
+                name
+                token
+            }
+        }
+    `;
+    const variables = {
+        id: user.id,
+        token: token
+    };
 
-function updateToken(user, token) {
-    // const query = `
-    // mutation getUser {
-    //     users{
-    //         id
-    //         email
-    //         passwd
-    //         name
-    //     }
-    // }
-    // `;
-    // const variables = {};
-    //
-    // await fetch('http://localhost:4466', {
-    //     method: 'post',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({query, variables})
-    // })
-    //     .then(response => response.json())
-    //     .then(response => {
-    //
-    //     })
-    //     .catch((e) => {
-    //         res.status(400).send(e)
-    //     });
+    await fetch('http://localhost:4466', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({query, variables})
+    });
 }
 
 server.post('/login', async function (req, res) {
     const query = `
-    query getUser {
-        users{
-            id
+    query getUsers {
+        users {
+  	        id
+            name
             email
             passwd
-            name
-        }
+	    }
     }
     `;
     const variables = {};
@@ -116,14 +122,15 @@ server.post('/login', async function (req, res) {
         .then(response => response.json())
         .then(response => {
             const users = response.data.users;
-            const user = users.find(elem => elem.email === req.body.username);
+            const user = users.find(elem => elem.email === req.body.email);
             if (user === undefined)
-                res.status(401).send({message: "incorrect username"});
+                res.status(401).send({message: "incorrect email"});
             else if (user.passwd !== req.body.password)
                 res.status(401).send({message: "incorrect password"});
             else {
-                user.token = uuid.v4();
-                // TODO : add the token to the user in prisma.
+                let token = uuid.v4();
+                user.token = token;
+                updateToken(user, token);
                 delete user.passwd;
                 res.status(200).send(user);
             }
@@ -133,4 +140,5 @@ server.post('/login', async function (req, res) {
         });
 });
 
+server.use(cors());
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

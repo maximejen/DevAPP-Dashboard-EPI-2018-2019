@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Fri Oct 19 2018 21:17:08 GMT+0200 (Central European Summer Time)
+# timestamp: Sat Oct 20 2018 00:00:48 GMT+0200 (Central European Summer Time)
 
 type AggregateAuth {
   count: Int!
@@ -358,7 +358,7 @@ type Config {
   minWidth: Int!
   maxWidth: Int!
   static: Boolean!
-  location: String!
+  specification: String
 }
 
 """A connection to a list of items."""
@@ -381,7 +381,7 @@ input ConfigCreateInput {
   minWidth: Int!
   maxWidth: Int!
   static: Boolean!
-  location: String!
+  specification: String
 }
 
 input ConfigCreateOneInput {
@@ -416,8 +416,8 @@ enum ConfigOrderByInput {
   maxWidth_DESC
   static_ASC
   static_DESC
-  location_ASC
-  location_DESC
+  specification_ASC
+  specification_DESC
   id_ASC
   id_DESC
   updatedAt_ASC
@@ -436,7 +436,7 @@ type ConfigPreviousValues {
   minWidth: Int!
   maxWidth: Int!
   static: Boolean!
-  location: String!
+  specification: String
 }
 
 type ConfigSubscriptionPayload {
@@ -488,7 +488,7 @@ input ConfigUpdateDataInput {
   minWidth: Int
   maxWidth: Int
   static: Boolean
-  location: String
+  specification: String
 }
 
 input ConfigUpdateInput {
@@ -501,7 +501,7 @@ input ConfigUpdateInput {
   minWidth: Int
   maxWidth: Int
   static: Boolean
-  location: String
+  specification: String
 }
 
 input ConfigUpdateOneRequiredInput {
@@ -704,46 +704,46 @@ input ConfigWhereInput {
 
   """All values that are not equal to given value."""
   static_not: Boolean
-  location: String
+  specification: String
 
   """All values that are not equal to given value."""
-  location_not: String
+  specification_not: String
 
   """All values that are contained in given list."""
-  location_in: [String!]
+  specification_in: [String!]
 
   """All values that are not contained in given list."""
-  location_not_in: [String!]
+  specification_not_in: [String!]
 
   """All values less than the given value."""
-  location_lt: String
+  specification_lt: String
 
   """All values less than or equal the given value."""
-  location_lte: String
+  specification_lte: String
 
   """All values greater than the given value."""
-  location_gt: String
+  specification_gt: String
 
   """All values greater than or equal the given value."""
-  location_gte: String
+  specification_gte: String
 
   """All values containing the given string."""
-  location_contains: String
+  specification_contains: String
 
   """All values not containing the given string."""
-  location_not_contains: String
+  specification_not_contains: String
 
   """All values starting with the given string."""
-  location_starts_with: String
+  specification_starts_with: String
 
   """All values not starting with the given string."""
-  location_not_starts_with: String
+  specification_not_starts_with: String
 
   """All values ending with the given string."""
-  location_ends_with: String
+  specification_ends_with: String
 
   """All values not ending with the given string."""
-  location_not_ends_with: String
+  specification_not_ends_with: String
 }
 
 scalar DateTime

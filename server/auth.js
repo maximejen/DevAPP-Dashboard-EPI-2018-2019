@@ -26,7 +26,7 @@ let strategy = new JwtStrategy(opts, function(jwt_payload, done) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({query, variables})
+        body: JSON.stringify({mutation: query, variables})
     })
         .then(response => response.json())
         .then(response => {
@@ -62,7 +62,7 @@ passport.deserializeUser(function (id, done) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({query, variables})
+        body: JSON.stringify({mutation: query, variables})
     })
         .then(response => response.json())
         .then(response => {

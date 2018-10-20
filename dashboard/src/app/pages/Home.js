@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import gql from "graphql-tag";
 
 import PropTypes from "prop-types";
@@ -14,7 +14,28 @@ const GET_USER = gql`
             name
             passwd
             token
+            widgetSpec {
+                name
+                slugname
+                enable
+                config {
+                    ...configOfWidget
+                }
+            }
         }
+    }
+
+    fragment configOfWidget on Config {
+        posX
+        posY
+        width
+        height
+        minWidth
+        minHeight
+        maxWidth
+        maxHeight
+        static
+        specification
     }
 `;
 
@@ -32,9 +53,7 @@ class Home extends React.Component {
     };
 
     render() {
-        console.log("Id:", sessionStorage.getItem("userId"));
         let userToken = sessionStorage.getItem("userToken");
-        userToken = "Salut";
         let id = sessionStorage.getItem("userId");
         if (this.state.isConnected === false) {
             return <Redirect to={"/login"}/>;
@@ -54,7 +73,7 @@ class Home extends React.Component {
                     />;
                 }
                 console.log(data);
-                return <HomeRender/>;
+                return <HomeRender data={data.user.widgetSpec}/>;
             }}
         </Query>
     }

@@ -1,25 +1,17 @@
 import React from 'react';
 import WidgetGrid from "../home/WidgetGrid";
 
+import PropTypes from "prop-types";
+
 class HomeRender extends React.Component {
+
+    static propTypes = {
+        data: PropTypes.array
+    };
 
     render() {
         return <div className={'home-content'}>
-            <section className="hero" style={{
-                backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
-            }}>
-                <div className="hero-body">
-                    <div className="container">
-                        <h1 className="title">
-                            My Widgets
-                        </h1>
-                        <h2 className="subtitle">
-                            They are cool :3
-                        </h2>
-                    </div>
-                </div>
-            </section>
-            <WidgetGrid/>
+            <WidgetGrid data={this.props.data}/>
         </div>
     }
 }

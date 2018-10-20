@@ -11,6 +11,7 @@ class AnalogClock extends React.Component {
     state = {
         date: new Date(),
         isAnalog: this.props.isAnalog,
+        intervalId: undefined
     };
 
     static propTypes = {
@@ -18,11 +19,17 @@ class AnalogClock extends React.Component {
     };
 
     componentDidMount() {
-        setInterval(
-            () => this.setState({ date: new Date() }),
-            1000
-        );
+        this.setState({
+            intervalId: setInterval(
+                () => this.setState({ date: new Date() }),
+                1000
+            )
+        });
     };
+
+    componentWillUnmount() {
+        clearInterval(this.state.intervalId);
+    }
 
     swapType() {
         this.setState({isAnalog: !this.state.isAnalog});
@@ -31,7 +38,6 @@ class AnalogClock extends React.Component {
     render() {
         const AnalogClock = (
             <div>
-                <div>&nbsp;</div>
                 <AnalClock style={{
                 }}
                            value={this.state.date} size={200}/>

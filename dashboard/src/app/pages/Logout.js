@@ -17,7 +17,7 @@ class Logout extends React.Component {
             this.setState({
                 redirect: true
             })
-        }.bind(this), 2000);
+        }.bind(this), 1500);
     }
 
     render() {
@@ -31,13 +31,13 @@ class Logout extends React.Component {
             justifyContent: "center",
             height: "90vh"
         }}>
-                <div className={"subtitle columns is-centered is-multiline is-1"} style={{
+                <div className={"columns is-centered is-multiline is-1"} style={{
                     backgroundColor: "white",
                     padding: "1.5em",
                     borderRadius: "10px",
-                    width: "20em",
+                    width: "30em",
                 }}>
-                    You were correctly logged out.
+                    Logging you out... redirecting to login page...
                 </div>
             </div>
     }

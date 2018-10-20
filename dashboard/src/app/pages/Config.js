@@ -1,13 +1,8 @@
 import React from 'react'
 import {Redirect} from "react-router-dom";
-import Home from "./Home";
 import ConfigForm from "./config/ConfigForm";
 
 class Config extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         isConnected: this.props.isConnected
     };

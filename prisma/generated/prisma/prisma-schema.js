@@ -203,7 +203,7 @@ type Config {
   minWidth: Int!
   maxWidth: Int!
   static: Boolean!
-  location: String!
+  specification: String
 }
 
 type ConfigConnection {
@@ -222,7 +222,7 @@ input ConfigCreateInput {
   minWidth: Int!
   maxWidth: Int!
   static: Boolean!
-  location: String!
+  specification: String
 }
 
 input ConfigCreateOneInput {
@@ -253,8 +253,8 @@ enum ConfigOrderByInput {
   maxWidth_DESC
   static_ASC
   static_DESC
-  location_ASC
-  location_DESC
+  specification_ASC
+  specification_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -273,7 +273,7 @@ type ConfigPreviousValues {
   minWidth: Int!
   maxWidth: Int!
   static: Boolean!
-  location: String!
+  specification: String
 }
 
 type ConfigSubscriptionPayload {
@@ -304,7 +304,7 @@ input ConfigUpdateDataInput {
   minWidth: Int
   maxWidth: Int
   static: Boolean
-  location: String
+  specification: String
 }
 
 input ConfigUpdateInput {
@@ -317,7 +317,7 @@ input ConfigUpdateInput {
   minWidth: Int
   maxWidth: Int
   static: Boolean
-  location: String
+  specification: String
 }
 
 input ConfigUpdateOneRequiredInput {
@@ -398,20 +398,20 @@ input ConfigWhereInput {
   maxWidth_gte: Int
   static: Boolean
   static_not: Boolean
-  location: String
-  location_not: String
-  location_in: [String!]
-  location_not_in: [String!]
-  location_lt: String
-  location_lte: String
-  location_gt: String
-  location_gte: String
-  location_contains: String
-  location_not_contains: String
-  location_starts_with: String
-  location_not_starts_with: String
-  location_ends_with: String
-  location_not_ends_with: String
+  specification: String
+  specification_not: String
+  specification_in: [String!]
+  specification_not_in: [String!]
+  specification_lt: String
+  specification_lte: String
+  specification_gt: String
+  specification_gte: String
+  specification_contains: String
+  specification_not_contains: String
+  specification_starts_with: String
+  specification_not_starts_with: String
+  specification_ends_with: String
+  specification_not_ends_with: String
   AND: [ConfigWhereInput!]
   OR: [ConfigWhereInput!]
   NOT: [ConfigWhereInput!]

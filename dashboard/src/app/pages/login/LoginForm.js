@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
-
+const sha512 = require('sha512');
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -10,7 +10,9 @@ class LoginForm extends React.Component {
         this.state = {
             email: "",
             password: "",
-            redirect: false
+            redirect: false,
+            error: false,
+            errorMessage: ""
         };
     }
 
@@ -28,12 +30,13 @@ class LoginForm extends React.Component {
         });
     };
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
         const url = "http://localhost:4000/login";
+        let hash = sha512(this.state.password);
         const data = JSON.stringify({
-            username: this.state.email,
-            password: this.state.password
+            email: this.state.email,
+            password: hash.toString('hex')
         });
         fetch(url, {
             method: 'POST',
@@ -50,12 +53,17 @@ class LoginForm extends React.Component {
             .then(response => {
                 response.json()
                     .then(data => {
-                        console.log(data);
-                        this.props.updateUser(data);
-                        if (data !== undefined)
+                        if (response.status === 401) {
                             this.setState({
-                                redirect: true
+                                errorMessage: data.message
                             })
+                        } else {
+                            this.props.updateUser(data);
+                            if (data !== undefined)
+                                this.setState({
+                                    redirect: true
+                                })
+                        }
                     });
             });
     };
@@ -66,6 +74,10 @@ class LoginForm extends React.Component {
             console.log("REDIRECT TO /");
             return <Redirect to={"/"}/>;
         }
+        let classicClass = "is-full input";
+        let errorClass = "is-full input is-danger";
+        let errorMessage = this.state.errorMessage !== "" ?
+            <p className="help is-danger">{this.state.errorMessage}</p> : "";
         return (
             <div className="columns is-centered is-multiline is-1" style={{
                 backgroundColor: "white",
@@ -74,47 +86,53 @@ class LoginForm extends React.Component {
                 width: "20em"
             }}>
                 <form action={"http://localhost:4000/login"} method={"POST"} onSubmit={this.handleSubmit}>
-                    <label className={"is-full label"}>
-                        Email
-                    </label>
-                    <input
-                        id={"email"}
-                        name={"email"}
-                        className={"is-full input"}
-                        type="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        style={{
-                            width: width
-                        }}
-                    />
-                    <label className={"is-full label"}>
-                        Password
-                    </label>
-                    <input
-                        id={"password"}
-                        name={"password"}
-                        className={"is-full input"}
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        type="password"
-                        style={{
-                            width: width
-                        }}
-                    />
-                    <label className={"is-full label"}>
-                    </label>
-                    <button
-                        name={"submit"}
-                        className={"is-primary button"}
-                        disabled={!this.validateForm()}
-                        type="submit"
-                        style={{
-                            width: width
-                        }}
-                    >
-                        Login
-                    </button>
+                    <div className={"field"}>
+                        <label className={"is-full label"}>
+                            Email
+                        </label>
+                        <input
+                            id={"email"}
+                            name={"email"}
+                            className={this.state.errorMessage === "incorrect email" ? errorClass : classicClass}
+                            type="email"
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            style={{
+                                width: width
+                            }}
+                        />
+                        {this.state.errorMessage === "incorrect email" ? errorMessage : ""}
+                    </div>
+                    <div className={"field"}>
+                        <label className={"is-full label"}>
+                            Password
+                        </label>
+                        <input
+                            id={"password"}
+                            name={"password"}
+                            className={this.state.errorMessage === "incorrect password" ? errorClass : classicClass}
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            type="password"
+                            style={{
+                                width: width
+                            }}/>
+                        {this.state.errorMessage === "incorrect password" ? errorMessage : ""}
+                    </div>
+                    <div className={"field"}>
+                        <label className={"is-full label"}>
+                        </label>
+                        <button
+                            name={"submit"}
+                            className={"is-primary button"}
+                            disabled={!this.validateForm()}
+                            type="submit"
+                            style={{
+                                width: width
+                            }}>
+                            Login
+                        </button>
+                    </div>
                 </form>
                 <div style={{
                     fontSize: "0.85em",
