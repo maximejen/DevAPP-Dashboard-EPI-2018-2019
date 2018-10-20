@@ -1,4 +1,5 @@
 # import User from './generated/prisma.graphql'
+# import Widget from './generated/prisma.graphql'
 
 type Query {
     users: [User!]!
@@ -7,4 +8,6 @@ type Query {
 
 type Mutation {
     createUser(name: String!, email: String!, passwd: String!): User
+    addWidget(id: ID!, name: String!, slugname: String!, static: Boolean!, posx: Int!, posy: Int!, height: Int!, minheight: Int!, maxheight: Int!, width: Int!, minwidth: Int!, maxwidth: Int!): User
+    updateWidget(id: ID!, posx: Int!, posy: Int!, width: Int!, height: Int!): Widget
 }

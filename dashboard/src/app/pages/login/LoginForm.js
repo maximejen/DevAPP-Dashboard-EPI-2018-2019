@@ -71,7 +71,6 @@ class LoginForm extends React.Component {
     render() {
         let width = "18em";
         if (this.state.redirect) {
-            console.log("REDIRECT TO /");
             return <Redirect to={"/"}/>;
         }
         let classicClass = "is-full input";

@@ -39,6 +39,67 @@ const resolvers = {
             console.log(args);
             return context.prisma.mutation.createUser({data: args}, info);
         },
+        addWidget: (_, args, context, info) => {
+            let userId = args.id;
+            delete args.id;
+            return context.prisma.mutation.updateUser({
+                where: {
+                    id: userId
+                },
+                data: {
+                    widgetSpec: {
+                        create: {
+                            name: args.name,
+                            slugname: args.slugname,
+                            enable: true,
+                            needAuth: false,
+                            authenticate: false,
+                            config: {
+                                create: {
+                                    posX: args.posx,
+                                    posY: args.posy,
+                                    height: args.height,
+                                    minHeight: args.minheight,
+                                    maxHeight: args.maxheight,
+                                    width: args.width,
+                                    minWidth: args.minwidth,
+                                    maxWidth: args.maxwidth,
+                                    static: args.static,
+                                }
+                            },
+                            authentication: {
+                                create: {
+                                    type: "",
+                                    accessToken: "",
+                                    refreshToken: "",
+                                    expire: 0
+                                }
+                            }
+                        }
+                    }
+                }
+            }, info);
+        },
+        updateWidget: (_, args, context, info) => {
+            let widgetId = args.id;
+            delete args.id;
+            return context.prisma.mutation.updateWidget({
+                where: {
+                    id: widgetId
+                },
+                data: {
+                    config: {
+                        update: {
+                            posX: args.posx,
+                            posY: args.posy,
+                            width: args.width,
+                            height: args.height,
+                        }
+                    }
+                }
+            }, info);
+        }
+
     }
 };
 

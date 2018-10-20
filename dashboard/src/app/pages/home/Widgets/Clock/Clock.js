@@ -7,7 +7,8 @@ class Clock extends React.Component {
     state = {
         date: new Date(),
         Timezone: this.props.Timezone,
-        open: false
+        open: false,
+        intervalId: undefined
     };
 
     static propTypes = {
@@ -15,11 +16,17 @@ class Clock extends React.Component {
     };
 
     componentDidMount() {
-        setInterval(
-            () => this.setState({ date: new Date() }),
-            1000
-        );
+        this.setState({
+            intervalId: setInterval(
+                () => this.setState({ date: new Date() }),
+                1000
+            )
+        });
     };
+
+    componentWillUnmount() {
+        clearInterval(this.state.intervalId);
+    }
 
     render() {
         return <div>

@@ -12,11 +12,12 @@ class WidgetGrid extends React.Component {
         super(props);
 
         this.updateLayout = this.updateLayout.bind(this);
+        this.handleWidgetChange = this.handleWidgetChange.bind(this);
     }
 
     state = {
         layout: [],
-        isLoading: true
+        isLoading: true,
     };
 
     static propTypes = {
@@ -38,29 +39,84 @@ class WidgetGrid extends React.Component {
             newLayout.push(newElement);
             this.setState({
                 layout: newLayout,
-                isLoading: false
+                isLoading: false,
             });
         }
     }
 
     componentWillMount() {
-        let widgetList = this.props.data;
 
-        for (let index in widgetList) {
-            let config = widgetList[index].config;
-            let dataGrid = {
-                i: index,
-                x: config.posX,
-                y: config.posY,
-                w: config.width,
-                h: config.height,
-                minW: config.minWidth,
-                minH: config.minHeight,
-                maxW: config.maxWidth,
-                maxH: config.maxHeight
-            };
-            this.updateLayout(dataGrid);
+        for (let index in this.props.data) {
+            let config = this.props.data[index].config;
+            if (this.props.data[index].enable === true) {
+                let dataGrid = {
+                    id: this.props.data[index].id,
+                    i: index,
+                    x: config.posX,
+                    y: config.posY,
+                    w: config.width,
+                    h: config.height,
+                    minW: config.minWidth,
+                    minH: config.minHeight,
+                    maxW: config.maxWidth,
+                    maxH: config.maxHeight,
+                    static: config.static
+                };
+                this.updateLayout(dataGrid);
+            }
         }
+    }
+
+    handleWidgetChange(layout, oldItem, newItem) {
+        console.log(newItem);
+        let x = newItem.x;
+        let y = newItem.y;
+        let w = newItem.w;
+        let h = newItem.h;
+        let id = this.state.layout[newItem.i].id;
+        console.log(x, y, id);
+
+        let query = `
+            mutation UpdateWidget($id: ID!, $posx: Int!, $posy: Int!, $width: Int!, $height: Int!) {
+                updateWidget(id: $id, posx: $posx, posy: $posy, width: $width, height: $height) {id}           
+            }
+        `;
+
+        const variables = {
+            id: id,
+            posx: x,
+            posy: y,
+            width: w,
+            height: h
+        };
+
+        fetch('http://localhost:4000', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({query, variables})
+        }).catch(err => {
+            this.setState({
+                error: err
+            });
+        })
+            .catch(err => {
+                this.setState({
+                    error: err
+                });
+            })
+            .then(response => {
+                response.json()
+                    .then(data => {
+                        if (response.status !== 200) {
+                            this.setState({
+                                errorMessage: data.message
+                            })
+                        } else {
+                        }
+                    });
+            });
     }
 
     render() {
@@ -74,14 +130,19 @@ class WidgetGrid extends React.Component {
         };
         let widgetList = [];
         for (let index in this.props.data) {
-            widgetList.push(<div key={index.toString()} style={style} className={"columns is-centered is-multiline is-1"}>
-                <Widget widgetName={this.props.data[index].slugname} specification={this.props.data[index].specification}/>
-            </div>);
+            if (this.props.data[index].enable === true) {
+                widgetList.push(<div key={index.toString()} style={style}
+                                     className={"columns is-centered is-multiline is-1"}>
+                    <Widget widgetName={this.props.data[index].slugname}
+                            specification={this.props.data[index].specification}/>
+                </div>);
+            }
         }
         return (
-            <GridLayout className="layout" layout={this.state.layout} cols={colsNumber} rowHeight={30} width={window.innerWidth - 64} style={{
+            <GridLayout className="layout" layout={this.state.layout} cols={colsNumber} rowHeight={30}
+                        width={window.innerWidth - 64} style={{
                 padding: "2rem",
-            }}>
+            }} onDragStop={this.handleWidgetChange} onResizeStop={this.handleWidgetChange}>
                 {widgetList}
             </GridLayout>
         )

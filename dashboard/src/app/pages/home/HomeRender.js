@@ -4,9 +4,8 @@ import WidgetGrid from "../home/WidgetGrid";
 import PropTypes from "prop-types";
 
 class HomeRender extends React.Component {
-
     static propTypes = {
-        data: PropTypes.array
+        data: PropTypes.array,
     };
 
     render() {

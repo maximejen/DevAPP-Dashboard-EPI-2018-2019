@@ -9,14 +9,13 @@ class Config extends React.Component {
 
     render() {
         return <div className={'home-content'}>
-            <section className="hero" style={{
-                backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)'
-            }}>
+            <section className="hero">
                 <div className="hero-body">
                     <div className="container">
                         <h1 className="title">
-                            Configuration des widgets
+                            Widgets configuration
                         </h1>
+                        <p className={"subtitle"}>You can do whatever you want</p>
                     </div>
                 </div>
             </section>

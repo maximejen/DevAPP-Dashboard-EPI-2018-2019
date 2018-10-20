@@ -5,12 +5,13 @@ import WeatherFetcher from "./weather/WeatherFetcher";
 import POTDFetcher from "./POTD/POTDFetcher";
 import Clock from "./Clock/Clock";
 import AnalogClock from "./Clockv2/AnalogClock";
-import TimezonePicker from "react-timezone";
 
 class Widget extends React.Component {
-    static nameReference = [
+    static widgetReferences = [
         {
-            name: "clock", func:
+            name: "clock",
+            renderName: "Digital Clock",
+            func:
                 (specifications) => {
                     return <Clock/>;
                 },
@@ -18,22 +19,29 @@ class Widget extends React.Component {
         },
         {
             name: "weather",
+            renderName: "Weather",
             func:
                 (specifications) => {
-                    return <WeatherFetcher/>;
+                    let spec = JSON.parse(specifications);
+                    return <WeatherFetcher spec={spec}/>;
                 },
-            dataGrid: {w: 3, h: 4, minW: 3, minH: 4, maxW: 3, maxH: 4}
+            dataGrid: {w: 3, h: 4, minW: 3, minH: 4, maxW: 3, maxH: 4},
+            defaultConfig: '{"location": "Strasbourg", "navigation": false, "temperatureType": "°C", "temperature": true, "windSpeed": true, "humidity": true, "interval": 600}'
         },
         {
             name: "potd",
+            renderName: "Picture of the Day",
             func:
                 (specifications) => {
-                    return <POTDFetcher/>;
+                    let spec = JSON.parse(specifications);
+                    return <POTDFetcher spec={spec}/>;
                 },
-            dataGrid: {w: 4, h: 11, minW: 4, minH: 11, maxW: 4, mawH: 11}
+            dataGrid: {w: 4, h: 11, minW: 4, minH: 11, maxW: 6, maxH: 20},
+            defaultConfig: '{"apiType": "pixabay", "isLink": true, "interval": 10000}'
         },
         {
             name: "analogclock",
+            renderName: "Analogical Clock",
             func:
                 (specifications) => {
                     return <AnalogClock/>;
@@ -52,16 +60,20 @@ class Widget extends React.Component {
     };
 
     render() {
-        let widget = Widget.nameReference.find((element) => {
+        let widget = Widget.widgetReferences.find((element) => {
             let name = this.props.widgetName;
             if (element.name === name) {
                 return element;
             }
             return null;
         });
-        if (widget === null)
+        if (widget === null) {
             return <div>HAHA</div>;
-        return widget.func(this.props.specification);
+        }
+        let spec = this.props.specification;
+        if (spec === null || spec === undefined || spec === "")
+            spec = widget.defaultConfig;
+        return widget.func(spec);
     }
 }
 

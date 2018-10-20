@@ -6,10 +6,14 @@ class Weather extends React.Component {
     static propTypes = {
         isLoading: PropTypes.bool,
         weatherType: PropTypes.string,
+        temperatureType: PropTypes.string,
         location: PropTypes.string,
         temperature: PropTypes.number,
         windSpeed: PropTypes.number,
-        humidity: PropTypes.number
+        humidity: PropTypes.number,
+        isTemp: PropTypes.bool,
+        isWindSpeed: PropTypes.bool,
+        isHumidity: PropTypes.bool
     };
 
     static loading() {
@@ -20,26 +24,36 @@ class Weather extends React.Component {
         )
     }
 
-    componentWillMount() {
-        // TODO : ask the location of the user only if the configuration ask for the actual location.
-        // TODO : get the name of the city and put in the state.
-    }
-
     render() {
         if (this.props.isLoading)
             return Weather.loading();
         return (
-            <div className={"columns is-multiline"}>
-                <div className={"column columns is-multiline"}>
+            <div className={"columns"}>
+                <div className={"columns is-multiline"}>
                     <div className={"column is-full"}>
                         <div style={{
                             fontSize: "2em"
                         }}>
                             {this.props.location}
                         </div>
-                        <div>
-                            {this.props.temperature}°C
-                        </div>
+                        {
+                            this.props.isTemp === true &&
+                            <div>
+                                {this.props.temperature}{this.props.temperatureType}
+                            </div>
+                        }
+                        {
+                            this.props.isWindSpeed === true &&
+                            <div>
+                                wind: {this.props.windSpeed}m/s
+                            </div>
+                        }
+                        {
+                            this.props.isHumidity === true &&
+                            <div>
+                                humidity: {this.props.humidity}%
+                            </div>
+                        }
                     </div>
                     <div className={"column is-full"}>
 

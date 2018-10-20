@@ -7,6 +7,7 @@ import Config from '../pages/Config'
 
 import PropTypes from "prop-types"
 import Logout from "../pages/Logout";
+import AddWidget from "../pages/AddWidget";
 
 class Router extends React.Component {
     static propTypes = {
@@ -21,8 +22,13 @@ class Router extends React.Component {
     render() {
         return (
             <Switch>
-                <Route exact path='/' render={() => {
-                    return <Home isConnected={this.props.isConnected}/>;
+                <Route exact path='/' render={(props) => {
+                    let getParameters = props.location.search;
+                    let reload = false;
+                    if (getParameters.includes("reload=true") === true) {
+                        reload = true;
+                    }
+                    return <Home isConnected={this.props.isConnected} reloadWidgets={reload}/>;
                 }}/>
                 <Route path='/login' render={() => {
                     return <Login isConnected={this.props.isConnected} updateUser={this.props.updateUser}/>;
@@ -31,6 +37,9 @@ class Router extends React.Component {
                     return <Config isConnected={this.props.isConnected}/>;
                 }}/>
                 <Route path='/register' component={Register}/>
+                <Route path='/add-widget' render={() => {
+                    return <AddWidget isConnected={this.props.isConnected}/>;
+                }}/>
                 <Route path='/logout' render={() => {
                     return <Logout updateUser={this.props.updateUser}/>
                 }}/>

@@ -15,6 +15,7 @@ const GET_USER = gql`
             passwd
             token
             widgetSpec {
+                id
                 name
                 slugname
                 enable
@@ -41,25 +42,41 @@ const GET_USER = gql`
 
 class Home extends React.Component {
     state = {
-        isConnected: this.props.isConnected
+        isConnected: this.props.isConnected,
+        isLoading: false
     };
 
     static propTypes = {
-        isConnected: PropTypes.bool
+        isConnected: PropTypes.bool,
+        reloadWidgets: PropTypes.bool,
     };
 
     static defaultProps = {
-        isConnected: false
+        isConnected: false,
+        reloadWidgets: false
     };
 
+    componentWillMount() {
+        if (this.props.reloadWidgets === true) {
+            window.location.reload();
+        }
+    }
+
     render() {
+        if (this.state.reloadWidgets === true) {
+            return (
+                <div className={'column is-12 has-text-centered'}>
+                    <img src={'/loader.gif'} alt={"loading..."}/>
+                </div>
+            );
+        }
         let userToken = sessionStorage.getItem("userToken");
         let id = sessionStorage.getItem("userId");
         if (this.state.isConnected === false) {
             return <Redirect to={"/login"}/>;
         }
-        return <Query query={GET_USER} variables={{token: userToken, id: id}}>
-            {({loading, error, data}) => {
+        return <Query randomNumber={this.state.key} query={GET_USER} variables={{token: userToken, id: id}}>
+            {({loading, error, data, refetch}) => {
                 if (loading)
                     return (
                         <div className={'column is-12 has-text-centered'}>
@@ -72,7 +89,6 @@ class Home extends React.Component {
                         errorTitle={'Fetch Error'}
                     />;
                 }
-                console.log(data);
                 return <HomeRender data={data.user.widgetSpec}/>;
             }}
         </Query>
