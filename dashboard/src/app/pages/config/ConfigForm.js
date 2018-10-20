@@ -32,7 +32,6 @@ const GET_WIDGETS = gql`
                     minWidth
                     maxWidth
                     static
-                    location
                 }
             }
         }
@@ -49,7 +48,6 @@ class ConfigForm extends React.Component {
         return (
             <Query query={GET_WIDGETS} variables={{token: "Salut", id: id}}>
                 {({loading, error, data}) => {
-                    console.log("Query");
                     if (loading)
                         return (
                             <div className={'column is-12 has-text-centered'}>
@@ -64,10 +62,12 @@ class ConfigForm extends React.Component {
                     }
                     let WidgetsConfig = [];
                     data.user.widgetSpec.forEach(function(widget, i) {
-                        WidgetsConfig.push(<WidgetConfig config={widget} key={i}/>);
+                        WidgetsConfig.push(<WidgetConfig userId={id} config={widget} key={i}/>);
                     });
                     return (
-                            WidgetsConfig
+                        <div className={"column is-half"}>
+                            {WidgetsConfig}
+                        </div>
                     );
                 }}
             </Query>

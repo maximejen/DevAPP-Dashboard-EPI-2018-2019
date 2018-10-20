@@ -20,14 +20,14 @@ class Config extends React.Component {
                     </div>
                 </div>
             </section>
-            <div className={"columns is-centerd"} style={{
+            <div className={"columns is-centered"} style={{
                 backgroundImage: 'linear-gradient(to right, #00F18E , #00A0FD)',
                 minHeight: "100%",
                 backgroundSize: "cover",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "40vh"
+                height: "50vh"
             }}>
                 <ConfigForm/>
             </div>

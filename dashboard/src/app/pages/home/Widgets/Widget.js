@@ -5,6 +5,7 @@ import WeatherFetcher from "./weather/WeatherFetcher";
 import POTDFetcher from "./POTD/POTDFetcher";
 import Clock from "./Clock/Clock";
 import AnalogClock from "./Clockv2/AnalogClock";
+import TimezonePicker from "react-timezone";
 
 class Widget extends React.Component {
     static nameReference = [

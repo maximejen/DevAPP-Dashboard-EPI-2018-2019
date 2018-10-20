@@ -35,6 +35,7 @@ class WeatherFetcher extends React.Component {
     };
 
     savePosition(position) {
+        console.log(position);
         let options = {
             provider: 'openstreetmap',
         };
