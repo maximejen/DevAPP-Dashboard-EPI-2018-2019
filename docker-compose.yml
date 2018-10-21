@@ -5,8 +5,6 @@ services:
     restart: always
     ports:
     - "4466:4466"
-    networks:
-    - dashboard
     environment:
       PRISMA_CONFIG: |
         port: 4466

@@ -23,7 +23,7 @@ async function checkAuthAndReturnObject(func, token, context, prismaArgs, info) 
 const resolvers = {
     Query: {
         users: (_, args, context, info) => {
-            return context.prisma.mutation.users({args}, info);
+            return context.prisma.query.users({args}, info);
         },
         user: async (_, args, context, info) => {
             let token = args.token;
@@ -137,7 +137,7 @@ const server = new GraphQLServer({
         ...req,
         prisma: new Prisma({
             typeDefs: './generated/prisma.graphql',
-            endpoint: 'http://localhost:4466',
+            endpoint: 'http://prisma:4466',
         }),
     }),
 });
@@ -179,7 +179,7 @@ async function updateToken(user, token) {
         token: token
     };
 
-    await fetch('0.0.0.0:4466', {
+    await fetch('http://prisma:4466', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ server.post('/login', async function (req, res) {
     `;
     const variables = {};
 
-    await fetch('0.0.0.0:4466', {
+    await fetch('http://prisma:4466', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
