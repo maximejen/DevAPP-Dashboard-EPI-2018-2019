@@ -10,6 +10,4 @@ COPY . .
 
 EXPOSE 8080
 
-EXPOSE 4466
-
 CMD [ "node", "index.js" ]
