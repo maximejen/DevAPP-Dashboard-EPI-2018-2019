@@ -64,7 +64,7 @@ const resolvers = {
                             enable: true,
                             needAuth: false,
                             authenticate: false,
-                            widget: {
+                            config: {
                                 create: {
                                     posX: args.posx,
                                     posY: args.posy,
@@ -116,13 +116,15 @@ const resolvers = {
                     }
                 }
             };
+            // console.log(args);
+            // console.log(prismaArgs);
             return context.prisma.mutation.updateWidget(prismaArgs, info);
             // return await checkAuthAndReturnObject(context.prisma.mutation.updateWidget, token, context, prismaArgs, info);
         },
         deleteWidget: async (_, args, context, info) => {
             // let token = args.token;
             // delete args.token;
-            context.prisma.mutation.deleteWidget({where: {id: args.id}}, info);
+            return context.prisma.mutation.deleteWidget({where: {id: args.id}}, info);
             // return await checkAuthAndReturnObject(context.prisma.mutation.deleteWidget, token, context, {where: {id: args.id}}, info);
         }
     }
@@ -139,6 +141,7 @@ const server = new GraphQLServer({
         }),
     }),
 });
+server.use(cors());
 
 server.use(express.static("public"));
 server.use(session({
@@ -176,7 +179,7 @@ async function updateToken(user, token) {
         token: token
     };
 
-    await fetch('http://localhost:4466', {
+    await fetch('0.0.0.0:4466', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -198,7 +201,7 @@ server.post('/login', async function (req, res) {
     `;
     const variables = {};
 
-    await fetch('http://localhost:4466', {
+    await fetch('0.0.0.0:4466', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -226,5 +229,49 @@ server.post('/login', async function (req, res) {
         });
 });
 
-server.use(cors());
-server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));
+server.get('/about.json', (req, res) => {
+    res.status(200).send({
+        client: {
+            host: req.hostname
+        },
+        "server": {
+            "current_time": Math.floor(Date.now() / 1000),
+            "services": [
+                {
+                    "name": "weather",
+                    "widgets": [{
+                        "name": "city_temperature",
+                        "description": "Affichage de la temperature pour une ville",
+                        "params": [{
+                            "name": "city",
+                            "type": "string"
+                        }]
+                    }]
+                },
+                {
+                    "name": "picture of the day",
+                    "widgets": [
+                        {
+                            "name": "nasa",
+                            "description": "Affichage de la photo du jour de la nasa",
+                            "params": [{
+                                "key": "string",
+                            }]
+                        },
+                        {
+                            "name": "pixabay",
+                            "description": "Affichage de la photo la plus populaire sur pixabay",
+                            "params": [{
+                                "key": "string",
+                                "category": "string"
+                            }]
+                        },
+                    ]
+                },
+            ]
+        }
+    });
+});
+
+server.start({port: 8080});
+console.log(`GraphQL server is running on http://localhost:8080 => test`);

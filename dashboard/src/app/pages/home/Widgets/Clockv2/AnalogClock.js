@@ -11,18 +11,23 @@ class AnalogClock extends React.Component {
     state = {
         date: new Date(),
         isAnalog: this.props.isAnalog,
-        intervalId: undefined
+        intervalId: undefined,
+    };
+
+    static defaultProps = {
+        interval: 1
     };
 
     static propTypes = {
-        isAnalog: PropTypes.bool
+        isAnalog: PropTypes.bool,
+        interval: PropTypes.number
     };
 
     componentDidMount() {
         this.setState({
             intervalId: setInterval(
                 () => this.setState({ date: new Date() }),
-                1000
+                this.props.interval * 1000
             )
         });
     };

@@ -1,49 +1,44 @@
 import React from 'react'
 import PropTypes from "prop-types";
+
 import {Redirect} from "react-router-dom";
 
-
-class WeatherConfig extends React.Component {
+class POTDConfig extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSwitches = this.handleSwitches.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validateForm = this.validateForm.bind(this);
+        this.handleSwitches = this.handleSwitches.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     state = {
         enable: this.props.widget.enable,
         static: this.props.widget.config.static,
-        location: this.props.spec.location,
-        navigation: this.props.spec.navigation,
-        temperatureType: this.props.spec.temperatureType,
-        temperature: this.props.spec.temperature,
-        humidity: this.props.spec.humidity,
-        windSpeed: this.props.spec.windSpeed,
         interval: this.props.spec.interval,
-        redirect: false
+        apiType: this.props.spec.apiType
     };
 
     static propTypes = {
+        timeZone: PropTypes.string,
         widget: PropTypes.object,
-        spec: PropTypes.object,
+        spec: PropTypes.object
     };
-
-    validateForm() {
-        return (this.state.navigation === true || (this.state.navigation === false && this.state.location && this.state.location !== "")) && this.state.interval > 0;
-    }
 
     handleChange(event) {
         this.setState({
             [event.target.id]: event.target.value
-        });
+        })
     }
 
     handleSwitches(event) {
         this.setState({
             [event.target.id]: !this.state[event.target.id]
         });
+    }
+
+    validateForm() {
+        return this.state.interval > 0;
     }
 
     handleSubmit(event) {
@@ -56,16 +51,10 @@ class WeatherConfig extends React.Component {
         `;
 
         let specification = {
-            location: this.state.location,
-                navigation: this.state.navigation,
-                temperatureType: this.state.temperatureType,
-                temperature: this.state.temperature,
-                humidity: this.state.humidity,
-                windSpeed: this.state.windSpeed,
-                interval: this.state.interval
+            apiType: this.state.apiType,
+            interval: this.state.interval
         };
         let specString = JSON.stringify(specification);
-        console.log("SPEC STRING", specString);
 
         const variables = {
             token: sessionStorage.getItem("userToken"),
@@ -116,9 +105,9 @@ class WeatherConfig extends React.Component {
             return <Redirect to={"/?reload=true"}/>
         }
         let width = "100%";
-        let temperatureTypes = [
-            <option key={0} value={"°C"}>{"Celsius (°C)"}</option>,
-            <option key={1} value={"K"}>{"Kalvin (K)"}</option>
+        let apiTypes = [
+            <option key={0} value={"nasa"}>{"NASA - Picture of the Day"}</option>,
+            <option key={1} value={"pixabay"}>{"Pixabay - First Popular Picture"}</option>
         ];
         return (
             <div>
@@ -146,66 +135,20 @@ class WeatherConfig extends React.Component {
                                 <label htmlFor={"static"}>Static</label>
                             </div>
                             <div className={"field"}>
-                                <input id={"navigation"} type="checkbox" name="switchRoundedInfo enable"
-                                       className="switch is-rounded is-info" checked={this.state.navigation} onChange={this.handleSwitches}/>
-                                <label htmlFor={"navigation"}>Activate geolocation</label>
-                            </div>
-                            {
-                                !this.state.navigation
-                                &&
-                                <div className={"field"}>
-                                    <label className={"is-full label"}>
-                                        Location
-                                    </label>
-                                    <input
-                                        id={"location"}
-                                        name={"location"}
-                                        className={"is-full input"}
-                                        type="text"
-                                        value={this.state.location}
-                                        onChange={this.handleChange}
-                                    />
+                                <label className={"is-full label"}>
+                                    Picture Type (API)
+                                </label>
+                                <div className={"select"} style={{
+                                    width: width
+                                }}>
+                                    <select id={"apiType"}
+                                            name={"apiType"}
+                                            className={"is-full input"}
+                                            value={this.state.apiType}
+                                            onChange={this.handleChange}>
+                                        {apiTypes}
+                                    </select>
                                 </div>
-                            }
-                            <div className={"field"}>
-                                <input id={"temperature"} type="checkbox" name="switchRoundedInfo enable"
-                                       className="switch is-rounded is-info" checked={this.state.temperature} onChange={this.handleSwitches}/>
-                                <label htmlFor={"temperature"}>Temperature</label>
-                            </div>
-                            {
-                                this.state.temperature
-                                &&
-                                <div className={"field"}>
-                                    <label className={"is-full label"}>
-                                        Temperature type
-                                    </label>
-                                    <div className="select" style={{
-                                        width: width
-                                    }}>
-                                        <select
-                                            id={"temperatureType"}
-                                            name="temperatureType"
-                                            className={"is-full"}
-                                            value={this.state.temperatureType}
-                                            onChange={this.handleChange}
-                                            style={{
-                                                width: width
-                                            }}
-                                        >
-                                            {temperatureTypes}
-                                        </select>
-                                    </div>
-                                </div>
-                            }
-                            <div className={"field"}>
-                                <input id={"windSpeed"} type="checkbox" name="switchRoundedInfo enable"
-                                       className="switch is-rounded is-info" checked={this.state.windSpeed} onChange={this.handleSwitches}/>
-                                <label htmlFor={"windSpeed"}>Wind speed</label>
-                            </div>
-                            <div className={"field"}>
-                                <input id={"humidity"} type="checkbox" name="switchRoundedInfo enable"
-                                       className="switch is-rounded is-info" checked={this.state.humidity} onChange={this.handleSwitches}/>
-                                <label htmlFor={"humidity"}>Humidity</label>
                             </div>
                             <div className={"field"}>
                                 <label className={"is-full label"}>
@@ -243,4 +186,4 @@ class WeatherConfig extends React.Component {
     }
 }
 
-export default WeatherConfig
+export default POTDConfig

@@ -13,10 +13,11 @@ class Widget extends React.Component {
             renderName: "Digital Clock",
             func:
                 (specifications) => {
-                    return <Clock/>;
+                    let spec = JSON.parse(specifications);
+                    return <Clock interval={parseInt(spec.interval)}/>;
                 },
             dataGrid: {w: 3, h: 5, minW: 3, minH: 5, maxW: 3, maxH: 5},
-            defaultConfig: '{}'
+            defaultConfig: '{"interval":1, "timezone":"Europe/Paris"}'
         },
         {
             name: "weather",
@@ -24,7 +25,6 @@ class Widget extends React.Component {
             func:
                 (specifications) => {
                     let spec = JSON.parse(specifications);
-                    console.log(spec);
                     return <WeatherFetcher spec={spec}/>;
                 },
             dataGrid: {w: 3, h: 4, minW: 3, minH: 4, maxW: 3, maxH: 4},
@@ -46,10 +46,11 @@ class Widget extends React.Component {
             renderName: "Analogical Clock",
             func:
                 (specifications) => {
-                    return <AnalogClock/>;
+                    let spec = JSON.parse(specifications);
+                    return <AnalogClock interval={parseInt(spec.interval)}/>;
                 },
             dataGrid: {w: 2, h: 7, minW: 2, minH: 7, maxW: 2, maxH: 7},
-            defaultConfig: '{}'
+            defaultConfig: '{"interval":1, "timezone":"Europe/Paris"}'
         }
     ];
 
@@ -74,7 +75,6 @@ class Widget extends React.Component {
             return <div>HAHA</div>;
         }
         let spec = this.props.specification;
-        console.log(this.props);
         if (spec === null || spec === undefined || spec === "")
             spec = widget.defaultConfig;
         return widget.func(spec);

@@ -1,9 +1,41 @@
 version: '3'
 services:
-  dashboard:
-    build:
-      ./dashboard/
-    command: npm install
+  prisma:
+    image: prismagraphql/prisma:1.18
     restart: always
     ports:
+    - "4466:4466"
+    networks:
+    - dashboard
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
+        # managementApiSecret: my-secret
+        databases:
+          default:
+            connector: postgres
+            host: postgres
+            port: 5432
+            user: prisma
+            password: prisma
+            migrations: true
+            rawAccess: true
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+    volumes:
+    - ./postgre:/var/lib/postgresql/data
+  client:
+    build: ./dashboard
+    ports:
+      - "3000:3000"
+  server:
+    build: ./server
+    ports:
       - "8080:8080"
+volumes:
+  postgres:

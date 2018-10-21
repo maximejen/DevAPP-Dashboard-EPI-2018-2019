@@ -11,7 +11,7 @@ import Router from './layout/Router';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from "apollo-boost";
 const client = new ApolloClient({
-    uri: "http://localhost:4000/"
+    uri: "http://localhost:8080/"
 });
 
 class Layout extends React.Component {

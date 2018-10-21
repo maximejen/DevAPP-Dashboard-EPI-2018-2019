@@ -12,14 +12,19 @@ class Clock extends React.Component {
     };
 
     static propTypes = {
-        Timezone: PropTypes.string
+        Timezone: PropTypes.string,
+        interval: PropTypes.number
+    };
+
+    static defaultProps = {
+        interval: 1
     };
 
     componentDidMount() {
         this.setState({
             intervalId: setInterval(
                 () => this.setState({ date: new Date() }),
-                1000
+                this.props.interval * 1000
             )
         });
     };

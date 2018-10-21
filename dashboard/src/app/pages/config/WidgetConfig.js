@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from "prop-types";
 import moment from 'moment-timezone'
 import ClockConfig from "./WidgetsConfig/ClockConfig";
+import AnalogClockConfig from "./WidgetsConfig/AnalogClockConfig";
 import WeatherConfig from "./WidgetsConfig/WeatherConfig";
 import Widget from "../home/Widgets/Widget";
+import POTDConfig from "./WidgetsConfig/POTDConfig";
 
 class WidgetConfig extends React.Component {
     constructor(props) {
@@ -14,7 +16,28 @@ class WidgetConfig extends React.Component {
     static formReferences = [
         {
             slugname: "clock",
-            form: (props) => {return <ClockConfig config={props.config} timeZone={moment.tz.guess()}/>;}
+            form: (props) => {
+                let specification = props.config.config.specification;
+                if (specification === null || specification === undefined) {
+                    let configRef = Widget.widgetReferences.find(elem => elem.name === props.config.slugname);
+                    specification = configRef.defaultConfig;
+                }
+                let spec = JSON.parse(specification);
+                console.log(moment.tz.guess());
+                return <ClockConfig widget={props.config} spec={spec}/>;
+            }
+        },
+        {
+            slugname: "analogclock",
+            form: (props) => {
+                let specification = props.config.config.specification;
+                if (specification === null || specification === undefined) {
+                    let configRef = Widget.widgetReferences.find(elem => elem.name === props.config.slugname);
+                    specification = configRef.defaultConfig;
+                }
+                let spec = JSON.parse(specification);
+                return <AnalogClockConfig widget={props.config} spec={spec}/>;
+            }
         },
         {
             slugname: "weather",
@@ -26,6 +49,18 @@ class WidgetConfig extends React.Component {
                 }
                 let spec = JSON.parse(specification);
                 return <WeatherConfig widget={props.config} spec={spec}/>;
+            }
+        },
+        {
+            slugname: "potd",
+            form: (props) => {
+                let specification = props.config.config.specification;
+                if (specification === null || specification === undefined) {
+                    let configRef = Widget.widgetReferences.find(elem => elem.name === props.config.slugname);
+                    specification = configRef.defaultConfig;
+                }
+                let spec = JSON.parse(specification);
+                return <POTDConfig widget={props.config} spec={spec}/>;
             }
         }
     ];

@@ -55,7 +55,7 @@ class RegisterForm extends React.Component {
             email: this.state.email
         };
 
-        fetch('http://localhost:4000', {
+        fetch('http://localhost:8080', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

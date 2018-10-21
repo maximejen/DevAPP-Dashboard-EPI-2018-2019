@@ -52,7 +52,7 @@ class WidgetGrid extends React.Component {
         for (let index in this.props.data) {
             let config = this.props.data[index].config;
             let specification = config.specification;
-            if (specification === null || specification === undefined) {
+            if (specification === null || specification === undefined || specification === "" || specification === '{}') {
                 let widgetRef = Widget.widgetReferences.find(elem => elem.name === this.props.data[index].slugname);
                 specification = widgetRef.defaultConfig;
             }
@@ -93,6 +93,7 @@ class WidgetGrid extends React.Component {
                 `;
 
                 let specification = this.state.layout.find(elem => elem.id === id).specification;
+                console.log("SPEC", specification);
 
                 const variables = {
                     token: sessionStorage.getItem("userToken"),
@@ -106,7 +107,7 @@ class WidgetGrid extends React.Component {
                     height: h
                 };
 
-                fetch('http://localhost:4000', {
+                fetch('http://localhost:8080', {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ class WidgetGrid extends React.Component {
                 token: sessionStorage.getItem("userToken"),
                 id: event.target.parentElement.id
             };
-            fetch('http://localhost:4000', {
+            fetch('http://localhost:8080', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -175,8 +176,11 @@ class WidgetGrid extends React.Component {
                 });
         }
         else if (event.target.id === "config") {
+            let id = event.target.parentElement.id;
+            if (id === "config")
+                id = event.target.parentElement.parentElement.id;
             this.setState({
-                redirectRoute: "/config/" + event.target.parentElement.id
+                redirectRoute: "/config/" + id
             })
         }
     }
@@ -202,11 +206,11 @@ class WidgetGrid extends React.Component {
                     <Widget widgetName={this.props.data[index].slugname}
                             specification={this.state.layout[index].specification}/>
                     <span id={"config"} className="is-1 column has-text-centered is-centered icon" style={{color: "dark grey", zIndex: "10000"}} onClick={this.handleClick}>
-                        <i id={"config"} className={"fas fa-cog"} onClick={this.handleClick}/>
+                        <i id={"config"} className={"fas fa-cog"}/>
                         &nbsp;
                     </span>
                     <span id={"delete"} className="is-1 column has-text-centered is-centered icon has-text-danger" style={{zIndex: "10000"}} onClick={this.handleClick}>
-                        <i id={"delete"} className={"fas fa-trash"} onClick={this.handleClick}/>
+                        <i id={"delete"} className={"fas fa-trash"}/>
                         &nbsp;
                     </span>
                     <span className={"column is-10"}>

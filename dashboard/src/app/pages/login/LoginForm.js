@@ -32,7 +32,7 @@ class LoginForm extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        const url = "http://localhost:4000/login";
+        const url = "http://localhost:8080/login";
         let hash = sha512(this.state.password);
         const data = JSON.stringify({
             email: this.state.email,
@@ -84,7 +84,7 @@ class LoginForm extends React.Component {
                 borderRadius: "10px",
                 width: "20em"
             }}>
-                <form action={"http://localhost:4000/login"} method={"POST"} onSubmit={this.handleSubmit}>
+                <form action={"http://localhost:8080/login"} method={"POST"} onSubmit={this.handleSubmit}>
                     <div className={"field"}>
                         <label className={"is-full label"}>
                             Email

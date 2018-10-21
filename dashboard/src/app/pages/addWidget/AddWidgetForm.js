@@ -43,6 +43,7 @@ class AddWidgetForm extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
+        console.log(this.state.name);
         let reference = Widget.widgetReferences.find(element => {
             if (element.name === this.state.name)
                 return element;
@@ -64,11 +65,11 @@ class AddWidgetForm extends React.Component {
             maxwidth: reference.dataGrid.maxW,
             minheight: reference.dataGrid.minH,
             maxheight: reference.dataGrid.maxH,
-            specification: reference.specification,
+            specification: reference.defaultConfig,
             static: false
         };
 
-        fetch('http://localhost:4000', {
+        fetch('http://localhost:8080', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -118,7 +119,7 @@ class AddWidgetForm extends React.Component {
                 borderRadius: "10px",
                 width: "20em"
             }}>
-                <form action={"http://localhost:4000/login"} method={"POST"} onSubmit={this.handleSubmit}>
+                <form action={"http://localhost:8080/login"} method={"POST"} onSubmit={this.handleSubmit}>
                     <div className={"field"}>
                         <label className={"is-full label"}>
                             Name

@@ -50,6 +50,7 @@ class ConfigForm extends React.Component {
                             errorTitle={'Fetch Error'}
                         />;
                     }
+                    console.log(data);
                     return (
                         <div className={"column is-half"}>
                             <WidgetConfig userId={sessionStorage.getItem("userId")} config={data.widget}/>
