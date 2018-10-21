@@ -17,7 +17,7 @@ async function checkAuthAndReturnObject(func, token, context, prismaArgs, info) 
         obj.passwd = "XXX";
     if (token === obj.token || token === "Salut")
         return obj;
-    throw "Bad token.";
+    throw "Bad token or expired token. Try to reconnect.";
 }
 
 const resolvers = {
@@ -138,6 +138,7 @@ const server = new GraphQLServer({
         prisma: new Prisma({
             typeDefs: './generated/prisma.graphql',
             endpoint: 'http://prisma:4466',
+            // endpoint: 'http://localhost:4466',
         }),
     }),
 });
@@ -180,6 +181,7 @@ async function updateToken(user, token) {
     };
 
     await fetch('http://prisma:4466', {
+    // await fetch('http://localhost:4466', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -202,6 +204,7 @@ server.post('/login', async function (req, res) {
     const variables = {};
 
     await fetch('http://prisma:4466', {
+    // await fetch('http://localhost:4466', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',

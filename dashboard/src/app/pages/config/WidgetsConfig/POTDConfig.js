@@ -16,7 +16,8 @@ class POTDConfig extends React.Component {
         enable: this.props.widget.enable,
         static: this.props.widget.config.static,
         interval: this.props.spec.interval,
-        apiType: this.props.spec.apiType
+        apiType: this.props.spec.apiType,
+        category: this.props.spec.category,
     };
 
     static propTypes = {
@@ -52,7 +53,8 @@ class POTDConfig extends React.Component {
 
         let specification = {
             apiType: this.state.apiType,
-            interval: this.state.interval
+            interval: this.state.interval,
+            category: this.state.category
         };
         let specString = JSON.stringify(specification);
 
@@ -84,23 +86,15 @@ class POTDConfig extends React.Component {
                     error: err
                 });
             })
-            .then(response => {
-                response.json()
-                    .then(data => {
-                        if (response.status !== 200) {
-                            this.setState({
-                                errorMessage: data.message
-                            })
-                        } else {
-                            this.setState({
-                                redirect: true
-                            })
-                        }
-                    });
-            });
+            .then(this.setState({redirect: true}));
+    }
+
+    static capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     render() {
+        console.log(this.props.spec);
         if (this.state.redirect === true) {
             return <Redirect to={"/?reload=true"}/>
         }
@@ -109,6 +103,11 @@ class POTDConfig extends React.Component {
             <option key={0} value={"nasa"}>{"NASA - Picture of the Day"}</option>,
             <option key={1} value={"pixabay"}>{"Pixabay - First Popular Picture"}</option>
         ];
+        let categoryNames = ["fashion", "nature", "backgrounds", "science", "education", "people", "feelings", "religion", "health", "places", "animals", "industry", "food", "computer", "sports", "transportation", "travel", "buildings", "business", "music"];
+        let categories = [];
+        for (let index in categoryNames) {
+            categories.push(<option key={index} value={categoryNames[index]}>{POTDConfig.capitalizeFirstLetter(categoryNames[index])}</option>);
+        }
         return (
             <div>
                 <form action={"http://localhost:8080/"} method={"POST"} onSubmit={this.handleSubmit}>
@@ -150,6 +149,26 @@ class POTDConfig extends React.Component {
                                     </select>
                                 </div>
                             </div>
+                            {
+                                this.state.apiType === "pixabay"
+                                &&
+                                <div className={"field"}>
+                                    <label className={"is-full label"}>
+                                        Category of image
+                                    </label>
+                                    <div className={"select"} style={{
+                                        width: width
+                                    }}>
+                                        <select id={"category"}
+                                                name={"category"}
+                                                className={"is-full input"}
+                                                value={this.state.category}
+                                                onChange={this.handleChange}>
+                                            {categories}
+                                        </select>
+                                    </div>
+                                </div>
+                            }
                             <div className={"field"}>
                                 <label className={"is-full label"}>
                                     Reload Interval (seconds)

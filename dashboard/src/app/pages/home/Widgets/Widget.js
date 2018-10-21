@@ -38,8 +38,8 @@ class Widget extends React.Component {
                     let spec = JSON.parse(specifications);
                     return <POTDFetcher spec={spec}/>;
                 },
-            dataGrid: {w: 4, h: 12, minW: 4, minH: 12, maxW: 4, maxH: 12},
-            defaultConfig: '{"apiType": "pixabay", "isLink": true, "interval": 10000}'
+            dataGrid: {w: 4, h: 14, minW: 4, minH: 14, maxW: 4, maxH: 14},
+            defaultConfig: '{"apiType": "pixabay", "isLink": true, "interval": 10000, "category":"science"}'
         },
         {
             name: "analogclock",

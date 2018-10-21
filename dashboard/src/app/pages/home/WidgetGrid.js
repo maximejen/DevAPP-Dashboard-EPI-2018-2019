@@ -93,7 +93,6 @@ class WidgetGrid extends React.Component {
                 `;
 
                 let specification = this.state.layout.find(elem => elem.id === id).specification;
-                console.log("SPEC", specification);
 
                 const variables = {
                     token: sessionStorage.getItem("userToken"),
@@ -139,6 +138,9 @@ class WidgetGrid extends React.Component {
     }
 
     handleClick(event) {
+        event.preventDefault();
+        console.log("IN CLICK");
+        console.log(event.target);
         if (event.target.id === "delete") {
             let query = `mutation DeleteWidget($token: String!, $id: ID!) {deleteWidget(token: $token, id: $id) {id}}`;
 
@@ -187,16 +189,14 @@ class WidgetGrid extends React.Component {
 
     render() {
         if (this.state.redirectRoute !== undefined) {
-            return <Redirect to={this.state.redirectRoute} />;
+            return <Redirect to={this.state.redirectRoute}/>;
         }
         let colsNumber = (window.innerWidth - 64) / 155;
 
         let style = {
             backgroundColor: "white",
             padding: "1.5em",
-            borderRadius: "10px",
-            width: "20em",
-            zIndex: "10"
+            borderRadius: "10px"
         };
         let widgetList = [];
         for (let index in this.props.data) {
@@ -206,21 +206,17 @@ class WidgetGrid extends React.Component {
                     <Widget widgetName={this.props.data[index].slugname}
                             specification={this.state.layout[index].specification}/>
                     <span id={"config"} className="is-1 column has-text-centered is-centered icon" style={{color: "dark grey", zIndex: "10000"}} onClick={this.handleClick}>
-                        <i id={"config"} className={"fas fa-cog"}/>
-                        &nbsp;
+                        <i id={"config"} className={"fas fa-cog"}/>&nbsp;
                     </span>
-                    <span id={"delete"} className="is-1 column has-text-centered is-centered icon has-text-danger" style={{zIndex: "10000"}} onClick={this.handleClick}>
-                        <i id={"delete"} className={"fas fa-trash"}/>
-                        &nbsp;
+                        <span id={"delete"} className="is-1 column has-text-centered is-centered icon has-text-danger" style={{zIndex: "10000"}} onClick={this.handleClick}>
+                        <i id={"delete"} className={"fas fa-trash"}/>&nbsp;
                     </span>
-                    <span className={"column is-10"}>
-                        &nbsp;
-                    </span>
+                    <span className={"column is-10"}/>
                 </div>);
             }
         }
         return (
-            <GridLayout className="layout" layout={this.state.layout} cols={colsNumber} rowHeight={30}
+            <GridLayout className="layout columns" layout={this.state.layout} cols={colsNumber} rowHeight={30}
                         width={window.innerWidth - 64} style={{
                 padding: "2rem",
             }} onDragStop={this.handleLayoutChange} onResizeStop={this.handleLayoutChange}>

@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 class POTDFetcher extends React.Component {
     static apis = {
         nasa: {
-            url: "https://api.nasa.gov/planetary/apod?api_key=jhQHj4X4rX3anmogQ1hPgthQ0n7P2xTWaMlJvgVZ",
+            url: (spec) => {return "https://api.nasa.gov/planetary/apod?api_key=jhQHj4X4rX3anmogQ1hPgthQ0n7P2xTWaMlJvgVZ";},
             src: (data) => {
                 return data.url
             },
@@ -20,7 +20,7 @@ class POTDFetcher extends React.Component {
             }
         },
         pixabay: {
-            url: "https://pixabay.com/api/?key=10453380-74815c118ac4b56802b718eda&order=popular&per_page=3&orientation=horizontal",
+            url: (spec) => {return "https://pixabay.com/api/?key=10453380-74815c118ac4b56802b718eda&order=popular&orientation=horizontal&q=" + spec.category;},
             src: (data) => {
                 return data.hits[0].largeImageURL;
             },
@@ -59,12 +59,12 @@ class POTDFetcher extends React.Component {
 
     render() {
         if (!this.state.data) {
-            let url = POTDFetcher.apis.nasa.url;
+            let url = POTDFetcher.apis.nasa.url(this.props.spec);
             let index;
             let apiType = this.props.spec.apiType !== undefined ? this.props.spec.apiType : "nasa";
             for (index in POTDFetcher.apis) {
                 if (index === apiType) {
-                    url = POTDFetcher.apis[index].url;
+                    url = POTDFetcher.apis[index].url(this.props.spec);
                     break;
                 }
             }
@@ -75,17 +75,19 @@ class POTDFetcher extends React.Component {
             fetch(request)
                 .catch(err => {
                     this.setState({
-                        error: err
+                        isLoading: true
                     });
                 })
                 .then(response => {
-                    response.json().then(data => {
-                        this.setState({
-                            isLoading: false,
-                            data: data,
-                            tool: POTDFetcher.apis[index]
+                    if (response !== undefined) {
+                        response.json().then(data => {
+                            this.setState({
+                                isLoading: false,
+                                data: data,
+                                tool: POTDFetcher.apis[index]
+                            });
                         });
-                    });
+                    }
                 });
         }
 
