@@ -33,8 +33,8 @@ class Router extends React.Component {
                 <Route path='/login' render={() => {
                     return <Login isConnected={this.props.isConnected} updateUser={this.props.updateUser}/>;
                 }}/>
-                <Route path='/config' render={() => {
-                    return <Config isConnected={this.props.isConnected}/>;
+                <Route path='/config/:id' render={(props) => {
+                    return <Config id={props.match.params.id} isConnected={this.props.isConnected}/>;
                 }}/>
                 <Route path='/register' component={Register}/>
                 <Route path='/add-widget' render={() => {

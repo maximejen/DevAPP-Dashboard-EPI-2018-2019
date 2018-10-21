@@ -38,14 +38,12 @@ class WeatherFetcher extends React.Component {
     };
 
     savePosition(position) {
-        console.log(position);
         let options = {
             provider: 'openstreetmap',
         };
         let geocoder = NodeGeocoder(options);
 
         geocoder.reverse({lat: position.coords.latitude, lon: position.coords.longitude}, function (err, res) {
-            console.log(res);
             let city = res[0].city;
             this.setState({
                 cityName: city
@@ -64,12 +62,14 @@ class WeatherFetcher extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.spec.nagivation === true)
+        if (this.props.spec.navigation === true) {
             this.getLocation();
-        else
+        }
+        else {
             this.setState({
                 cityName: this.props.spec.location
             });
+        }
         this.setState({
             intervalId: setInterval(
                 () => this.setState({response: undefined}),

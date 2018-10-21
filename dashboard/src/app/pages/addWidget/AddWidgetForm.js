@@ -2,10 +2,11 @@ import React from "react";
 import {Redirect} from "react-router-dom";
 import Widget from "../home/Widgets/Widget";
 
-const ADD_WIDGET_MUTATION = `mutation addWidget($id: ID!, $name: String!, $slugname: String!, $static: Boolean!,
+const ADD_WIDGET_MUTATION = `mutation addWidget($token: String!, $id: ID!, $name: String!, $slugname: String!, $static: Boolean!,
     $posx: Int!, $posy: Int!, $height: Int!, $minheight: Int!,
     $maxheight: Int!, $width: Int!, $minwidth: Int!, $maxwidth: Int!) {
     addWidget(
+      token: $token
       id: $id,
       name: $name,
       slugname: $slugname,
@@ -42,9 +43,6 @@ class AddWidgetForm extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        // this.setState({
-        //     redirect: true
-        // })
         let reference = Widget.widgetReferences.find(element => {
             if (element.name === this.state.name)
                 return element;
@@ -54,6 +52,7 @@ class AddWidgetForm extends React.Component {
         let query = ADD_WIDGET_MUTATION;
 
         const variables = {
+            token: sessionStorage.getItem("userToken"),
             id: sessionStorage.getItem("userId"),
             name: reference.renderName,
             slugname: this.state.name,
@@ -65,6 +64,7 @@ class AddWidgetForm extends React.Component {
             maxwidth: reference.dataGrid.maxW,
             minheight: reference.dataGrid.minH,
             maxheight: reference.dataGrid.maxH,
+            specification: reference.specification,
             static: false
         };
 
@@ -104,7 +104,7 @@ class AddWidgetForm extends React.Component {
     render() {
         let width = "18em";
         if (this.state.redirect) {
-            return <Redirect push to={"/" + "?reload=true"}/>;
+            return <Redirect push to={"/?reload=true"}/>;
         }
         let widgetList = [];
         let widgetReferences = Widget.widgetReferences;

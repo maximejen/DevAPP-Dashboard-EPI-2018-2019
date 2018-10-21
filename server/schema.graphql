@@ -4,10 +4,12 @@
 type Query {
     users: [User!]!
     user(token: String!, id: ID!): User
+    widget(token: String!, id: ID!): Widget
 }
 
 type Mutation {
     createUser(name: String!, email: String!, passwd: String!): User
-    addWidget(id: ID!, name: String!, slugname: String!, static: Boolean!, posx: Int!, posy: Int!, height: Int!, minheight: Int!, maxheight: Int!, width: Int!, minwidth: Int!, maxwidth: Int!): User
-    updateWidget(id: ID!, posx: Int!, posy: Int!, width: Int!, height: Int!): Widget
+    addWidget(token: String! id: ID!, name: String!, slugname: String!, static: Boolean!, posx: Int!, posy: Int!, height: Int!, minheight: Int!, maxheight: Int!, width: Int!, minwidth: Int!, maxwidth: Int!, specification: String): User
+    updateWidget(token: String!, id: ID!, enable: Boolean!, static: Boolean!, posx: Int!, posy: Int!, height: Int!, width: Int!, specification: String!): Widget
+    deleteWidget(token: String! id: ID!): Widget
 }

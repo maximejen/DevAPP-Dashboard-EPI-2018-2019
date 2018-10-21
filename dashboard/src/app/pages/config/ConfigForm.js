@@ -3,36 +3,23 @@ import gql from 'graphql-tag'
 import {Redirect} from "react-router-dom";
 import ErrorMessage from "../home/Widgets/error/ErrorMessage";
 import {Query} from 'react-apollo';
+import PropTypes from 'prop-types';
 import WidgetConfig from "./WidgetConfig";
 
-const GET_WIDGETS = gql`
+const GET_WIDGET = gql`
     query getWidget($token: String!, $id: ID!) {
-        user(token: $token, id: $id) {
-            widgetSpec {
-                id
-                name
-                slugname
-                enable
-                needAuth
-                authenticate
-                authentication {
-                    id
-                    type
-                    accessToken
-                    refreshToken
-                    expire
-                }
-                config {
-                    posX
-                    posY
-                    height
-                    minHeight
-                    maxHeight
-                    width
-                    minWidth
-                    maxWidth
-                    static
-                }
+        widget(token: $token, id: $id) {
+            id
+            name
+            slugname
+            enable
+            config {
+                static
+                specification
+                posX
+                posY
+                width
+                height
             }
         }
     }
@@ -40,13 +27,16 @@ const GET_WIDGETS = gql`
 
 class ConfigForm extends React.Component {
 
+    static propTypes = {
+        id: PropTypes.string
+    };
+
     render () {
         let userToken = sessionStorage.getItem("userToken");
-        let id = sessionStorage.getItem("userId");
         if (userToken === undefined && userToken === null)
             return <Redirect to={"/login"}/>;
         return (
-            <Query query={GET_WIDGETS} variables={{token: "Salut", id: id}}>
+            <Query query={GET_WIDGET} variables={{token: userToken, id: this.props.id}}>
                 {({loading, error, data}) => {
                     if (loading)
                         return (
@@ -60,13 +50,9 @@ class ConfigForm extends React.Component {
                             errorTitle={'Fetch Error'}
                         />;
                     }
-                    let WidgetsConfig = [];
-                    data.user.widgetSpec.forEach(function(widget, i) {
-                        WidgetsConfig.push(<WidgetConfig userId={id} config={widget} key={i}/>);
-                    });
                     return (
                         <div className={"column is-half"}>
-                            {WidgetsConfig}
+                            <WidgetConfig userId={sessionStorage.getItem("userId")} config={data.widget}/>
                         </div>
                     );
                 }}

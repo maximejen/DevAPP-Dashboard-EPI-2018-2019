@@ -1,10 +1,15 @@
 import React from 'react'
-import {Redirect} from "react-router-dom";
 import ConfigForm from "./config/ConfigForm";
+
+import PropTypes from "prop-types";
 
 class Config extends React.Component {
     state = {
         isConnected: this.props.isConnected
+    };
+
+    static propTypes = {
+        id: PropTypes.string
     };
 
     render() {
@@ -28,7 +33,7 @@ class Config extends React.Component {
                 justifyContent: "center",
                 height: "50vh"
             }}>
-                <ConfigForm/>
+                <ConfigForm id={this.props.id}/>
             </div>
         </div>
     }

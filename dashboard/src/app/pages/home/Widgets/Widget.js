@@ -15,7 +15,8 @@ class Widget extends React.Component {
                 (specifications) => {
                     return <Clock/>;
                 },
-            dataGrid: {w: 3, h: 5, minW: 3, minH: 5, maxW: 3, maxH: 5}
+            dataGrid: {w: 3, h: 5, minW: 3, minH: 5, maxW: 3, maxH: 5},
+            defaultConfig: '{}'
         },
         {
             name: "weather",
@@ -23,6 +24,7 @@ class Widget extends React.Component {
             func:
                 (specifications) => {
                     let spec = JSON.parse(specifications);
+                    console.log(spec);
                     return <WeatherFetcher spec={spec}/>;
                 },
             dataGrid: {w: 3, h: 4, minW: 3, minH: 4, maxW: 3, maxH: 4},
@@ -36,7 +38,7 @@ class Widget extends React.Component {
                     let spec = JSON.parse(specifications);
                     return <POTDFetcher spec={spec}/>;
                 },
-            dataGrid: {w: 4, h: 11, minW: 4, minH: 11, maxW: 6, maxH: 20},
+            dataGrid: {w: 4, h: 12, minW: 4, minH: 12, maxW: 4, maxH: 12},
             defaultConfig: '{"apiType": "pixabay", "isLink": true, "interval": 10000}'
         },
         {
@@ -46,7 +48,8 @@ class Widget extends React.Component {
                 (specifications) => {
                     return <AnalogClock/>;
                 },
-            dataGrid: {w: 2, h: 7, minW: 2, minH: 7, maxW: 2, maxH: 7}
+            dataGrid: {w: 2, h: 7, minW: 2, minH: 7, maxW: 2, maxH: 7},
+            defaultConfig: '{}'
         }
     ];
 
@@ -71,6 +74,7 @@ class Widget extends React.Component {
             return <div>HAHA</div>;
         }
         let spec = this.props.specification;
+        console.log(this.props);
         if (spec === null || spec === undefined || spec === "")
             spec = widget.defaultConfig;
         return widget.func(spec);

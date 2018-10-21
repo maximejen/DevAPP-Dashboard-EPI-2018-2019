@@ -3,12 +3,32 @@ import PropTypes from "prop-types";
 import moment from 'moment-timezone'
 import ClockConfig from "./WidgetsConfig/ClockConfig";
 import WeatherConfig from "./WidgetsConfig/WeatherConfig";
+import Widget from "../home/Widgets/Widget";
 
 class WidgetConfig extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
+
+    static formReferences = [
+        {
+            slugname: "clock",
+            form: (props) => {return <ClockConfig config={props.config} timeZone={moment.tz.guess()}/>;}
+        },
+        {
+            slugname: "weather",
+            form: (props) => {
+                let specification = props.config.config.specification;
+                if (specification === null || specification === undefined) {
+                    let configRef = Widget.widgetReferences.find(elem => elem.name === props.config.slugname);
+                    specification = configRef.defaultConfig;
+                }
+                let spec = JSON.parse(specification);
+                return <WeatherConfig widget={props.config} spec={spec}/>;
+            }
+        }
+    ];
 
     state = {
         enable: this.props.config.enable,
@@ -30,41 +50,8 @@ class WidgetConfig extends React.Component {
     }
 
     render() {
-        return (
-            <div key={this.props.id} className={"column is-multiline"} style={{
-                backgroundColor: "white",
-                padding: "1.5em",
-                borderRadius: "10px",
-                marginTop: "15px",
-                marginLeft: "15px"
-            }}>
-                <h1 className={"column title"}>
-                    {this.props.config.name}
-                </h1>
-                <div className={"field"}>
-                    <input id={this.props.config.name + "-" + this.props.userId + "-enable"} type="checkbox" name="switchRoundedInfo enable"
-                        className="switch is-rounded is-info" checked={this.state.enable} onChange={this.handleChange}/>
-                    <label htmlFor={this.props.config.name + "-" + this.props.userId + "-enable"}>Enable Widget</label>
-                </div>
-                {this.state.enable &&
-                <div>
-                    <div className={"field"}>
-                        <input id={this.props.config.name + "-" + this.props.userId + "-static"} type="checkbox" name="switchRoundedInfo static"
-                               className="switch is-rounded is-info" checked={this.state.static} onChange={this.handleChange}/>
-                        <label htmlFor={this.props.config.name + "-" + this.props.userId + "-static"}>Static</label>
-                    </div>
-                    {
-                        this.props.config.slugname === "clock" &&
-                            <ClockConfig config={this.props.config} timeZone={moment.tz.guess()}/>
-                    }
-                    {
-                        this.props.config.slugname === "weather" &&
-                            <WeatherConfig config={this.props.config}/>
-                    }
-                </div>
-                }
-            </div>
-        );
+        let form = WidgetConfig.formReferences.find(elem => elem.slugname === this.props.config.slugname).form(this.props);
+        return <div>{form}</div>;
     }
 }
 

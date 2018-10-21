@@ -9,8 +9,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 require('./auth.js');
 
-async function checkAuthAndReturnObject(token, context, prismaArgs, info) {
-    let obj = await context.prisma.query.user(prismaArgs, info);
+async function checkAuthAndReturnObject(func, token, context, prismaArgs, info) {
+    let obj = await func(prismaArgs, info);
     if (obj === null)
         throw "Could not find user.";
     if (obj.passwd !== undefined)
@@ -31,18 +31,28 @@ const resolvers = {
             let prismaArgs = {
                 where: args
             };
-            return await checkAuthAndReturnObject(token, context, prismaArgs, info);
+            return await checkAuthAndReturnObject(context.prisma.query.user, token, context, prismaArgs, info);
         },
+        widget: async (_, args, context, info) => {
+            let token = args.token;
+            delete args.token;
+            let prismaArgs = {
+                where: args
+            };
+            // return await checkAuthAndReturnObject(context.prisma.query.widget, token, context, prismaArgs, info);
+            return context.prisma.query.widget(prismaArgs, info);
+        }
     },
     Mutation: {
-        createUser: (_, args, context, info) => {
-            console.log(args);
+        createUser: async (_, args, context, info) => {
             return context.prisma.mutation.createUser({data: args}, info);
         },
-        addWidget: (_, args, context, info) => {
+        addWidget: async (_, args, context, info) => {
+            let token = args.token;
+            delete args.token;
             let userId = args.id;
             delete args.id;
-            return context.prisma.mutation.updateUser({
+            let prismaArgs = {
                 where: {
                     id: userId
                 },
@@ -54,7 +64,7 @@ const resolvers = {
                             enable: true,
                             needAuth: false,
                             authenticate: false,
-                            config: {
+                            widget: {
                                 create: {
                                     posX: args.posx,
                                     posY: args.posy,
@@ -65,6 +75,7 @@ const resolvers = {
                                     minWidth: args.minwidth,
                                     maxWidth: args.maxwidth,
                                     static: args.static,
+                                    specification: args.specification
                                 }
                             },
                             authentication: {
@@ -78,28 +89,42 @@ const resolvers = {
                         }
                     }
                 }
-            }, info);
+            };
+
+            return await checkAuthAndReturnObject(context.prisma.mutation.updateUser, token, context, prismaArgs, info);
         },
-        updateWidget: (_, args, context, info) => {
+        updateWidget: async (_, args, context, info) => {
             let widgetId = args.id;
             delete args.id;
-            return context.prisma.mutation.updateWidget({
+            // let token = args.token;
+            // delete args.token;
+            let prismaArgs = {
                 where: {
                     id: widgetId
                 },
                 data: {
+                    enable: args.enable,
                     config: {
                         update: {
                             posX: args.posx,
                             posY: args.posy,
                             width: args.width,
                             height: args.height,
+                            static: args.static,
+                            specification: args.specification
                         }
                     }
                 }
-            }, info);
+            };
+            return context.prisma.mutation.updateWidget(prismaArgs, info);
+            // return await checkAuthAndReturnObject(context.prisma.mutation.updateWidget, token, context, prismaArgs, info);
+        },
+        deleteWidget: async (_, args, context, info) => {
+            // let token = args.token;
+            // delete args.token;
+            context.prisma.mutation.deleteWidget({where: {id: args.id}}, info);
+            // return await checkAuthAndReturnObject(context.prisma.mutation.deleteWidget, token, context, {where: {id: args.id}}, info);
         }
-
     }
 };
 
