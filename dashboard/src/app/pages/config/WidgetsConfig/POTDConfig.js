@@ -18,6 +18,7 @@ class POTDConfig extends React.Component {
         interval: this.props.spec.interval,
         apiType: this.props.spec.apiType,
         category: this.props.spec.category,
+        isLink: this.props.spec.isLink
     };
 
     static propTypes = {
@@ -54,7 +55,8 @@ class POTDConfig extends React.Component {
         let specification = {
             apiType: this.state.apiType,
             interval: this.state.interval,
-            category: this.state.category
+            category: this.state.category,
+            isLink: this.state.isLink
         };
         let specString = JSON.stringify(specification);
 
@@ -132,6 +134,11 @@ class POTDConfig extends React.Component {
                                 <input id={"static"} type="checkbox" name="switchRoundedInfo static"
                                        className="switch is-rounded is-info" checked={this.state.static} onChange={this.handleSwitches}/>
                                 <label htmlFor={"static"}>Static</label>
+                            </div>
+                            <div className={"field"}>
+                                <input id={"isLink"} type="checkbox" name="switchRoundedInfo static"
+                                       className="switch is-rounded is-info" checked={this.state.isLink} onChange={this.handleSwitches}/>
+                                <label htmlFor={"isLink"}>Icon for the link</label>
                             </div>
                             <div className={"field"}>
                                 <label className={"is-full label"}>
