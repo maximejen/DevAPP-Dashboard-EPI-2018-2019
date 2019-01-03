@@ -137,8 +137,8 @@ const server = new GraphQLServer({
         ...req,
         prisma: new Prisma({
             typeDefs: './generated/prisma.graphql',
-            endpoint: 'http://prisma:4466',
-            // endpoint: 'http://localhost:4466',
+            endpoint: 'http://prisma:4467',
+            // endpoint: 'http://localhost:4467',
         }),
     }),
 });
@@ -180,8 +180,8 @@ async function updateToken(user, token) {
         token: token
     };
 
-    await fetch('http://prisma:4466', {
-    // await fetch('http://localhost:4466', {
+    await fetch('http://prisma:4467', {
+    // await fetch('http://localhost:4467', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -203,8 +203,8 @@ server.post('/login', async function (req, res) {
     `;
     const variables = {};
 
-    await fetch('http://prisma:4466', {
-    // await fetch('http://localhost:4466', {
+    await fetch('http://prisma:4467', {
+    // await fetch('http://localhost:4467', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 datamodel: dashboard.graphqls
-endpoint: http://localhost:4466/
+endpoint: http://localhost:4467/
 #secret: mysecret42
 disableAuth: true
 

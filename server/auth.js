@@ -21,7 +21,7 @@ let strategy = new JwtStrategy(opts, function(jwt_payload, done) {
         id: jwt_payload.sub
     };
 
-    fetch('http://localhost:4466', {
+    fetch('http://localhost:4467', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ passport.deserializeUser(function (id, done) {
         id: id
     };
 
-    fetch('http://localhost:4466', {
+    fetch('http://localhost:4467', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',

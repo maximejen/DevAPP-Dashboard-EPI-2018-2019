@@ -34,7 +34,6 @@ class Router extends React.Component {
                     return <Login isConnected={this.props.isConnected} updateUser={this.props.updateUser}/>;
                 }}/>
                 <Route path='/config/:id' render={(props) => {
-                    console.log(props.match);
                     return <Config id={props.match.params.id} isConnected={this.props.isConnected}/>;
                 }}/>
                 <Route path='/register' component={Register}/>
